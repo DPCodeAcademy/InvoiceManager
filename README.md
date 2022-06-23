@@ -1,1 +1,1 @@
-# InvoiceGenerator
+# InvoiceManager
