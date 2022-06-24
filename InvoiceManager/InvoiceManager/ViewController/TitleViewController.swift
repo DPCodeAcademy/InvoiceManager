@@ -9,8 +9,17 @@ import UIKit
 
 class TitleViewController: UIViewController {
   
-  override func viewDidLoad() {
+
+    @IBOutlet var importCalendarButton: UIButton!
+    @IBOutlet var skipButton: UIButton!
+    
+    override func viewDidLoad() {
     super.viewDidLoad()
   }
-  
+    
+  @IBAction func importCalendarButtonTapped(_ sender: UIButton) {
+  }
+
+  @IBAction func skipButtonTapped(_ sender: UIButton) {
+  }
 }
