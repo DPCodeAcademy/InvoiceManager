@@ -41,18 +41,66 @@
         <!--Import Calender-->
         <scene sceneID="4ye-nE-un3">
             <objects>
-                <viewController id="4bg-he-1VV" customClass="ImportCalenderViewController" customModule="InvoiceManager" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="4bg-he-1VV" customClass="ImportCalendarViewController" customModule="InvoiceManager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hBY-07-014">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pqp-zz-AoQ" customClass="GIDSignInButton">
+                                <rect key="frame" x="60" y="338" width="294" height="60"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="DRJ-Ac-5En"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="tapLogin:" destination="4bg-he-1VV" eventType="touchUpInside" id="DKN-2Y-PUw"/>
+                                </connections>
+                            </view>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="check fetched events " translatesAutoresizingMaskIntoConstraints="NO" id="xJ2-Xo-Lp9">
+                                <rect key="frame" x="60" y="508" width="294" height="150"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="mlQ-fs-nDG"/>
+                                </constraints>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MZa-ld-vHF">
+                                <rect key="frame" x="60" y="428" width="294" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="nvB-My-WX0"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="ptb-bm-sAQ"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="fetch event (test)"/>
+                                <connections>
+                                    <action selector="tapFetchEvents:" destination="4bg-he-1VV" eventType="touchUpInside" id="hRw-sj-8vA"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="HM9-eZ-aEY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="HM9-eZ-aEY" firstAttribute="trailing" secondItem="xJ2-Xo-Lp9" secondAttribute="trailing" constant="60" id="1WM-8O-0mG"/>
+                            <constraint firstItem="HM9-eZ-aEY" firstAttribute="trailing" secondItem="Pqp-zz-AoQ" secondAttribute="trailing" constant="60" id="C8f-TQ-egW"/>
+                            <constraint firstItem="Pqp-zz-AoQ" firstAttribute="top" secondItem="HM9-eZ-aEY" secondAttribute="top" constant="250" id="Fw7-S4-kaD"/>
+                            <constraint firstItem="xJ2-Xo-Lp9" firstAttribute="leading" secondItem="HM9-eZ-aEY" secondAttribute="leading" constant="60" id="M2u-6v-RJb"/>
+                            <constraint firstItem="xJ2-Xo-Lp9" firstAttribute="top" secondItem="MZa-ld-vHF" secondAttribute="bottom" constant="40" id="Qgb-ZX-sXT"/>
+                            <constraint firstItem="HM9-eZ-aEY" firstAttribute="trailing" secondItem="MZa-ld-vHF" secondAttribute="trailing" constant="60" id="UHo-Eb-DKB"/>
+                            <constraint firstItem="MZa-ld-vHF" firstAttribute="top" secondItem="Pqp-zz-AoQ" secondAttribute="bottom" constant="30" id="dOF-8s-6rz"/>
+                            <constraint firstItem="Pqp-zz-AoQ" firstAttribute="leading" secondItem="HM9-eZ-aEY" secondAttribute="leading" constant="60" id="nqz-fR-oqG"/>
+                            <constraint firstItem="MZa-ld-vHF" firstAttribute="leading" secondItem="HM9-eZ-aEY" secondAttribute="leading" constant="60" id="nwh-QT-fIq"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Import Calender" id="Rf5-m2-BXj"/>
+                    <connections>
+                        <outlet property="fetchedEventsTextField" destination="xJ2-Xo-Lp9" id="pUx-V2-cLo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="76f-Mf-ho5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1412" y="-1"/>
+            <point key="canvasLocation" x="1411.5942028985507" y="-1.3392857142857142"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fUH-Xb-Vov">
@@ -74,6 +122,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
