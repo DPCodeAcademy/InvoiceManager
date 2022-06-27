@@ -27,7 +27,6 @@ class ImportCalenderViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     createDatePicker()
-    importButton.isEnabled = false
   }
   
   func createToolBar() -> UIToolbar {
@@ -43,13 +42,15 @@ class ImportCalenderViewController: UIViewController {
   func createDatePicker() {
     datePicker.preferredDatePickerStyle = .wheels
     datePicker.datePickerMode = .date
+    datePicker.minimumDate = Date.now
     
     fromField.inputView = datePicker
-    fromField.placeholder = dateFormatter.string(from: Date.now)
+    fromField.text = dateFormatter.string(from: Date.now)
     fromField.inputAccessoryView = createToolBar()
     
+    let aMonthLater = Date(timeInterval: 2600000, since: Date.now)
     toField.inputView = datePicker
-    toField.placeholder = dateFormatter.string(from: Date.distantFuture)
+    toField.text = dateFormatter.string(from: aMonthLater)
     toField.inputAccessoryView = createToolBar()
   }
 
