@@ -9,6 +9,22 @@ import UIKit
 import GoogleSignIn
 import GoogleAPIClientForREST
 
+
+// test model for development. we need to adjust when real models are created
+
+struct StudentTest{
+    let name: String
+    let email: String
+}
+
+struct EventTest{
+    let title: String
+    let attendees: [StudentTest]
+    let startDate: Date
+    let finishDate: Date
+    let isTargetForInvoice: Bool
+}
+
 class ImportCalenderViewController: UIViewController {
     
     @IBOutlet var fromField: UITextField!
