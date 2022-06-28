@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		59E6981ED84EF55DFDF06C46 /* Pods_InvoiceManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB9CFB4E3B193C426DF2787 /* Pods_InvoiceManager.framework */; };
 		E5552C1E2865204700D299BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5552C1D2865204700D299BB /* AppDelegate.swift */; };
 		E5552C202865204700D299BB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5552C1F2865204700D299BB /* SceneDelegate.swift */; };
 		E5552C252865204700D299BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5552C232865204700D299BB /* Main.storyboard */; };
@@ -17,6 +18,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4EB9CFB4E3B193C426DF2787 /* Pods_InvoiceManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InvoiceManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		566D5FFAB98B1038A40F8065 /* Pods-InvoiceManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InvoiceManager.debug.xcconfig"; path = "Target Support Files/Pods-InvoiceManager/Pods-InvoiceManager.debug.xcconfig"; sourceTree = "<group>"; };
+		7E289C8C880981B9BD7627EB /* Pods-InvoiceManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InvoiceManager.release.xcconfig"; path = "Target Support Files/Pods-InvoiceManager/Pods-InvoiceManager.release.xcconfig"; sourceTree = "<group>"; };
 		E5552C1A2865204700D299BB /* InvoiceManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InvoiceManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5552C1D2865204700D299BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5552C1F2865204700D299BB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -33,17 +37,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59E6981ED84EF55DFDF06C46 /* Pods_InvoiceManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4CBD05B966ED687ABEDDC26B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				566D5FFAB98B1038A40F8065 /* Pods-InvoiceManager.debug.xcconfig */,
+				7E289C8C880981B9BD7627EB /* Pods-InvoiceManager.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		A75A464C2470C2AB7C9E0FB8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4EB9CFB4E3B193C426DF2787 /* Pods_InvoiceManager.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E5552C112865204600D299BB = {
 			isa = PBXGroup;
 			children = (
 				E5552C1C2865204700D299BB /* InvoiceManager */,
 				E5552C1B2865204700D299BB /* Products */,
+				4CBD05B966ED687ABEDDC26B /* Pods */,
+				A75A464C2470C2AB7C9E0FB8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -93,9 +117,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E5552C2E2865204900D299BB /* Build configuration list for PBXNativeTarget "InvoiceManager" */;
 			buildPhases = (
+				C579E58929DC07982E2EF6C5 /* [CP] Check Pods Manifest.lock */,
 				E5552C162865204700D299BB /* Sources */,
 				E5552C172865204700D299BB /* Frameworks */,
 				E5552C182865204700D299BB /* Resources */,
+				2D83C08D5E13307AED1AC083 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -151,6 +177,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2D83C08D5E13307AED1AC083 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-InvoiceManager/Pods-InvoiceManager-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-InvoiceManager/Pods-InvoiceManager-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-InvoiceManager/Pods-InvoiceManager-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C579E58929DC07982E2EF6C5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-InvoiceManager-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E5552C162865204700D299BB /* Sources */ = {
@@ -302,6 +370,7 @@
 		};
 		E5552C2F2865204900D299BB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 566D5FFAB98B1038A40F8065 /* Pods-InvoiceManager.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -329,6 +398,7 @@
 		};
 		E5552C302865204900D299BB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7E289C8C880981B9BD7627EB /* Pods-InvoiceManager.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
