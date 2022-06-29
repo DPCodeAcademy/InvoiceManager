@@ -39,8 +39,8 @@ struct ImportedDataTest{
 }
 
 let sampleStudent = StudentTest(name: "sampleStudent", email: "sample.com")
-let sampleEventA = EventTest(id: "a", title: "class A", attendees: [sampleStudent], startTime: "19:00", finishTime: "21:00", date: "dd/mm/yyyy", isTargetForInvoice: false)
-let sampleEventB = EventTest(id: "b", title: "class A", attendees: [sampleStudent], startTime: "19:00", finishTime: "22:00", date: "dd/mm/yyyy", isTargetForInvoice: false)
+let sampleEventA = EventTest(id: "a", title: "class A", attendees: [sampleStudent, sampleStudent], startTime: "19:00", finishTime: "21:00", date: "dd/mm/yyyy", isTargetForInvoice: false)
+let sampleEventB = EventTest(id: "b", title: "class A", attendees: [sampleStudent, sampleStudent, sampleStudent], startTime: "19:00", finishTime: "22:00", date: "dd/mm/yyyy", isTargetForInvoice: false)
 let sampleEventC = EventTest(id: "c", title: "class A", attendees: [sampleStudent], startTime: "19:00", finishTime: "23:00", date: "dd/mm/yyyy", isTargetForInvoice: false)
 let sampleImportedData = ImportedDataTest(data: ["class A": [sampleEventA, sampleEventB], "class B": [sampleEventC]])
 
@@ -125,7 +125,7 @@ class ImportCalenderViewController: UIViewController {
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(60))
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
             
             // need to add section header which represent event name and check box
@@ -159,7 +159,6 @@ class ImportCalenderViewController: UIViewController {
         sampleImportedData.data.forEach { (eventName, events) in
             snapshot.appendSections([eventName])
             snapshot.appendItems(events, toSection: eventName)
-            print("test")
         }
         sections = snapshot.sectionIdentifiers
         dataSource.apply(snapshot)
