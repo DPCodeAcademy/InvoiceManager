@@ -47,11 +47,6 @@
                                     <action selector="skipButtonTapped:" destination="Fp5-qE-foz" eventType="touchUpInside" id="ave-bD-LcL"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e9P-mL-TNe">
-                                <rect key="frame" x="20" y="682" width="374" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBlueColor"/>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="lCd-z7-m8Q"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -263,9 +258,6 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
