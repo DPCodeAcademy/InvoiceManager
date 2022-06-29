@@ -15,6 +15,7 @@
 		E5552C2A2865204900D299BB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5552C282865204900D299BB /* LaunchScreen.storyboard */; };
 		E5552C32286539B400D299BB /* TitleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5552C31286539B400D299BB /* TitleViewController.swift */; };
 		E5552C3628653B0700D299BB /* ImportCalenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5552C3528653B0700D299BB /* ImportCalenderViewController.swift */; };
+		E5A7427C286BEDA6009E723C /* calenderEventsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7427B286BEDA6009E723C /* calenderEventsCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		E5552C2B2865204900D299BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5552C31286539B400D299BB /* TitleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleViewController.swift; sourceTree = "<group>"; };
 		E5552C3528653B0700D299BB /* ImportCalenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportCalenderViewController.swift; sourceTree = "<group>"; };
+		E5A7427B286BEDA6009E723C /* calenderEventsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = calenderEventsCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 		E5552C1C2865204700D299BB /* InvoiceManager */ = {
 			isa = PBXGroup;
 			children = (
+				E5A7427A286BECE5009E723C /* Partial View */,
 				E5552C3428653AD400D299BB /* Model */,
 				E5552C3328653AC100D299BB /* ViewController */,
 				E5552C1D2865204700D299BB /* AppDelegate.swift */,
@@ -108,6 +111,14 @@
 			children = (
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		E5A7427A286BECE5009E723C /* Partial View */ = {
+			isa = PBXGroup;
+			children = (
+				E5A7427B286BEDA6009E723C /* calenderEventsCollectionViewCell.swift */,
+			);
+			path = "Partial View";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -228,6 +239,7 @@
 				E5552C1E2865204700D299BB /* AppDelegate.swift in Sources */,
 				E5552C3628653B0700D299BB /* ImportCalenderViewController.swift in Sources */,
 				E5552C202865204700D299BB /* SceneDelegate.swift in Sources */,
+				E5A7427C286BEDA6009E723C /* calenderEventsCollectionViewCell.swift in Sources */,
 				E5552C32286539B400D299BB /* TitleViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
