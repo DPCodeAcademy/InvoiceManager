@@ -16,15 +16,37 @@ struct StudentTest{
     let email: String
 }
 
-struct EventTest{
+struct EventTest: Hashable{
+    
     let title: String
     let attendees: [StudentTest]
-    let startDate: Date
-    let finishDate: Date
+    let startTime: String // ex 19:00
+    let finishTime: String // ex 21:00
+    let date: String // ex 2022/4/27
     let isTargetForInvoice: Bool
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(title)
+    }
+    static func == (lhs: EventTest, rhs: EventTest) -> Bool {
+        return lhs.title == rhs.title
+    }
+}
+
+struct ImportedDataTest{
+    var data = [String: [EventTest]]()
 }
 
 class ImportCalenderViewController: UIViewController {
+    
+    typealias DataSourceType = UICollectionViewDiffableDataSource<ViewModel.Section, ViewModel.Item>
+    
+    enum ViewModel{
+        typealias Section = EventTest
+        typealias Item = EventTest
+    }
+    
+    var dataSource: DataSourceType!
     
     @IBOutlet var fromField: UITextField!
     @IBOutlet var toField: UITextField!
@@ -82,6 +104,42 @@ class ImportCalenderViewController: UIViewController {
         toField.inputView = datePicker
         toField.text = dateFormatter.string(from: aMonthLater)
         toField.inputAccessoryView = createToolBar()
+    }
+    
+    //MARK: collection view setting by Tomo
+    
+    func createDataSource() -> DataSourceType {
+        let dataSource = DataSourceType(collectionView: calenderEventsCollectionView) { (collectionView, indexPath, item) -> calenderEventsCollectionViewCell in
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CalenderEvent", for: indexPath) as! calenderEventsCollectionViewCell
+            cell.dateLabel.text = item.date
+            cell.timeLabel.text = "\(item.startTime) - \(item.finishTime)"
+            cell.attendeesListLabel.text = {
+                let attendeesNameArray = item.attendees.map {$0.name}
+                return attendeesNameArray.joined(separator: ", ")
+            }()
+            return cell
+        }
+        
+        // should design header here
+        return dataSource
+    }
+    func createLayout() -> UICollectionViewCompositionalLayout{
+        
+        // need to add section header which represent event name and check box
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
+        
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(36))
+        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "SectionHeader", alignment: .top)
+        sectionHeader.pinToVisibleBounds = true
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.boundarySupplementaryItems = [sectionHeader]
+        
+        return UICollectionViewCompositionalLayout(section: section)
     }
     
     @objc func doneButtonTapped() {
