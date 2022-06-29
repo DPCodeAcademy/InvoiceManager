@@ -18,6 +18,7 @@ struct StudentTest{
 
 struct EventTest: Hashable{
     
+    let id: String
     let title: String
     let attendees: [StudentTest]
     let startTime: String // ex 19:00
@@ -29,7 +30,7 @@ struct EventTest: Hashable{
         hasher.combine(title)
     }
     static func == (lhs: EventTest, rhs: EventTest) -> Bool {
-        return lhs.title == rhs.title
+        return lhs.id == rhs.id
     }
 }
 
@@ -37,16 +38,21 @@ struct ImportedDataTest{
     var data = [String: [EventTest]]()
 }
 
+let sampleStudent = StudentTest(name: "sampleStudent", email: "sample.com")
+let sampleEventA = EventTest(id: "a", title: "class A", attendees: [sampleStudent], startTime: "19:00", finishTime: "21:00", date: "dd/mm/yyyy", isTargetForInvoice: false)
+let sampleEventB = EventTest(id: "b", title: "class A", attendees: [sampleStudent], startTime: "19:00", finishTime: "22:00", date: "dd/mm/yyyy", isTargetForInvoice: false)
+let sampleEventC = EventTest(id: "c", title: "class A", attendees: [sampleStudent], startTime: "19:00", finishTime: "23:00", date: "dd/mm/yyyy", isTargetForInvoice: false)
+let sampleImportedData = ImportedDataTest(data: ["class A": [sampleEventA, sampleEventB], "class B": [sampleEventC]])
+
 class ImportCalenderViewController: UIViewController {
+    typealias DataSourceType = UICollectionViewDiffableDataSource<String, EventTest>
     
-    typealias DataSourceType = UICollectionViewDiffableDataSource<ViewModel.Section, ViewModel.Item>
-    
-    enum ViewModel{
-        typealias Section = EventTest
-        typealias Item = EventTest
+    enum Section: Hashable{
+        case eventName(String)
     }
     
     var dataSource: DataSourceType!
+    var sections = [String]()
     
     @IBOutlet var fromField: UITextField!
     @IBOutlet var toField: UITextField!
@@ -79,6 +85,9 @@ class ImportCalenderViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         createDatePicker()
+      
+        calenderEventsCollectionView.collectionViewLayout = createLayout()
+        createDataSource()
     }
     
     func createToolBar() -> UIToolbar {
@@ -107,9 +116,35 @@ class ImportCalenderViewController: UIViewController {
     }
     
     //MARK: collection view setting by Tomo
+
+    func createLayout() -> UICollectionViewCompositionalLayout{
+        
+        let layout = UICollectionViewCompositionalLayout{ (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection in
+            let targetSection = self.sections[sectionIndex]
+            
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
+            
+            // need to add section header which represent event name and check box
+            
+//            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(36))
+//            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "SectionHeader", alignment: .top)
+//            sectionHeader.pinToVisibleBounds = true
+            
+            let section = NSCollectionLayoutSection(group: group)
+            //section.boundarySupplementaryItems = [sectionHeader]
+            
+            return section
+        }
+        return layout
+    }
     
-    func createDataSource() -> DataSourceType {
-        let dataSource = DataSourceType(collectionView: calenderEventsCollectionView) { (collectionView, indexPath, item) -> calenderEventsCollectionViewCell in
+    // here is the place where async function to access to google api and get data will be
+    func createDataSource(){
+        dataSource = .init(collectionView: calenderEventsCollectionView, cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CalenderEvent", for: indexPath) as! calenderEventsCollectionViewCell
             cell.dateLabel.text = item.date
             cell.timeLabel.text = "\(item.startTime) - \(item.finishTime)"
@@ -118,29 +153,19 @@ class ImportCalenderViewController: UIViewController {
                 return attendeesNameArray.joined(separator: ", ")
             }()
             return cell
+        })
+        
+        var snapshot = NSDiffableDataSourceSnapshot<String, EventTest>()
+        sampleImportedData.data.forEach { (eventName, events) in
+            snapshot.appendSections([eventName])
+            snapshot.appendItems(events, toSection: eventName)
+            print("test")
         }
+        sections = snapshot.sectionIdentifiers
+        dataSource.apply(snapshot)
         
-        // should design header here
-        return dataSource
     }
-    func createLayout() -> UICollectionViewCompositionalLayout{
-        
-        // need to add section header which represent event name and check box
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
-        
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(36))
-        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "SectionHeader", alignment: .top)
-        sectionHeader.pinToVisibleBounds = true
-        
-        let section = NSCollectionLayoutSection(group: group)
-        section.boundarySupplementaryItems = [sectionHeader]
-        
-        return UICollectionViewCompositionalLayout(section: section)
-    }
+    
     
     @objc func doneButtonTapped() {
         if fromField.isFirstResponder {
