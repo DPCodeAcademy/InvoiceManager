@@ -37,7 +37,7 @@ Name the branch <branchname> according to the following naming convention.
 `git commit -m "description"`
 
 ### Step 4: Update the branch
-`git pull orign <branchname>`
+`git pull origin main`
 
 ### Step 5: Send a pull request
 `git push -u origin <branchname>`
