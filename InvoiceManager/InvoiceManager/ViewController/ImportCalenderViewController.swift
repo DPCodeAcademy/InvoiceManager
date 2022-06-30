@@ -36,6 +36,7 @@ struct EventTest: Hashable{
 
 struct ImportedDataTest{
     var data = [String: [EventTest]]()
+//    var data = [[String: [EventTest]]]()
 }
 
 let sampleStudent = StudentTest(name: "sampleStudent", email: "sample.com")
@@ -43,6 +44,7 @@ let sampleEventA = EventTest(id: "a", title: "class A", attendees: [sampleStuden
 let sampleEventB = EventTest(id: "b", title: "class A", attendees: [sampleStudent, sampleStudent, sampleStudent], startTime: "19:00", finishTime: "22:00", date: "dd/mm/yyyy", isTargetForInvoice: false)
 let sampleEventC = EventTest(id: "c", title: "class A", attendees: [sampleStudent], startTime: "19:00", finishTime: "23:00", date: "dd/mm/yyyy", isTargetForInvoice: false)
 let sampleImportedData = ImportedDataTest(data: ["class A": [sampleEventA, sampleEventB], "class B": [sampleEventC]])
+
 
 class ImportCalenderViewController: UIViewController {
     typealias DataSourceType = UICollectionViewDiffableDataSource<String, EventTest>
@@ -122,7 +124,6 @@ class ImportCalenderViewController: UIViewController {
     func createLayout() -> UICollectionViewCompositionalLayout{
         
         let layout = UICollectionViewCompositionalLayout{ (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection in
-            let targetSection = self.sections[sectionIndex]
             
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -156,10 +157,10 @@ class ImportCalenderViewController: UIViewController {
         })
         
         dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
-                let header = collectionView.dequeueReusableSupplementaryView(ofKind: "header-element-kind", withReuseIdentifier: EventNamedSectionHeaderView.reuseIdentifier, for: indexPath) as! EventNamedSectionHeaderView
-                header.eventNameLabel.text = "test"
-                
-                return header
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: "header-element-kind", withReuseIdentifier: EventNamedSectionHeaderView.reuseIdentifier, for: indexPath) as! EventNamedSectionHeaderView
+            
+            header.eventNameLabel.text = Array(sampleImportedData.data.keys)[indexPath.section]
+            return header
         }
         
         var snapshot = NSDiffableDataSourceSnapshot<String, EventTest>()
