@@ -8,6 +8,8 @@
 import UIKit
 
 class EventNamedSectionHeaderView: UICollectionReusableView {
+    
+    static let reuseIdentifier = "section-header"
         
     let checkboxButton: CheckboxButton = CheckboxButton(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
     
@@ -48,6 +50,7 @@ class EventNamedSectionHeaderView: UICollectionReusableView {
         holizontalStackView.addArrangedSubview(eventNameLabel)
         
         addSubview(holizontalStackView)
+        addSubview(checkboxButton)
         addTopBorder()
     }
 }

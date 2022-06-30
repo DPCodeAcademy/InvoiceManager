@@ -88,6 +88,8 @@ class ImportCalenderViewController: UIViewController {
       
         calenderEventsCollectionView.collectionViewLayout = createLayout()
         createDataSource()
+        calenderEventsCollectionView.register(EventNamedSectionHeaderView.self, forSupplementaryViewOfKind: "header-element-kind", withReuseIdentifier: EventNamedSectionHeaderView.reuseIdentifier)
+        
     }
     
     func createToolBar() -> UIToolbar {
@@ -128,14 +130,12 @@ class ImportCalenderViewController: UIViewController {
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(60))
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
             
-            // need to add section header which represent event name and check box
-            
-//            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(36))
-//            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "SectionHeader", alignment: .top)
-//            sectionHeader.pinToVisibleBounds = true
-            
+            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(80))
+            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "header-element-kind", alignment: .top)
+            sectionHeader.pinToVisibleBounds = true
+    
             let section = NSCollectionLayoutSection(group: group)
-            //section.boundarySupplementaryItems = [sectionHeader]
+            section.boundarySupplementaryItems = [sectionHeader]
             
             return section
         }
@@ -154,6 +154,13 @@ class ImportCalenderViewController: UIViewController {
             }()
             return cell
         })
+        
+        dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
+                let header = collectionView.dequeueReusableSupplementaryView(ofKind: "header-element-kind", withReuseIdentifier: EventNamedSectionHeaderView.reuseIdentifier, for: indexPath) as! EventNamedSectionHeaderView
+                header.eventNameLabel.text = "test"
+                
+                return header
+        }
         
         var snapshot = NSDiffableDataSourceSnapshot<String, EventTest>()
         sampleImportedData.data.forEach { (eventName, events) in
