@@ -10,24 +10,18 @@ import UIKit
 class EventNamedSectionHeaderView: UICollectionReusableView {
     
     static let reuseIdentifier = "section-header"
+    static let marginTop = 10
         
-    let checkboxButton: CheckboxButton = CheckboxButton(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+    let checkboxButton: CheckboxButton = CheckboxButton(frame: CGRect(x: 0, y: marginTop, width: 20, height: 20))
+   
     
     let eventNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .label
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.frame = CGRect(x: 30, y: marginTop, width: 100, height: 20)
         return label
     }()
-    
-    let holizontalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.alignment = .center
-        stackView.distribution = .fill
-        return stackView
-    }()
-    
     
     override init(frame: CGRect){
         super.init(frame: frame)
@@ -46,11 +40,9 @@ class EventNamedSectionHeaderView: UICollectionReusableView {
     }
     
     private func setupView(){
-        holizontalStackView.addArrangedSubview(checkboxButton)
-        holizontalStackView.addArrangedSubview(eventNameLabel)
-        
-        addSubview(holizontalStackView)
+
         addSubview(checkboxButton)
+        addSubview(eventNameLabel)
         addTopBorder()
     }
 }
