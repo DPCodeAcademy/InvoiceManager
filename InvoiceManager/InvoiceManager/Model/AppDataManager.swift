@@ -16,13 +16,90 @@ class AppDataManager{
   private var invoiceHistoryList : InvoiceHistoryList
   private var userSetting : UserSetting
   
-  private init() {
-    customerList = CustomerList()
-    eventList = EventList()
-    invoiceHistoryList = InvoiceHistoryList()
-    userSetting = UserSetting()
+  //-------------------------------------
+  // Get methods
+  //-------------------------------------
+  func getCustomerList() -> Set<Customer>{
+    return customerList.getCustomerList()
   }
   
+  func getCustomer(customerID: UInt16) -> Customer?{
+    return customerList.getCustomer(customerID: customerID)
+  }
+  
+  func getEventList()-> Set<Event>{
+    return eventList.getEventList()
+  }
+  
+  func getEvent(eventName: String) -> Event?{
+    return eventList.getEvent(eventName: eventName)
+  }
+  
+  func getInvoiceHistoryList() -> Set<InvoiceHitory>{
+    return invoiceHistoryList.getInvoiceList()
+  }
+  
+  func getInvoiceHistory(customerID: UInt16) -> [InvoiceHitory]{
+  // TODO: Implement
+    return []
+  }
+  
+  func getUserSetting() -> UserSetting{
+    return userSetting
+  }
+  
+  //-------------------------------------
+  // Add methods
+  //-------------------------------------
+  func addNewCustomer(customerInfo: Customer.Information) -> Customer{
+    return customerList.createNewCustomer(newCustomerInfo: customerInfo)
+  }
+  
+  func addUpdateEvent(event: Event)->Event{
+    //  If the argument event does not exist, add
+    //  If it exists, update the event with additional information
+    return eventList.addAndUpdateEvent(event: event)
+  }
+  
+  func addNewInvoiceHistory(invoiceInfo: InvoiceHitory.Information) -> InvoiceHitory{
+    return invoiceHistoryList.createNewInvoiceHistory(newInvoiceInfo: invoiceInfo)
+  }
+  
+  //-------------------------------------
+  // Update methods
+  //-------------------------------------
+  func updateCustomerInfo(customerID: UInt16, customerInfo: Customer.Information) -> Bool{
+    return customerList.updateCustomerInfo(customerID: customerID, information: customerInfo)
+  }
+  
+  func updateEvent(event: Event)->Bool{
+    return eventList.updateEvent(event: event)
+  }
+  
+//  func updateInvoiceHistory(invoiceID: UInt, information: InvoiceHitory.Information)->Bool{
+//
+//  }
+  
+  func updateUserSetting(userSetting: UserSetting)->Void{
+    self.userSetting = userSetting
+  }
+  
+  //-------------------------------------
+  // Remove methods
+  //-------------------------------------
+  func removeCustomer(customerID: UInt16) ->Void{
+    customerList.removeCustomer(customerID: customerID)
+    eventList.removeAttendee(customerID: customerID)
+    invoiceHistoryList.removeInvoiceHistory(customerID: customerID)
+  }
+  
+  func removeEvent(eventName: String) ->Void{
+    eventList.removeEvent(eventName: eventName)
+  }
+    
+  //-------------------------------------
+  // Data store & restore methods
+  //-------------------------------------
   func restoreData() -> Void{
     // Restore all data from iPhone local storage
     setSampleData()
@@ -38,8 +115,16 @@ class AppDataManager{
     
   }
   
+  private init() {
+    customerList = CustomerList()
+    eventList = EventList()
+    invoiceHistoryList = InvoiceHistoryList()
+    userSetting = UserSetting()
+  }
+  
   //------------------------------------------------------
   // Temporary methods. These methods should be deleted.
+  //------------------------------------------------------
   private func setSampleData() -> Void{
     setSampleCustomer()
     setSampleEvent()
@@ -66,20 +151,20 @@ class AppDataManager{
   private func setSampleEvent()->Void{
     var event1 = Event(eventName: "Programing class", eventRate: 100, eventDetails: [])
     event1.eventDetails.append(EventDetail(startDateTime: Date(timeIntervalSinceNow: TimeInterval(1)), endDateTime: Date(timeIntervalSince1970: TimeInterval(2)), attendees: [c1, c2, c3, c4, c5, c6]))
-
+    
     event1.eventDetails.append(EventDetail(startDateTime: Date(timeIntervalSinceNow: TimeInterval(3)), endDateTime: Date(timeIntervalSinceNow: TimeInterval(4)), attendees: [c1, c3, c5]))
     
     event1.eventDetails.append(EventDetail(startDateTime: Date(timeIntervalSinceNow: TimeInterval(5)), endDateTime: Date(timeIntervalSinceNow: TimeInterval(5)), attendees: [c2, c4, c6]))
     
     var event2 = Event(eventName: "João Victor Anastácio", eventRate: 100, eventDetails: [])
     event2.eventDetails.append(EventDetail(startDateTime: Date(timeIntervalSinceNow: TimeInterval(100)), endDateTime: Date(timeIntervalSinceNow: TimeInterval(101)), attendees: [c1]))
-
+    
     var event3 = Event(eventName: "Yoko Ono", eventRate: 50, eventDetails: [])
     event3.eventDetails.append(EventDetail(startDateTime: Date(timeIntervalSince1970: TimeInterval(1002)), endDateTime: Date(timeIntervalSince1970: TimeInterval(1003)), attendees: []))
-
-    eventList.addAndUpdateEvent(event: event1)
-    eventList.addAndUpdateEvent(event: event2)
-    eventList.addAndUpdateEvent(event: event3)
+    
+    let _ = eventList.addAndUpdateEvent(event: event1)
+    let _ = eventList.addAndUpdateEvent(event: event2)
+    let _ = eventList.addAndUpdateEvent(event: event3)
   }
   
   private func setSampleUserSetting()->Void{

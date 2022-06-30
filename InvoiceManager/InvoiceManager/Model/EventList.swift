@@ -5,6 +5,10 @@ class EventList
 {
   private var events: Set<Event> = []
   
+  enum EventListError: Error {
+      case failedUpdate
+  }
+  
   func getEventList() -> Set<Event>{
     return events
   }
@@ -18,6 +22,31 @@ class EventList
     return nil
   }
   
+  func removeAttendee(customerID: UInt16)->Void{
+    var newEvents: Set<Event> = []
+    
+    for var event in events{
+      var isUpdated = false
+      var updatedEventDetail : [EventDetail] = []
+      
+      for var eventDetail in event.eventDetails{
+        if(eventDetail.attendees.contains(customerID)){
+          eventDetail.attendees.remove(customerID)
+          isUpdated = true
+        }
+        updatedEventDetail.append(eventDetail)
+      }
+      
+      if(isUpdated){
+        event.eventDetails = updatedEventDetail
+      }
+      
+      newEvents.insert(event)
+    }
+    
+    events = newEvents
+  }
+  
   func hasEvent(eventName: String) ->Bool{
     if getEvent(eventName: eventName) != nil{
       return true
@@ -25,17 +54,20 @@ class EventList
     return false
   }
   
-  func addAndUpdateEvent(event: Event) -> Void{
+  func addAndUpdateEvent(event: Event) -> Event{
     guard var existedEvent = events.update(with: event) else{
       events.insert(event)
-      return
+      return event
     }
     
-    if !existedEvent.mergeEvent(event: event){
-      return
+    guard let updatedEvent = existedEvent.mergeEvent(event: event) else {
+      assertionFailure()
+      return event
     }
+    
     events.remove(existedEvent)    // Later on, I'll try to change this code
-    events.insert(existedEvent)
+    events.insert(updatedEvent)
+    return updatedEvent
   }
   
   func updateEvent(event: Event) -> Bool{
@@ -73,9 +105,9 @@ struct Event: Hashable
     hasher.combine(eventName)
   }
   
-  mutating func mergeEvent(event: Event)->Bool{
+  mutating func mergeEvent(event: Event)->Event?{
     if event.eventName != self.eventName{
-      return false
+      return nil
     }
     
     // update rate
@@ -92,7 +124,7 @@ struct Event: Hashable
       eventDetails.append(inputDetail)
     }
     
-    return true
+    return self
   }
   
   func hasEventDetail(startDateTime: Date) -> EventDetail?{

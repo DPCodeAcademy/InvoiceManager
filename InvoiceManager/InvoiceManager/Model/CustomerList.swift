@@ -26,7 +26,7 @@ class CustomerList
     return nil
   }
   
-  func updateCustomerInformation(customerID: UInt16, information: Customer.Information)-> Bool{
+  func updateCustomerInfo(customerID: UInt16, information: Customer.Information)-> Bool{
     guard let existedCustomer = getCustomer(customerID: customerID) else{
       return false
     }

@@ -30,6 +30,26 @@ class InvoiceHistoryList{
     return nil
   }
   
+  func getInvoiceByCustomer(customerID: UInt16)-> [InvoiceHitory]{
+    var ret: [InvoiceHitory] = []
+    for history in invoiceHistories{
+      if history.information.customerID == customerID{
+        ret.append(history)
+      }
+    }
+    ret.sort {
+      $0.information.dateIssued < $1.information.dateIssued
+    }
+    return ret
+  }
+  
+  func removeInvoiceHistory(customerID: UInt16)->Void{
+    let invoiceList = getInvoiceByCustomer(customerID: customerID)
+    for invoice in invoiceList{
+      invoiceHistories.remove(invoice)
+    }
+  }
+  
   private func geranateUniqueID()-> UInt16{
     repeat{
       let id = UInt16.random(in: 1...UInt16.max)
