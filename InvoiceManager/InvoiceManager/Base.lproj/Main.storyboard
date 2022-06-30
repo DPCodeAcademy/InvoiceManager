@@ -181,15 +181,25 @@
                                                         </label>
                                                     </subviews>
                                                 </stackView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K41-Je-C6E">
+                                                    <rect key="frame" x="50" y="0.0" width="314" height="1"/>
+                                                    <color key="backgroundColor" systemColor="labelColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="1" id="yQu-cg-BUw"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="f7C-NL-8eG" firstAttribute="top" secondItem="7pg-5h-UcO" secondAttribute="top" constant="5" id="1Ni-zP-2WI"/>
+                                                <constraint firstItem="K41-Je-C6E" firstAttribute="top" secondItem="7pg-5h-UcO" secondAttribute="top" id="7On-Lg-A4X"/>
                                                 <constraint firstItem="rnE-fF-Lzb" firstAttribute="top" secondItem="7pg-5h-UcO" secondAttribute="top" constant="5" id="NcK-uf-PVN"/>
                                                 <constraint firstItem="f7C-NL-8eG" firstAttribute="leading" secondItem="7pg-5h-UcO" secondAttribute="leading" constant="50" id="V4h-Mp-wcw"/>
                                                 <constraint firstAttribute="trailing" secondItem="Yn0-fo-TLe" secondAttribute="trailing" constant="10" id="jGN-Gj-Nhw"/>
                                                 <constraint firstItem="rnE-fF-Lzb" firstAttribute="leading" secondItem="f7C-NL-8eG" secondAttribute="trailing" constant="15" id="o0v-OR-djU"/>
                                                 <constraint firstItem="Yn0-fo-TLe" firstAttribute="top" secondItem="f7C-NL-8eG" secondAttribute="bottom" constant="5" id="pL2-7Q-mTU"/>
+                                                <constraint firstItem="K41-Je-C6E" firstAttribute="leading" secondItem="7pg-5h-UcO" secondAttribute="leading" constant="50" id="pm7-1M-fpd"/>
                                                 <constraint firstItem="Yn0-fo-TLe" firstAttribute="leading" secondItem="7pg-5h-UcO" secondAttribute="leading" constant="50" id="rm5-AP-FVD"/>
+                                                <constraint firstAttribute="trailing" secondItem="K41-Je-C6E" secondAttribute="trailing" id="xoz-Bq-gdk"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="364" height="61"/>
@@ -256,6 +266,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

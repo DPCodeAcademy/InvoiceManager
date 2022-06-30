@@ -14,7 +14,6 @@ class EventNamedSectionHeaderView: UICollectionReusableView {
         
     let checkboxButton: CheckboxButton = CheckboxButton(frame: CGRect(x: 0, y: marginTop, width: 20, height: 20))
    
-    
     let eventNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .label
@@ -22,6 +21,12 @@ class EventNamedSectionHeaderView: UICollectionReusableView {
         label.frame = CGRect(x: 30, y: marginTop, width: 100, height: 20)
         return label
     }()
+    
+    var eventName:String = "" {
+        willSet{
+            eventNameLabel.text = newValue
+        }
+    }
     
     override init(frame: CGRect){
         super.init(frame: frame)

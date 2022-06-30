@@ -158,8 +158,7 @@ class ImportCalenderViewController: UIViewController {
         
         dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: "header-element-kind", withReuseIdentifier: EventNamedSectionHeaderView.reuseIdentifier, for: indexPath) as! EventNamedSectionHeaderView
-            
-            header.eventNameLabel.text = Array(sampleImportedData.data.keys)[indexPath.section]
+            header.eventName = Array(sampleImportedData.data.keys)[indexPath.section]
             return header
         }
         
