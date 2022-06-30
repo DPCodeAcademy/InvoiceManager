@@ -7,12 +7,22 @@
 
 import UIKit
 
+protocol EventSelectBoxDelegate: AnyObject{
+    func checkmarkTapped(on eventName: String)
+}
+
 class EventNamedSectionHeaderView: UICollectionReusableView {
+    
+    weak var delegate: EventSelectBoxDelegate?
     
     static let reuseIdentifier = "section-header"
     static let marginTop = 10
         
-    let checkboxButton: CheckboxButton = CheckboxButton(frame: CGRect(x: 0, y: marginTop, width: 20, height: 20))
+    let checkboxButton: CheckboxButton = {
+        let checkbox = CheckboxButton(frame: CGRect(x: 0, y: marginTop, width: 20, height: 20))
+        checkbox.addTarget(self, action: #selector(checkboxTapped), for: .touchUpInside)
+        return checkbox
+    }()
    
     let eventNameLabel: UILabel = {
         let label = UILabel()
@@ -49,5 +59,9 @@ class EventNamedSectionHeaderView: UICollectionReusableView {
         addSubview(checkboxButton)
         addSubview(eventNameLabel)
         addTopBorder()
+    }
+    
+    @objc func checkboxTapped(){
+        delegate?.checkmarkTapped(on: self.eventName)
     }
 }

@@ -24,7 +24,7 @@ struct EventTest: Hashable{
     let startTime: String // ex 19:00
     let finishTime: String // ex 21:00
     let date: String // ex 2022/4/27
-    let isTargetForInvoice: Bool
+    var isTargetForInvoice: Bool
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(title)
@@ -39,22 +39,20 @@ struct ImportedDataTest{
 //    var data = [[String: [EventTest]]]()
 }
 
-let sampleStudent = StudentTest(name: "sampleStudent", email: "sample.com")
-let sampleEventA = EventTest(id: "a", title: "class A", attendees: [sampleStudent, sampleStudent], startTime: "19:00", finishTime: "21:00", date: "dd/mm/yyyy", isTargetForInvoice: false)
-let sampleEventB = EventTest(id: "b", title: "class A", attendees: [sampleStudent, sampleStudent, sampleStudent], startTime: "19:00", finishTime: "22:00", date: "dd/mm/yyyy", isTargetForInvoice: false)
-let sampleEventC = EventTest(id: "c", title: "class A", attendees: [sampleStudent], startTime: "19:00", finishTime: "23:00", date: "dd/mm/yyyy", isTargetForInvoice: false)
-let sampleImportedData = ImportedDataTest(data: ["class A": [sampleEventA, sampleEventB], "class B": [sampleEventC]])
+var sampleStudent = StudentTest(name: "sampleStudent", email: "sample.com")
+var sampleEventA = EventTest(id: "a", title: "class A", attendees: [sampleStudent, sampleStudent], startTime: "19:00", finishTime: "21:00", date: "dd/mm/yyyy", isTargetForInvoice: false)
+var sampleEventB = EventTest(id: "b", title: "class A", attendees: [sampleStudent, sampleStudent, sampleStudent], startTime: "19:00", finishTime: "22:00", date: "dd/mm/yyyy", isTargetForInvoice: false)
+var sampleEventC = EventTest(id: "c", title: "class B", attendees: [sampleStudent], startTime: "19:00", finishTime: "23:00", date: "dd/mm/yyyy", isTargetForInvoice: false)
+var sampleImportedData = ImportedDataTest(data: ["class A": [sampleEventA, sampleEventB], "class B": [sampleEventC]])
 
 
-class ImportCalenderViewController: UIViewController {
+class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate {
+
     typealias DataSourceType = UICollectionViewDiffableDataSource<String, EventTest>
-    
-    enum Section: Hashable{
-        case eventName(String)
-    }
     
     var dataSource: DataSourceType!
     var sections = [String]()
+    var selectedEventsName = [String]()
     
     @IBOutlet var fromField: UITextField!
     @IBOutlet var toField: UITextField!
@@ -88,6 +86,7 @@ class ImportCalenderViewController: UIViewController {
         super.viewDidLoad()
         createDatePicker()
       
+        //MARK: create display collection view by Tomo
         calenderEventsCollectionView.collectionViewLayout = createLayout()
         createDataSource()
         calenderEventsCollectionView.register(EventNamedSectionHeaderView.self, forSupplementaryViewOfKind: "header-element-kind", withReuseIdentifier: EventNamedSectionHeaderView.reuseIdentifier)
@@ -159,6 +158,7 @@ class ImportCalenderViewController: UIViewController {
         dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: "header-element-kind", withReuseIdentifier: EventNamedSectionHeaderView.reuseIdentifier, for: indexPath) as! EventNamedSectionHeaderView
             header.eventName = Array(sampleImportedData.data.keys)[indexPath.section]
+            header.delegate = self
             return header
         }
         
@@ -261,5 +261,28 @@ class ImportCalenderViewController: UIViewController {
             )
         )
         present(alertController, animated: true)
+    }
+    
+    //MARK: user interact action by Tomo
+    func checkmarkTapped(on eventName: String) {
+        
+        if selectedEventsName.contains(where: {$0 == eventName}){
+            selectedEventsName = selectedEventsName.filter { $0 != eventName}
+        }else{
+            selectedEventsName.append(eventName)
+        }
+        
+        // each evet's property change
+        //        sampleImportedData.data[eventName]! = sampleImportedData.data[eventName]!.map{ event in
+        //            return EventTest(id: event.id, title: event.title, attendees: event.attendees, startTime: event.startTime, finishTime: event.finishTime, date: event.date, isTargetForInvoice: !event.isTargetForInvoice)
+        //        }
+    }
+    
+    @IBAction func nextButtonTapped() {
+        print(selectedEventsName)
+        let exportData = selectedEventsName.map { eventName in
+            return sampleImportedData.data[eventName]!
+        }
+        print(exportData)
     }
 }

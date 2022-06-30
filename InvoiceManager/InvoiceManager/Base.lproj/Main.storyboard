@@ -215,6 +215,9 @@
                                 <rect key="frame" x="335" y="831" width="54" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Next"/>
+                                <connections>
+                                    <action selector="nextButtonTapped" destination="4bg-he-1VV" eventType="touchUpInside" id="Sbe-f0-ZZj"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="HM9-eZ-aEY"/>
