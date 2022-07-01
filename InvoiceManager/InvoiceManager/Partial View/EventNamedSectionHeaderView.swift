@@ -55,7 +55,6 @@ class EventNamedSectionHeaderView: UICollectionReusableView {
     }
     
     private func setupView(){
-
         addSubview(checkboxButton)
         addSubview(eventNameLabel)
         addTopBorder()

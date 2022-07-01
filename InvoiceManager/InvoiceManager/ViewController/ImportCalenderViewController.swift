@@ -132,7 +132,7 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate {
             
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(40))
             let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "header-element-kind", alignment: .top)
-            sectionHeader.pinToVisibleBounds = true
+//            sectionHeader.pinToVisibleBounds = true
     
             let section = NSCollectionLayoutSection(group: group)
             section.boundarySupplementaryItems = [sectionHeader]
