@@ -8,8 +8,8 @@
 import Foundation
 
 struct UserSetting{
-  var companyName: String = "Company name"
-  var paymentMethod: String = "e-Transfer"
-  var companyAddress: String = "Company address"
-  var logoImageURI: URL = URL(fileURLWithPath: "")
+    var companyName: String = "Company name"
+    var paymentMethod: String = "e-Transfer"
+    var companyAddress: String = "Company address"
+    var logoImageURI: URL = URL(fileURLWithPath: "")
 }
