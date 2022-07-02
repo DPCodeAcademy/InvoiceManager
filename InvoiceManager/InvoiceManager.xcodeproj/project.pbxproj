@@ -20,6 +20,9 @@
 		E5552C2A2865204900D299BB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5552C282865204900D299BB /* LaunchScreen.storyboard */; };
 		E5552C32286539B400D299BB /* TitleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5552C31286539B400D299BB /* TitleViewController.swift */; };
 		E5552C3628653B0700D299BB /* ImportCalenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5552C3528653B0700D299BB /* ImportCalenderViewController.swift */; };
+		E5A7427C286BEDA6009E723C /* calenderEventsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7427B286BEDA6009E723C /* calenderEventsCollectionViewCell.swift */; };
+		E5A7427E286BF87A009E723C /* EventNamedSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7427D286BF87A009E723C /* EventNamedSectionHeaderView.swift */; };
+		E5A74280286CC7BE009E723C /* CheckboxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7427F286CC7BE009E723C /* CheckboxButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +43,9 @@
 		E5552C2B2865204900D299BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5552C31286539B400D299BB /* TitleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleViewController.swift; sourceTree = "<group>"; };
 		E5552C3528653B0700D299BB /* ImportCalenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportCalenderViewController.swift; sourceTree = "<group>"; };
+		E5A7427B286BEDA6009E723C /* calenderEventsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = calenderEventsCollectionViewCell.swift; sourceTree = "<group>"; };
+		E5A7427D286BF87A009E723C /* EventNamedSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventNamedSectionHeaderView.swift; sourceTree = "<group>"; };
+		E5A7427F286CC7BE009E723C /* CheckboxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +110,7 @@
 		E5552C1C2865204700D299BB /* InvoiceManager */ = {
 			isa = PBXGroup;
 			children = (
+				E5A7427A286BECE5009E723C /* Partial View */,
 				E538AE24286CD9770002AB38 /* Model */,
 				E5552C3328653AC100D299BB /* ViewController */,
 				E5552C1D2865204700D299BB /* AppDelegate.swift */,
@@ -123,6 +130,23 @@
 				E5552C31286539B400D299BB /* TitleViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E5552C3428653AD400D299BB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E5A7427A286BECE5009E723C /* Partial View */ = {
+			isa = PBXGroup;
+			children = (
+				E5A7427B286BEDA6009E723C /* calenderEventsCollectionViewCell.swift */,
+				E5A7427D286BF87A009E723C /* EventNamedSectionHeaderView.swift */,
+				E5A7427F286CC7BE009E723C /* CheckboxButton.swift */,
+			);
+			path = "Partial View";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,6 +264,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5A7427E286BF87A009E723C /* EventNamedSectionHeaderView.swift in Sources */,
+				E5A74280286CC7BE009E723C /* CheckboxButton.swift in Sources */,
 				E538AE28286CDB1F0002AB38 /* EventList.swift in Sources */,
 				E538AE2E286CE5700002AB38 /* InvoiceHistoryList.swift in Sources */,
 				E5552C1E2865204700D299BB /* AppDelegate.swift in Sources */,
@@ -248,6 +274,7 @@
 				E538AE27286CDB1F0002AB38 /* CustomerList.swift in Sources */,
 				E538AE2C286CE2440002AB38 /* AppDataManager.swift in Sources */,
 				E5552C202865204700D299BB /* SceneDelegate.swift in Sources */,
+				E5A7427C286BEDA6009E723C /* calenderEventsCollectionViewCell.swift in Sources */,
 				E5552C32286539B400D299BB /* TitleViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
