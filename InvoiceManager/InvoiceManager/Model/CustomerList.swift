@@ -26,6 +26,31 @@ class CustomerList
     return nil
   }
   
+  func getCustomer(customerName: String) -> [Customer]{
+    var ret:[Customer] = []
+    
+    for customer in customers {
+      if customer.information.customerName == customerName{
+        ret.append(customer)
+      }
+    }
+    return ret
+  }
+  
+  func hasCustomerInfo(customerName: String) -> Bool{
+    let customerInfo = getCustomer(customerName: customerName)
+    return !customerInfo.isEmpty
+  }
+  
+  func hasCustomerInfo(eMailAdress: String) ->Bool{
+    for customer in customers {
+      if customer.information.eMailAddress.caseInsensitiveCompare(eMailAdress) == .orderedSame{
+        return true
+      }
+    }
+    return false
+  }
+
   func updateCustomerInfo(customerID: UInt16, information: Customer.Information)-> Bool{
     guard let existedCustomer = getCustomer(customerID: customerID) else{
       return false

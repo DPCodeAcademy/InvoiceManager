@@ -27,6 +27,10 @@ class AppDataManager{
     return customerList.getCustomer(customerID: customerID)
   }
   
+  func getCustomer(customerName: String) -> [Customer]{
+    return customerList.getCustomer(customerName: customerName)
+  }
+  
   func getEventList()-> Set<Event>{
     return eventList.getEventList()
   }
@@ -40,7 +44,7 @@ class AppDataManager{
   }
   
   func getInvoiceHistory(customerID: UInt16) -> [InvoiceHitory]{
-  // TODO: Implement
+    // TODO: Implement
     return []
   }
   
@@ -66,6 +70,21 @@ class AppDataManager{
   }
   
   //-------------------------------------
+  // Query methods
+  //-------------------------------------
+  func hasCustomerInfo(customerName: String) ->Bool{
+    return customerList.hasCustomerInfo(customerName: customerName)
+  }
+  
+  func hasCustomerInfo(eMailAdress: String) ->Bool{
+    return customerList.hasCustomerInfo(eMailAdress: eMailAdress)
+  }
+  
+  func hasEvent(eventName: String) ->Bool{
+    return eventList.hasEvent(eventName: eventName)
+  }
+  
+  //-------------------------------------
   // Update methods
   //-------------------------------------
   func updateCustomerInfo(customerID: UInt16, customerInfo: Customer.Information) -> Bool{
@@ -76,9 +95,9 @@ class AppDataManager{
     return eventList.updateEvent(event: event)
   }
   
-//  func updateInvoiceHistory(invoiceID: UInt, information: InvoiceHitory.Information)->Bool{
-//
-//  }
+  //  func updateInvoiceHistory(invoiceID: UInt, information: InvoiceHitory.Information)->Bool{
+  //
+  //  }
   
   func updateUserSetting(userSetting: UserSetting)->Void{
     self.userSetting = userSetting
@@ -96,7 +115,7 @@ class AppDataManager{
   func removeEvent(eventName: String) ->Void{
     eventList.removeEvent(eventName: eventName)
   }
-    
+  
   //-------------------------------------
   // Data store & restore methods
   //-------------------------------------
