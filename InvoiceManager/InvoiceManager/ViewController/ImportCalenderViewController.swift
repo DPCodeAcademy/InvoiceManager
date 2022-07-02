@@ -339,5 +339,35 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate {
     
     @IBAction func nextButtonTapped() {
         alert(title: "selectedEvent", message: selectedEvent.description)
+        for selEvent in selectedEvent{
+            addEventToManager(event: selEvent)
+        }
+    }
+    
+    func addEventToManager(event: ImportEvent){
+        var eventDetails: [EventDetail] = []
+        for detail in event.eventDetail{
+            var iDs:[UInt16] = []
+            for attendee in detail.attendees{
+                if let customer = AppDataManager.shared.getCustomer(emailAddress: attendee.eMailAddress){
+                    iDs.append(customer.customerID)
+                }else{
+                    // Add newCustomer
+                    let customerID = AppDataManager.shared.addNewCustomer(customerInfo: Customer.Information(customerName: attendee.customerName,
+                                                                                                             eMailAddress: attendee.eMailAddress,
+                                                                                                             isAutoSendInvoice: true,
+                                                                                                             customerRate: 0)).customerID
+                    iDs.append(customerID)
+                }
+            }
+            eventDetails.append(EventDetail(startDateTime: detail.startTime,
+                                            endDateTime: detail.endTime,
+                                            attendees: Set<UInt16>(iDs)))
+            
+        }
+        
+        let _ = AppDataManager.shared.addUpdateEvent(event: Event(eventName: event.eventName,
+                                                                  eventRate: 0,
+                                                                  eventDetails: eventDetails))
     }
 }
