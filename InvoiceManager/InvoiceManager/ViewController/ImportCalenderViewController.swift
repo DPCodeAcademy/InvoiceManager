@@ -10,49 +10,47 @@ import GoogleSignIn
 import GoogleAPIClientForREST
 
 
-// test model for development. we need to adjust when real models are created
-struct StudentTest{
-    let name: String
-    let email: String
+struct ImportCustomer{
+  var customerName: String
+  var eMailAddress: String
 }
 
-struct EventTest: Hashable{
-    
-    let id: String
-    let title: String
-    let attendees: [StudentTest]
-    let startTime: String // ex 19:00
-    let finishTime: String // ex 21:00
-    let date: String // ex 2022/4/27
-    var isTargetForInvoice: Bool
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(title)
-    }
-    static func == (lhs: EventTest, rhs: EventTest) -> Bool {
-        return lhs.id == rhs.id
-    }
+struct ImportEventDetail: Hashable{
+  var startTime: Date
+  var endTime: Date
+  var attendees: [ImportCustomer]
+  
+  static func == (lhs: ImportEventDetail, rhs: ImportEventDetail) -> Bool {
+    return lhs.startTime == rhs.startTime
+  }
+  
+  func hash(into hasher: inout Hasher) {
+      hasher.combine(startTime)
+  }
 }
 
-struct ImportedDataTest{
-    var data = [String: [EventTest]]()
-//    var data = [[String: [EventTest]]]()
+struct ImportEvent: Hashable{
+  var eventName: String
+  var eventDetail: [ImportEventDetail]
+  
+  static func == (lhs: ImportEvent, rhs: ImportEvent) -> Bool {
+    return lhs.eventName == rhs.eventName
+  }
+  
+  func hash(into hasher: inout Hasher) {
+      hasher.combine(eventName)
+  }
 }
-
-var sampleStudent = StudentTest(name: "sampleStudent", email: "sample.com")
-var sampleEventA = EventTest(id: "a", title: "class A", attendees: [sampleStudent, sampleStudent], startTime: "19:00", finishTime: "21:00", date: "dd/mm/yyyy", isTargetForInvoice: false)
-var sampleEventB = EventTest(id: "b", title: "class A", attendees: [sampleStudent, sampleStudent, sampleStudent], startTime: "19:00", finishTime: "22:00", date: "dd/mm/yyyy", isTargetForInvoice: false)
-var sampleEventC = EventTest(id: "c", title: "class B", attendees: [sampleStudent], startTime: "19:00", finishTime: "23:00", date: "dd/mm/yyyy", isTargetForInvoice: false)
-var sampleImportedData = ImportedDataTest(data: ["class A": [sampleEventA, sampleEventB], "class B": [sampleEventC]])
-
 
 class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate {
 
-    typealias DataSourceType = UICollectionViewDiffableDataSource<String, EventTest>
-    
+//    typealias DataSourceType = UICollectionViewDiffableDataSource<String, EventTest>
+    typealias DataSourceType = UICollectionViewDiffableDataSource<String, ImportEventDetail>
+  
     var dataSource: DataSourceType!
     var sections = [String]()
-    var selectedEventsName = [String]()
+    var candidateEvent:[ImportEvent] = []
+    var selectedEvent:[ImportEvent] = []
     
     @IBOutlet var fromField: UITextField!
     @IBOutlet var toField: UITextField!
@@ -88,7 +86,6 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate {
       
         //MARK: create display collection view by Tomo
         calenderEventsCollectionView.collectionViewLayout = createLayout()
-        createDataSource()
         calenderEventsCollectionView.register(EventNamedSectionHeaderView.self, forSupplementaryViewOfKind: "header-element-kind", withReuseIdentifier: EventNamedSectionHeaderView.reuseIdentifier)
         
     }
@@ -146,10 +143,10 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate {
     func createDataSource(){
         dataSource = .init(collectionView: calenderEventsCollectionView, cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CalenderEvent", for: indexPath) as! calenderEventsCollectionViewCell
-            cell.dateLabel.text = item.date
-            cell.timeLabel.text = "\(item.startTime) - \(item.finishTime)"
+            cell.dateLabel.text = item.startTime.formatted()
+            cell.timeLabel.text = "\(item.startTime) - \(item.endTime)"
             cell.attendeesListLabel.text = {
-                let attendeesNameArray = item.attendees.map {$0.name}
+                let attendeesNameArray = item.attendees.map {$0.customerName}
                 return attendeesNameArray.joined(separator: ", ")
             }()
             return cell
@@ -157,19 +154,19 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate {
         
         dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: "header-element-kind", withReuseIdentifier: EventNamedSectionHeaderView.reuseIdentifier, for: indexPath) as! EventNamedSectionHeaderView
-            header.eventName = Array(sampleImportedData.data.keys)[indexPath.section]
+            //header.eventName = Array(sampleImportedData.data.keys)[indexPath.section]
+            header.eventName = self.candidateEvent[indexPath.section].eventName
             header.delegate = self
             return header
         }
         
-        var snapshot = NSDiffableDataSourceSnapshot<String, EventTest>()
-        sampleImportedData.data.forEach { (eventName, events) in
-            snapshot.appendSections([eventName])
-            snapshot.appendItems(events, toSection: eventName)
+        var snapshot = NSDiffableDataSourceSnapshot<String, ImportEventDetail>()
+        candidateEvent.forEach{
+          snapshot.appendSections([$0.eventName])
+          snapshot.appendItems($0.eventDetail, toSection: $0.eventName)
         }
         sections = snapshot.sectionIdentifiers
         dataSource.apply(snapshot)
-        
     }
     
     
@@ -237,15 +234,78 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate {
             guard error == nil, let items = (result as? GTLRCalendar_Events)?.items else {
                 return
             }
+            print(type(of: items))
             if items.count > 0 {
                 // Do stuff with your events
-                self.alert(title: "Fetched events", message: String(describing: items))
+                self.candidateEvent = self.convertGoogleItemArrayToImportEvents(googleEvents: items)
+                self.createDataSource()
+                //self.alert(title: "Fetched events", message: String(describing: items))
             } else {
                 // No events
                 print("sign in before fetch!")
             }
         }
     }
+    
+    func convertGoogleItemArrayToImportEvents(googleEvents: [GTLRCalendar_Event]) -> [ImportEvent]
+    {
+        var result: [ImportEvent] = []
+        for googleEvent in googleEvents {
+            guard let (eventName, eventDetail) = convertGoogleItemToImportEvent(googleEvent: googleEvent) else{
+                continue
+            }
+            
+            var targetIndex = -1
+            for (index, elem) in result.enumerated(){
+                if elem.eventName == googleEvent.summary{
+                    targetIndex = index
+                    break
+                }
+            }
+
+            if targetIndex < 0{
+                let importEvent: ImportEvent = ImportEvent(eventName: eventName,
+                                                           eventDetail: [eventDetail])
+                result.append(importEvent)
+            }else{
+                result[targetIndex].eventDetail.append(eventDetail)
+            }
+        }
+        return result
+    }
+    
+    func convertGoogleItemToImportEvent(googleEvent: GTLRCalendar_Event) -> (String, ImportEventDetail)?{
+        guard let eventName = googleEvent.summary else{
+            return nil
+        }
+        guard let googleEventStart = googleEvent.start,
+              let startDateTime = googleEventStart.dateTime?.date as Date? else{
+            return nil
+        }
+        guard let googleEventEnd = googleEvent.end,
+              let endDateTime = googleEventEnd.dateTime?.date as Date? else{
+            return nil
+        }
+        
+        var attendeesInfo: [ImportCustomer] = []
+        if let attendees = googleEvent.attendees{
+            for info in attendees{
+                guard let displayName = info.displayName else{
+                    continue
+                }
+                let eMailAddress = info.email ?? ""
+                attendeesInfo.append(ImportCustomer(customerName: displayName,
+                                                    eMailAddress: eMailAddress))
+            }
+        }
+ 
+        let eventDetail : ImportEventDetail = ImportEventDetail(startTime: startDateTime,
+                                                                endTime: endDateTime,
+                                                                attendees: attendeesInfo)
+        return (eventName, eventDetail)
+    }
+    
+  
     
     func alert(title:String, message:String) {
         let alertController = UIAlertController(
@@ -265,24 +325,19 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate {
     
     //MARK: user interact action by Tomo
     func checkmarkTapped(on eventName: String) {
-        
-        if selectedEventsName.contains(where: {$0 == eventName}){
-            selectedEventsName = selectedEventsName.filter { $0 != eventName}
-        }else{
-            selectedEventsName.append(eventName)
+        // TODO: Consider when the check is turned off.
+        if selectedEvent.contains(where: {$0.eventName == eventName}){
+            return
         }
         
-        // each evet's property change
-        //        sampleImportedData.data[eventName]! = sampleImportedData.data[eventName]!.map{ event in
-        //            return EventTest(id: event.id, title: event.title, attendees: event.attendees, startTime: event.startTime, finishTime: event.finishTime, date: event.date, isTargetForInvoice: !event.isTargetForInvoice)
-        //        }
+        for event in candidateEvent{
+            if event.eventName == eventName{
+                selectedEvent.append(event)
+            }
+        }
     }
     
     @IBAction func nextButtonTapped() {
-        print(selectedEventsName)
-        let exportData = selectedEventsName.map { eventName in
-            return sampleImportedData.data[eventName]!
-        }
-        print(exportData)
+        alert(title: "selectedEvent", message: selectedEvent.description)
     }
 }
