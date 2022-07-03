@@ -9,11 +9,53 @@ import UIKit
 import GoogleSignIn
 import GoogleAPIClientForREST
 
-class ImportCalenderViewController: UIViewController {
+
+struct ImportCustomer{
+  var customerName: String
+  var eMailAddress: String
+}
+
+struct ImportEventDetail: Hashable{
+  var startTime: Date
+  var endTime: Date
+  var attendees: [ImportCustomer]
+  
+  static func == (lhs: ImportEventDetail, rhs: ImportEventDetail) -> Bool {
+    return lhs.startTime == rhs.startTime
+  }
+  
+  func hash(into hasher: inout Hasher) {
+      hasher.combine(startTime)
+  }
+}
+
+struct ImportEvent: Hashable{
+  var eventName: String
+  var eventDetail: [ImportEventDetail]
+  
+  static func == (lhs: ImportEvent, rhs: ImportEvent) -> Bool {
+    return lhs.eventName == rhs.eventName
+  }
+  
+  func hash(into hasher: inout Hasher) {
+      hasher.combine(eventName)
+  }
+}
+
+class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate {
+
+//    typealias DataSourceType = UICollectionViewDiffableDataSource<String, EventTest>
+    typealias DataSourceType = UICollectionViewDiffableDataSource<String, ImportEventDetail>
+  
+    var dataSource: DataSourceType!
+    var sections = [String]()
+    var candidateEvent:[ImportEvent] = []
+    var selectedEvent:[ImportEvent] = []
     
     @IBOutlet var fromField: UITextField!
     @IBOutlet var toField: UITextField!
     @IBOutlet var importButton: UIButton!
+    @IBOutlet var calenderEventsCollectionView: UICollectionView!
     
     var googleCalendarService = GoogleCalendarService()
     
@@ -43,6 +85,11 @@ class ImportCalenderViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         createDatePicker()
+      
+        //MARK: create display collection view by Tomo
+        calenderEventsCollectionView.collectionViewLayout = createLayout()
+        calenderEventsCollectionView.register(EventNamedSectionHeaderView.self, forSupplementaryViewOfKind: "header-element-kind", withReuseIdentifier: EventNamedSectionHeaderView.reuseIdentifier)
+        
     }
     
     func createToolBar() -> UIToolbar {
@@ -69,6 +116,61 @@ class ImportCalenderViewController: UIViewController {
         toField.text = dateFormatter.string(from: aMonthLater)
         toField.inputAccessoryView = createToolBar()
     }
+    
+    //MARK: collection view setting by Tomo
+
+    func createLayout() -> UICollectionViewCompositionalLayout{
+        
+        let layout = UICollectionViewCompositionalLayout{ (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection in
+            
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(60))
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
+            
+            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(40))
+            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "header-element-kind", alignment: .top)
+//            sectionHeader.pinToVisibleBounds = true
+    
+            let section = NSCollectionLayoutSection(group: group)
+            section.boundarySupplementaryItems = [sectionHeader]
+            
+            return section
+        }
+        return layout
+    }
+    
+    // here is the place where async function to access to google api and get data will be
+    func createDataSource(){
+        dataSource = .init(collectionView: calenderEventsCollectionView, cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell in
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CalenderEvent", for: indexPath) as! calenderEventsCollectionViewCell
+            cell.dateLabel.text = item.startTime.formatted()
+            cell.timeLabel.text = "\(item.startTime) - \(item.endTime)"
+            cell.attendeesListLabel.text = {
+                let attendeesNameArray = item.attendees.map {$0.customerName}
+                return attendeesNameArray.joined(separator: ", ")
+            }()
+            return cell
+        })
+        
+        dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: "header-element-kind", withReuseIdentifier: EventNamedSectionHeaderView.reuseIdentifier, for: indexPath) as! EventNamedSectionHeaderView
+            //header.eventName = Array(sampleImportedData.data.keys)[indexPath.section]
+            header.eventName = self.candidateEvent[indexPath.section].eventName
+            header.delegate = self
+            return header
+        }
+        
+        var snapshot = NSDiffableDataSourceSnapshot<String, ImportEventDetail>()
+        candidateEvent.forEach{
+          snapshot.appendSections([$0.eventName])
+          snapshot.appendItems($0.eventDetail, toSection: $0.eventName)
+        }
+        sections = snapshot.sectionIdentifiers
+        dataSource.apply(snapshot)
+    }
+    
     
     @objc func doneButtonTapped() {
         if fromField.isFirstResponder {
@@ -117,6 +219,66 @@ class ImportCalenderViewController: UIViewController {
         }
     }
     
+    func convertGoogleItemArrayToImportEvents(googleEvents: [GTLRCalendar_Event]) -> [ImportEvent]
+    {
+        var result: [ImportEvent] = []
+        for googleEvent in googleEvents {
+            guard let (eventName, eventDetail) = convertGoogleItemToImportEvent(googleEvent: googleEvent) else{
+                continue
+            }
+            
+            var targetIndex = -1
+            for (index, elem) in result.enumerated(){
+                if elem.eventName == googleEvent.summary{
+                    targetIndex = index
+                    break
+                }
+            }
+
+            if targetIndex < 0{
+                let importEvent: ImportEvent = ImportEvent(eventName: eventName,
+                                                           eventDetail: [eventDetail])
+                result.append(importEvent)
+            }else{
+                result[targetIndex].eventDetail.append(eventDetail)
+            }
+        }
+        return result
+    }
+    
+    func convertGoogleItemToImportEvent(googleEvent: GTLRCalendar_Event) -> (String, ImportEventDetail)?{
+        guard let eventName = googleEvent.summary else{
+            return nil
+        }
+        guard let googleEventStart = googleEvent.start,
+              let startDateTime = googleEventStart.dateTime?.date as Date? else{
+            return nil
+        }
+        guard let googleEventEnd = googleEvent.end,
+              let endDateTime = googleEventEnd.dateTime?.date as Date? else{
+            return nil
+        }
+        
+        var attendeesInfo: [ImportCustomer] = []
+        if let attendees = googleEvent.attendees{
+            for info in attendees{
+                guard let displayName = info.displayName else{
+                    continue
+                }
+                let eMailAddress = info.email ?? ""
+                attendeesInfo.append(ImportCustomer(customerName: displayName,
+                                                    eMailAddress: eMailAddress))
+            }
+        }
+ 
+        let eventDetail : ImportEventDetail = ImportEventDetail(startTime: startDateTime,
+                                                                endTime: endDateTime,
+                                                                attendees: attendeesInfo)
+        return (eventName, eventDetail)
+    }
+    
+  
+    
     func alert(title:String, message:String) {
         let alertController = UIAlertController(
             title: title,
@@ -131,5 +293,53 @@ class ImportCalenderViewController: UIViewController {
             )
         )
         present(alertController, animated: true)
+    }
+    
+    //MARK: user interact action by Tomo
+    func checkmarkTapped(on eventName: String) {
+        // TODO: Consider when the check is turned off.
+        if selectedEvent.contains(where: {$0.eventName == eventName}){
+            return
+        }
+        
+        for event in candidateEvent{
+            if event.eventName == eventName{
+                selectedEvent.append(event)
+            }
+        }
+    }
+    
+    @IBAction func nextButtonTapped() {
+        alert(title: "selectedEvent", message: selectedEvent.description)
+        for selEvent in selectedEvent{
+            addEventToManager(event: selEvent)
+        }
+    }
+    
+    func addEventToManager(event: ImportEvent){
+        var eventDetails: [EventDetail] = []
+        for detail in event.eventDetail{
+            var iDs:[UInt16] = []
+            for attendee in detail.attendees{
+                if let customer = AppDataManager.shared.getCustomer(emailAddress: attendee.eMailAddress){
+                    iDs.append(customer.customerID)
+                }else{
+                    // Add newCustomer
+                    let customerID = AppDataManager.shared.addNewCustomer(customerInfo: Customer.Information(customerName: attendee.customerName,
+                                                                                                             eMailAddress: attendee.eMailAddress,
+                                                                                                             isAutoSendInvoice: true,
+                                                                                                             customerRate: 0)).customerID
+                    iDs.append(customerID)
+                }
+            }
+            eventDetails.append(EventDetail(startDateTime: detail.startTime,
+                                            endDateTime: detail.endTime,
+                                            attendees: Set<UInt16>(iDs)))
+            
+        }
+        
+        let _ = AppDataManager.shared.addUpdateEvent(event: Event(eventName: event.eventName,
+                                                                  eventRate: 0,
+                                                                  eventDetails: eventDetails))
     }
 }

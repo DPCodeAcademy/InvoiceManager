@@ -13,6 +13,11 @@
 		BA869BEA286C1457009BC782 /* CalendarServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA869BE9286C1457009BC782 /* CalendarServiceProtocol.swift */; };
 		BA98724A286CB8AD0057F354 /* RequestManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA987249286CB8AD0057F354 /* RequestManagerProtocol.swift */; };
 		BA98724C286CBAD30057F354 /* RestRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA98724B286CBAD30057F354 /* RestRequestManager.swift */; };
+		E538AE27286CDB1F0002AB38 /* CustomerList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538AE25286CDB1F0002AB38 /* CustomerList.swift */; };
+		E538AE28286CDB1F0002AB38 /* EventList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538AE26286CDB1F0002AB38 /* EventList.swift */; };
+		E538AE2A286CE0710002AB38 /* UserSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538AE29286CE0710002AB38 /* UserSetting.swift */; };
+		E538AE2C286CE2440002AB38 /* AppDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538AE2B286CE2440002AB38 /* AppDataManager.swift */; };
+		E538AE2E286CE5700002AB38 /* InvoiceHistoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538AE2D286CE5700002AB38 /* InvoiceHistoryList.swift */; };
 		E5552C1E2865204700D299BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5552C1D2865204700D299BB /* AppDelegate.swift */; };
 		E5552C202865204700D299BB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5552C1F2865204700D299BB /* SceneDelegate.swift */; };
 		E5552C252865204700D299BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5552C232865204700D299BB /* Main.storyboard */; };
@@ -20,6 +25,9 @@
 		E5552C2A2865204900D299BB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5552C282865204900D299BB /* LaunchScreen.storyboard */; };
 		E5552C32286539B400D299BB /* TitleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5552C31286539B400D299BB /* TitleViewController.swift */; };
 		E5552C3628653B0700D299BB /* ImportCalenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5552C3528653B0700D299BB /* ImportCalenderViewController.swift */; };
+		E5A7427C286BEDA6009E723C /* calenderEventsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7427B286BEDA6009E723C /* calenderEventsCollectionViewCell.swift */; };
+		E5A7427E286BF87A009E723C /* EventNamedSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7427D286BF87A009E723C /* EventNamedSectionHeaderView.swift */; };
+		E5A74280286CC7BE009E723C /* CheckboxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7427F286CC7BE009E723C /* CheckboxButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +39,11 @@
 		BA869BE9286C1457009BC782 /* CalendarServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarServiceProtocol.swift; sourceTree = "<group>"; };
 		BA987249286CB8AD0057F354 /* RequestManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManagerProtocol.swift; sourceTree = "<group>"; };
 		BA98724B286CBAD30057F354 /* RestRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestRequestManager.swift; sourceTree = "<group>"; };
+		E538AE25286CDB1F0002AB38 /* CustomerList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerList.swift; sourceTree = "<group>"; };
+		E538AE26286CDB1F0002AB38 /* EventList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventList.swift; sourceTree = "<group>"; };
+		E538AE29286CE0710002AB38 /* UserSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSetting.swift; sourceTree = "<group>"; };
+		E538AE2B286CE2440002AB38 /* AppDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDataManager.swift; sourceTree = "<group>"; };
+		E538AE2D286CE5700002AB38 /* InvoiceHistoryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceHistoryList.swift; sourceTree = "<group>"; };
 		E5552C1A2865204700D299BB /* InvoiceManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InvoiceManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5552C1D2865204700D299BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5552C1F2865204700D299BB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -40,6 +53,9 @@
 		E5552C2B2865204900D299BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5552C31286539B400D299BB /* TitleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleViewController.swift; sourceTree = "<group>"; };
 		E5552C3528653B0700D299BB /* ImportCalenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportCalenderViewController.swift; sourceTree = "<group>"; };
+		E5A7427B286BEDA6009E723C /* calenderEventsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = calenderEventsCollectionViewCell.swift; sourceTree = "<group>"; };
+		E5A7427D286BF87A009E723C /* EventNamedSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventNamedSectionHeaderView.swift; sourceTree = "<group>"; };
+		E5A7427F286CC7BE009E723C /* CheckboxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +91,11 @@
 			isa = PBXGroup;
 			children = (
 				BA869BE3286C0DCC009BC782 /* Event.swift */,
+				E538AE2B286CE2440002AB38 /* AppDataManager.swift */,
+				E538AE25286CDB1F0002AB38 /* CustomerList.swift */,
+				E538AE26286CDB1F0002AB38 /* EventList.swift */,
+				E538AE29286CE0710002AB38 /* UserSetting.swift */,
+				E538AE2D286CE5700002AB38 /* InvoiceHistoryList.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -163,6 +184,9 @@
 				BA869BE2286C0D4C009BC782 /* Controllers */,
 				BA869BE0286C0CF5009BC782 /* Services */,
 				BA869BDF286C0CED009BC782 /* Utilities */,
+				E5A7427A286BECE5009E723C /* Partial View */,
+				E538AE24286CD9770002AB38 /* Model */,
+				E5552C3328653AC100D299BB /* ViewController */,
 				E5552C1D2865204700D299BB /* AppDelegate.swift */,
 				E5552C1F2865204700D299BB /* SceneDelegate.swift */,
 				E5552C232865204700D299BB /* Main.storyboard */,
@@ -171,6 +195,32 @@
 				E5552C2B2865204900D299BB /* Info.plist */,
 			);
 			path = InvoiceManager;
+			sourceTree = "<group>";
+		};
+		E5552C3328653AC100D299BB /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E5552C3528653B0700D299BB /* ImportCalenderViewController.swift */,
+				E5552C31286539B400D299BB /* TitleViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E5552C3428653AD400D299BB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E5A7427A286BECE5009E723C /* Partial View */ = {
+			isa = PBXGroup;
+			children = (
+				E5A7427B286BEDA6009E723C /* calenderEventsCollectionViewCell.swift */,
+				E5A7427D286BF87A009E723C /* EventNamedSectionHeaderView.swift */,
+				E5A7427F286CC7BE009E723C /* CheckboxButton.swift */,
+			);
+			path = "Partial View";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,11 +338,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5A7427E286BF87A009E723C /* EventNamedSectionHeaderView.swift in Sources */,
+				E5A74280286CC7BE009E723C /* CheckboxButton.swift in Sources */,
+				E538AE28286CDB1F0002AB38 /* EventList.swift in Sources */,
+				E538AE2E286CE5700002AB38 /* InvoiceHistoryList.swift in Sources */,
 				E5552C1E2865204700D299BB /* AppDelegate.swift in Sources */,
 				E5552C3628653B0700D299BB /* ImportCalenderViewController.swift in Sources */,
 				BA98724A286CB8AD0057F354 /* RequestManagerProtocol.swift in Sources */,
 				BA869BEA286C1457009BC782 /* CalendarServiceProtocol.swift in Sources */,
+				E538AE2A286CE0710002AB38 /* UserSetting.swift in Sources */,
+				E538AE27286CDB1F0002AB38 /* CustomerList.swift in Sources */,
+				E538AE2C286CE2440002AB38 /* AppDataManager.swift in Sources */,
 				E5552C202865204700D299BB /* SceneDelegate.swift in Sources */,
+				E5A7427C286BEDA6009E723C /* calenderEventsCollectionViewCell.swift in Sources */,
 				E5552C32286539B400D299BB /* TitleViewController.swift in Sources */,
 				BA869BE6286C1375009BC782 /* GoogleCalendarService.swift in Sources */,
 				BA869BE4286C0DCC009BC782 /* Event.swift in Sources */,
