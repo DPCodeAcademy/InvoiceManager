@@ -7,18 +7,16 @@
 import Foundation
 
 struct Event {
-    var identifier: UUID
+    var identifier: String
     var name: String
     var status: String
-    var startDateTime: Date
-    var endDateTime: Date
+    var startDateTime: String
+    var endDateTime: String
     var attendees: [Attendee]
-    var createdAt: Date
-    var updatedAt: Date
 }
 
 struct Attendee {
-    var identifier: UUID
+    var identifier: String
     var name: String
     var email: String
 }

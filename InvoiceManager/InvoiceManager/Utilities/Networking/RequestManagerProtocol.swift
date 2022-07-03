@@ -8,7 +8,5 @@
 import Foundation
 
 protocol RequestManagerProtocol {
-    
-    func postRequestFor(_ baseUrl: String)
     func getRequestFor(_ baseUrl: String)
 }

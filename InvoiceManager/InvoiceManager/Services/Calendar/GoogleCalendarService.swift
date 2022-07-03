@@ -1,20 +1,62 @@
 //
 //  GoogleCalendarService.swift
-//  InvoiceManager
 //
 //  Created by Joao Victor Silva Anastacio on 2022-06-28.
 //
 
 import Foundation
+import GoogleSignIn
+import GoogleAPIClientForREST
 
 class GoogleCalendarService: CalendarServiceProtocol {
-
-    let requestManager: RestRequestManager = RestRequestManager.shared()
     
-    func fetchCalendarEvents(initialDate from: String, finalDate to: String) -> [Event] {
-        // TODO: Add request implementation here
-        // Mark: Use Google Calendar Service to manipulate all retrieved data
-        requestManager.getRequestFor("http://www.google.ca")
-        return []
+    let noItemsReturnedValue = 0
+    let requestManager = RestRequestManager.shared
+    let calendarService = GTLRCalendarService()
+    
+    func fetchCalendarEvents(_ user: GIDGoogleUser, _ initialDate: GTLRDateTime, _ finalDate: GTLRDateTime) -> [Event] {
+        var eventList: [Event] = []
+        let calendarIdentifier = "primary"
+        let userAuthentication = user.authentication
+        calendarService.authorizer = userAuthentication.fetcherAuthorizer()
+
+        let listCalendarEventsQuery = GTLRCalendarQuery_EventsList.query(withCalendarId: calendarIdentifier)
+        listCalendarEventsQuery.timeMin = initialDate
+        listCalendarEventsQuery.timeMax = finalDate
+        
+        calendarService.executeQuery(listCalendarEventsQuery) { [self](data, response, error) in
+            guard error == nil, let items = (response as? GTLRCalendar_Events)?.items else {
+                return
+            }
+            
+            if items.count > self.noItemsReturnedValue {
+                eventList = self.deserializeItemsToEvents(calendarEvents: items)
+            } else {
+                print("Authentication Required")
+            }
+        }
+        return eventList
+    }
+    
+    fileprivate func deserializeItemsToEvents(calendarEvents items: [GTLRCalendar_Event]) -> [Event] {
+        var deserializedEventList: [Event] = []
+        var attendeeList: [Attendee] = []
+        
+        for event in items {
+            
+            for attendee in event.attendees! {
+                attendeeList.append(Attendee(identifier: attendee.identifier!, name: attendee.displayName!, email: attendee.email!))
+            }
+            
+            if let startDateTime = event.start?.dateTime?.stringValue, let endDateTime = event.end?.dateTime?.stringValue {
+                deserializedEventList.append(Event(identifier: String(event.identifier!),
+                                                   name: String(event.summary!),
+                                                   status: String(event.status!),
+                                                   startDateTime: String(startDateTime),
+                                                   endDateTime: String(endDateTime),
+                                                   attendees: attendeeList))
+            }
+        }
+        return deserializedEventList
     }
 }
