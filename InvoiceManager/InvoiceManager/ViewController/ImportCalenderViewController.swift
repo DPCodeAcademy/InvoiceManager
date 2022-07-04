@@ -325,14 +325,17 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate {
     
     //MARK: user interact action by Tomo
     func checkmarkTapped(on eventName: String) {
-        // TODO: Consider when the check is turned off.
         if selectedEvent.contains(where: {$0.eventName == eventName}){
-            return
-        }
-        
-        for event in candidateEvent{
-            if event.eventName == eventName{
-                selectedEvent.append(event)
+            for event in selectedEvent{
+                if event.eventName == eventName {
+                    selectedEvent = selectedEvent.filter{$0.eventName != eventName}
+                }
+            }
+        } else {
+            for event in candidateEvent{
+                if event.eventName == eventName{
+                    selectedEvent.append(event)
+                }
             }
         }
     }
