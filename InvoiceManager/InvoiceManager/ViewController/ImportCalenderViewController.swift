@@ -324,7 +324,7 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate {
     }
     
     //MARK: user interact action by Tomo
-    func checkmarkTapped(on eventName: String) {
+    func checkmarkTapped(at eventName: String) {
         if selectedEvent.contains(where: {$0.eventName == eventName}){
             for event in selectedEvent{
                 if event.eventName == eventName {

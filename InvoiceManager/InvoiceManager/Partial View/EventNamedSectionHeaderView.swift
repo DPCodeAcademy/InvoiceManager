@@ -8,7 +8,7 @@
 import UIKit
 
 protocol EventSelectBoxDelegate: AnyObject{
-    func checkmarkTapped(on eventName: String)
+    func checkmarkTapped(at eventName: String)
 }
 
 class EventNamedSectionHeaderView: UICollectionReusableView {
@@ -61,6 +61,6 @@ class EventNamedSectionHeaderView: UICollectionReusableView {
     }
     
     @objc func checkboxTapped(){
-        delegate?.checkmarkTapped(on: self.eventName)
+        delegate?.checkmarkTapped(at: self.eventName)
     }
 }
