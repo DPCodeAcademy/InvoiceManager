@@ -42,7 +42,7 @@ struct ImportEvent: Hashable{
   }
 }
 
-class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate {
+class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, EventDetailPopupDelegate {
 
 //    typealias DataSourceType = UICollectionViewDiffableDataSource<String, EventTest>
     typealias DataSourceType = UICollectionViewDiffableDataSource<String, ImportEventDetail>
@@ -143,9 +143,11 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate {
     func createDataSource(){
         dataSource = .init(collectionView: calenderEventsCollectionView, cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CalenderEvent", for: indexPath) as! calenderEventsCollectionViewCell
+            cell.delegate = self
             cell.dateLabel.text = item.startTime.formatted()
             cell.timeLabel.text = "\(item.startTime) - \(item.endTime)"
-            cell.attendeesListLabel.text = {
+            cell.evnetName = self.candidateEvent[indexPath.section].eventName
+            cell.attendees = {
                 let attendeesNameArray = item.attendees.map {$0.customerName}
                 return attendeesNameArray.joined(separator: ", ")
             }()
@@ -324,7 +326,7 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate {
     }
     
     //MARK: user interact action by Tomo
-    func checkmarkTapped(on eventName: String) {
+    func checkmarkTapped(at eventName: String) {
         if selectedEvent.contains(where: {$0.eventName == eventName}){
             for event in selectedEvent{
                 if event.eventName == eventName {
@@ -338,6 +340,10 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate {
                 }
             }
         }
+    }
+    
+    func detailButtonTapped(show alertView: UIAlertController) {
+        present(alertView, animated: true)
     }
     
     @IBAction func nextButtonTapped() {
