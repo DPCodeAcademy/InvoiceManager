@@ -11,5 +11,5 @@ import GoogleAPIClientForREST
 
 protocol CalendarServiceProtocol {
     
-    func fetchCalendarEvents(_ user: GIDGoogleUser, _ initialDate: GTLRDateTime, _ finalDate: GTLRDateTime) -> [Event]
+    func fetchCalendarEvents(_ user: GIDGoogleUser, _ initialDate: GTLRDateTime, _ finalDate: GTLRDateTime) -> [EventModel]
 }

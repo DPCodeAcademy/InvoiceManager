@@ -14,8 +14,8 @@ class GoogleCalendarService: CalendarServiceProtocol {
     let requestManager = RestRequestManager.shared
     let calendarService = GTLRCalendarService()
     
-    func fetchCalendarEvents(_ user: GIDGoogleUser, _ initialDate: GTLRDateTime, _ finalDate: GTLRDateTime) -> [Event] {
-        var eventList: [Event] = []
+    func fetchCalendarEvents(_ user: GIDGoogleUser, _ initialDate: GTLRDateTime, _ finalDate: GTLRDateTime) -> [EventModel] {
+        var eventList: [EventModel] = []
         let calendarIdentifier = "primary"
         let userAuthentication = user.authentication
         calendarService.authorizer = userAuthentication.fetcherAuthorizer()
@@ -38,8 +38,8 @@ class GoogleCalendarService: CalendarServiceProtocol {
         return eventList
     }
     
-    fileprivate func deserializeItemsToEvents(calendarEvents items: [GTLRCalendar_Event]) -> [Event] {
-        var deserializedEventList: [Event] = []
+    fileprivate func deserializeItemsToEvents(calendarEvents items: [GTLRCalendar_Event]) -> [EventModel] {
+        var deserializedEventList: [EventModel] = []
         var attendeeList: [Attendee] = []
         
         for event in items {
@@ -49,7 +49,7 @@ class GoogleCalendarService: CalendarServiceProtocol {
             }
             
             if let startDateTime = event.start?.dateTime?.stringValue, let endDateTime = event.end?.dateTime?.stringValue {
-                deserializedEventList.append(Event(identifier: String(event.identifier!),
+                deserializedEventList.append(EventModel(identifier: String(event.identifier!),
                                                    name: String(event.summary!),
                                                    status: String(event.status!),
                                                    startDateTime: String(startDateTime),
