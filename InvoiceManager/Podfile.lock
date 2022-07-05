@@ -20,10 +20,12 @@ PODS:
   - GTMSessionFetcher/Core (1.7.2)
   - GTMSessionFetcher/Full (1.7.2):
     - GTMSessionFetcher/Core (= 1.7.2)
+  - SwiftLint (0.47.1)
 
 DEPENDENCIES:
   - GoogleAPIClientForREST/Calendar
   - GoogleSignIn
+  - SwiftLint
 
 SPEC REPOS:
   trunk:
@@ -32,6 +34,7 @@ SPEC REPOS:
     - GoogleSignIn
     - GTMAppAuth
     - GTMSessionFetcher
+    - SwiftLint
 
 SPEC CHECKSUMS:
   AppAuth: 80317d99ac7ff2801a2f18ff86b48cd315ed465d
@@ -39,7 +42,8 @@ SPEC CHECKSUMS:
   GoogleSignIn: 3c68388ac221f379676e8f1cb115df3aaf73b93f
   GTMAppAuth: 4d8f864896f3646f0c33baf38a28362f4c601e15
   GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
+  SwiftLint: f80f1be7fa96d30e0aa68e58d45d4ea1ccaac519
 
-PODFILE CHECKSUM: 42919882318de8ec49a48879797cfcc72c893bc3
+PODFILE CHECKSUM: 949d0fff010896c51697352bd4a8bbb36abfe6df
 
 COCOAPODS: 1.11.3
