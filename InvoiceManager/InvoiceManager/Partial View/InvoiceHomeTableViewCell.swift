@@ -8,6 +8,8 @@
 import UIKit
 
 class InvoiceHomeTableViewCell: UITableViewCell {
+    
+    static let identifier = "invoiceHomeTableCell"
 
     override func awakeFromNib() {
         super.awakeFromNib()

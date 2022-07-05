@@ -14,7 +14,23 @@ class CustomerHomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+//        customerListTableView.delegate = self
+//        customerListTableView.dataSource = self
+//        customerListTableView.register(UITableViewCell.self, forCellReuseIdentifier: "customerTableCell")
     }
+    
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return 1
+//    }
+//
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        <#code#>
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        <#code#>
+//    }
+    
     
     @IBAction func importCalenderButtonTapped() {
     }

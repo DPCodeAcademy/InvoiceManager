@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lS2-p1-CIZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7Ma-gS-nUz">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
@@ -310,7 +310,7 @@
                                 <rect key="frame" x="25" y="183" width="364" height="615"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="A6K-rf-ShA" customClass="InvoiceHomeTableViewCell" customModule="InvoiceManager" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="invoiceHomeTableCell" id="A6K-rf-ShA" customClass="InvoiceHomeTableViewCell" customModule="InvoiceManager" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44.5" width="364" height="31"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A6K-rf-ShA" id="IzQ-Ef-mBV">
@@ -371,7 +371,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Invoice" id="XZO-Dh-VXh"/>
                     <connections>
-                        <outlet property="InvoiceListTableView" destination="ouA-jD-Yx5" id="S1N-UB-Sro"/>
+                        <outlet property="invoiceListTableView" destination="ouA-jD-Yx5" id="qdi-F9-5L8"/>
                         <outlet property="targetMonthInputField" destination="yQ8-Nv-HaM" id="nBS-Xb-VJ2"/>
                     </connections>
                 </viewController>
@@ -454,22 +454,22 @@
                                 <rect key="frame" x="25" y="108" width="364" height="669"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="3cd-ph-VpF" detailTextLabel="5Bz-jD-n0P" style="IBUITableViewCellStyleSubtitle" id="WSA-G9-fDv">
-                                        <rect key="frame" x="0.0" y="44.5" width="364" height="43.5"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="customerTableCell" textLabel="3cd-ph-VpF" detailTextLabel="5Bz-jD-n0P" style="IBUITableViewCellStyleSubtitle" id="WSA-G9-fDv">
+                                        <rect key="frame" x="0.0" y="44.5" width="364" height="47.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WSA-G9-fDv" id="B4I-ah-ZsA">
-                                            <rect key="frame" x="0.0" y="0.0" width="335.5" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="335.5" height="47.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3cd-ph-VpF">
-                                                    <rect key="frame" x="20" y="7" width="26.5" height="16.5"/>
+                                                    <rect key="frame" x="20" y="6.5" width="26.5" height="16.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5Bz-jD-n0P">
-                                                    <rect key="frame" x="20" y="23.5" width="40.5" height="13.5"/>
+                                                    <rect key="frame" x="20" y="25.5" width="40.5" height="13.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                     <nil key="textColor"/>
