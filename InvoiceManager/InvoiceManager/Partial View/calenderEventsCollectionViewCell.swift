@@ -1,5 +1,5 @@
 //
-//  calenderEventsCollectionViewCell.swift
+//  CalenderEventsCollectionViewCell.swift
 //  InvoiceManager
 //
 //  Created by Tomonao Hashiguchi on 2022-06-28.
@@ -11,7 +11,7 @@ protocol EventDetailPopupDelegate{
     func detailButtonTapped(show alertView: UIAlertController)
 }
 
-class calenderEventsCollectionViewCell: UICollectionViewCell {
+class CalenderEventsCollectionViewCell: UICollectionViewCell {
     
     var delegate: EventDetailPopupDelegate?
     
