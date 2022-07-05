@@ -44,11 +44,11 @@ class AppDataManager{
         return eventList.getEvent(eventName: eventName)
     }
     
-    func getInvoiceHistoryList() -> Set<InvoiceHitory>{
+    func getInvoiceHistoryList() -> Set<InvoiceHistory>{
         return invoiceHistoryList.getInvoiceList()
     }
     
-    func getInvoiceHistory(customerID: UInt16) -> [InvoiceHitory]{
+    func getInvoiceHistory(customerID: UInt16) -> [InvoiceHistory]{
         // TODO: Implement
         return []
     }
@@ -70,7 +70,7 @@ class AppDataManager{
         return eventList.addAndUpdateEvent(event: event)
     }
     
-    func addNewInvoiceHistory(invoiceInfo: InvoiceHitory.Information) -> InvoiceHitory{
+    func addNewInvoiceHistory(invoiceInfo: InvoiceHistory.Information) -> InvoiceHistory{
         return invoiceHistoryList.createNewInvoiceHistory(newInvoiceInfo: invoiceInfo)
     }
     

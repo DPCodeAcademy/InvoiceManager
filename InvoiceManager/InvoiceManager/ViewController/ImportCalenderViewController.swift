@@ -75,8 +75,7 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
     let datePicker = UIDatePicker()
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .none
+        formatter.dateFormat = "yyyy/MMM/d"
         return formatter
     }
     
@@ -103,7 +102,6 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
     func createDatePicker() {
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
-        datePicker.minimumDate = Date.now
         
         fromField.inputView = datePicker
         fromField.text = dateFormatter.string(from: Date.now)

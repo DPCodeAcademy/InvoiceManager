@@ -8,20 +8,20 @@
 import Foundation
 
 class InvoiceHistoryList{
-    var invoiceHistories: Set<InvoiceHitory> = []
+    var invoiceHistories: Set<InvoiceHistory> = []
     
-    func createNewInvoiceHistory(newInvoiceInfo: InvoiceHitory.Information) -> InvoiceHitory{
+    func createNewInvoiceHistory(newInvoiceInfo: InvoiceHistory.Information) -> InvoiceHistory{
         let uniqueID = self.geranateUniqueID()
-        let invoice = InvoiceHitory(id: uniqueID, info: newInvoiceInfo)
+        let invoice = InvoiceHistory(id: uniqueID, info: newInvoiceInfo)
         invoiceHistories.insert(invoice)
         return invoice
     }
     
-    func getInvoiceList() -> Set<InvoiceHitory>{
+    func getInvoiceList() -> Set<InvoiceHistory>{
         return invoiceHistories
     }
     
-    func getInvoice(invoiceHistoryID: UInt16)->InvoiceHitory?{
+    func getInvoice(invoiceHistoryID: UInt16)->InvoiceHistory?{
         for invoice in invoiceHistories{
             if invoice.invoiceID == invoiceHistoryID{
                 return invoice
@@ -30,8 +30,8 @@ class InvoiceHistoryList{
         return nil
     }
     
-    func getInvoiceByCustomer(customerID: UInt16)-> [InvoiceHitory]{
-        var ret: [InvoiceHitory] = []
+    func getInvoiceByCustomer(customerID: UInt16)-> [InvoiceHistory]{
+        var ret: [InvoiceHistory] = []
         for history in invoiceHistories{
             if history.information.customerID == customerID{
                 ret.append(history)
@@ -53,7 +53,7 @@ class InvoiceHistoryList{
     private func geranateUniqueID()-> UInt16{
         repeat{
             let id = UInt16.random(in: 1...UInt16.max)
-            let dummy = InvoiceHitory(id: id, info: InvoiceHitory.Information())
+            let dummy = InvoiceHistory(id: id, info: InvoiceHistory.Information())
             if(!invoiceHistories.contains(dummy))
             {
                 return id
@@ -62,7 +62,7 @@ class InvoiceHistoryList{
     }
 }
 
-struct InvoiceHitory: Hashable{
+struct InvoiceHistory: Hashable{ // spelling error
     let invoiceID: UInt16
     var information: Information
     
@@ -77,7 +77,7 @@ struct InvoiceHitory: Hashable{
         self.information = info
     }
     
-    static func == (lhs: InvoiceHitory, rhs: InvoiceHitory) -> Bool {
+    static func == (lhs: InvoiceHistory, rhs: InvoiceHistory) -> Bool {
         return lhs.invoiceID == rhs.invoiceID
     }
     
