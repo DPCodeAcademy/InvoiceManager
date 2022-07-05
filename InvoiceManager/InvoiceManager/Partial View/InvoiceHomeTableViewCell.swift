@@ -10,6 +10,11 @@ import UIKit
 class InvoiceHomeTableViewCell: UITableViewCell {
     
     static let identifier = "invoiceHomeTableCell"
+    
+    @IBOutlet var customerNameLabel: UILabel!
+    @IBOutlet var customerEmailLabel: UILabel!
+    @IBOutlet var invoiceStatusLabel: UILabel!
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()

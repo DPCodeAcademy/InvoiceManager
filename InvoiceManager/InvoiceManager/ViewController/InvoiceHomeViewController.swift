@@ -9,14 +9,16 @@ import UIKit
 
 class InvoiceHomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
     
-    var 
-
+    
+    var invoiceList = AppDataManager.shared.getInvoiceHistoryList()
+    
     @IBOutlet var targetMonthInputField: UITextField!
     @IBOutlet var invoiceListTableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print(invoiceList.count)
         invoiceListTableView.delegate = self
         invoiceListTableView.dataSource = self
 //        invoiceListTableView.register(InvoiceHomeTableViewCell.self, forCellReuseIdentifier: InvoiceHomeTableViewCell.identifier)
@@ -27,11 +29,16 @@ class InvoiceHomeViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        let cell = tableView.dequeueReusableCell(withIdentifier: InvoiceHomeTableViewCell.identifier, for: indexPath) as! InvoiceHomeTableViewCell
+        cell.customerNameLabel.text = "testTomo"
+        cell.customerEmailLabel.text = "testEmail"
+        cell.invoiceStatusLabel.text = "send"
+        
+        return cell
     }
     
     @IBAction func TargetMonthInputTapped(_ sender: UITextField) {

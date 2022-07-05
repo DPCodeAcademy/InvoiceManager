@@ -353,6 +353,11 @@
                                                 <constraint firstAttribute="bottom" secondItem="w5s-8q-tML" secondAttribute="bottom" id="yJy-Yx-os7"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="customerEmailLabel" destination="qQo-6y-0Tb" id="UvJ-yy-0Y9"/>
+                                            <outlet property="customerNameLabel" destination="dFa-xp-cmN" id="Ku6-rZ-RfL"/>
+                                            <outlet property="invoiceStatusLabel" destination="lDt-e1-GI8" id="mdX-6D-QSa"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
