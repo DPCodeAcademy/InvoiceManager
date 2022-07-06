@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol EventDetailPopupDelegate{
+protocol EventDetailPopupDelegate {
     func detailButtonTapped(show alertView: UIAlertController)
 }
 

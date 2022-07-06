@@ -11,9 +11,9 @@ class AppDataManager{
     
     static let shared = AppDataManager()
     
-    private var customerList : CustomerList
-    private var eventList : EventList
-    private var invoiceHistoryList : InvoiceHistoryList
+    private var customerList : CustomerViewModel
+    private var eventList : EventViewModel
+    private var invoiceHistoryList : InvoiceHistoryViewModel
     private var userSetting : UserSetting
     
     //-------------------------------------
@@ -60,7 +60,7 @@ class AppDataManager{
     //-------------------------------------
     // Add methods
     //-------------------------------------
-    func addNewCustomer(customerInfo: Customer.Information) -> Customer{
+    func addNewCustomer(customerInfo: CustomerInformation) -> Customer{
         return customerList.createNewCustomer(newCustomerInfo: customerInfo)
     }
     
@@ -70,14 +70,14 @@ class AppDataManager{
         return eventList.addAndUpdateEvent(event: event)
     }
     
-    func addNewInvoiceHistory(invoiceInfo: InvoiceHitory.Information) -> InvoiceHitory{
+    func addNewInvoiceHistory(invoiceInfo: InvoiceHistoryInformation) -> InvoiceHitory {
         return invoiceHistoryList.createNewInvoiceHistory(newInvoiceInfo: invoiceInfo)
     }
     
     //-------------------------------------
     // Update methods
     //-------------------------------------
-    func updateCustomerInfo(customerID: UInt16, customerInfo: Customer.Information) -> Bool{
+    func updateCustomerInfo(customerID: UInt16, customerInfo: CustomerInformation) -> Bool{
         return customerList.updateCustomerInfo(customerID: customerID, information: customerInfo)
     }
     
@@ -125,9 +125,9 @@ class AppDataManager{
     }
     
     private init() {
-        customerList = CustomerList()
-        eventList = EventList()
-        invoiceHistoryList = InvoiceHistoryList()
+        customerList = CustomerViewModel()
+        eventList = EventViewModel()
+        invoiceHistoryList = InvoiceHistoryViewModel()
         userSetting = UserSetting()
     }
     
@@ -137,7 +137,6 @@ class AppDataManager{
     private func setSampleData() -> Void{
         setSampleCustomer()
         setSampleEvent()
-        setSampleUserSetting()
         setSampleInvoiceHistory()
     }
     
@@ -149,12 +148,12 @@ class AppDataManager{
     private var c6: UInt16 = 0
     
     private func setSampleCustomer()->Void{
-        c1 = customerList.createNewCustomer(newCustomerInfo: Customer.Information(customerName: "João Victor Anastácio", eMailAddress: "aaa@gmail.com", isAutoSendInvoice: true, customerRate: 101)).customerID
-        c2 = customerList.createNewCustomer(newCustomerInfo: Customer.Information(customerName: "Kaiya Takahashi", eMailAddress: "bbb@gmail.com", isAutoSendInvoice: true, customerRate: 102)).customerID
-        c3 = customerList.createNewCustomer(newCustomerInfo: Customer.Information(customerName: "Keiji Suzuki", eMailAddress: "ccc@gmail.com", isAutoSendInvoice: true, customerRate: 103)).customerID
-        c4 = customerList.createNewCustomer(newCustomerInfo: Customer.Information(customerName: "Tomonao Hashiguchi", eMailAddress: "ddd@gmail.com", isAutoSendInvoice: true, customerRate: 104)).customerID
-        c5 = customerList.createNewCustomer(newCustomerInfo: Customer.Information(customerName: "Yusuke Ishihara", eMailAddress: "eee@gmail.com", isAutoSendInvoice: true, customerRate: 105)).customerID
-        c6 = customerList.createNewCustomer(newCustomerInfo: Customer.Information(customerName: "Yusuke Kohatsu", eMailAddress: "fff@gmail.com", isAutoSendInvoice: true, customerRate: 101)).customerID
+        c1 = customerList.createNewCustomer(newCustomerInfo: CustomerInformation(customerName: "João Victor Anastácio", eMailAddress: "aaa@gmail.com", isAutoSendInvoice: true, customerRate: 101)).customerID
+        c2 = customerList.createNewCustomer(newCustomerInfo: CustomerInformation(customerName: "Kaiya Takahashi", eMailAddress: "bbb@gmail.com", isAutoSendInvoice: true, customerRate: 102)).customerID
+        c3 = customerList.createNewCustomer(newCustomerInfo: CustomerInformation(customerName: "Keiji Suzuki", eMailAddress: "ccc@gmail.com", isAutoSendInvoice: true, customerRate: 103)).customerID
+        c4 = customerList.createNewCustomer(newCustomerInfo: CustomerInformation(customerName: "Tomonao Hashiguchi", eMailAddress: "ddd@gmail.com", isAutoSendInvoice: true, customerRate: 104)).customerID
+        c5 = customerList.createNewCustomer(newCustomerInfo: CustomerInformation(customerName: "Yusuke Ishihara", eMailAddress: "eee@gmail.com", isAutoSendInvoice: true, customerRate: 105)).customerID
+        c6 = customerList.createNewCustomer(newCustomerInfo: CustomerInformation(customerName: "Yusuke Kohatsu", eMailAddress: "fff@gmail.com", isAutoSendInvoice: true, customerRate: 101)).customerID
     }
     
     private func setSampleEvent()->Void{
@@ -174,12 +173,6 @@ class AppDataManager{
         let _ = eventList.addAndUpdateEvent(event: event1)
         let _ = eventList.addAndUpdateEvent(event: event2)
         let _ = eventList.addAndUpdateEvent(event: event3)
-    }
-    
-    private func setSampleUserSetting()->Void{
-        userSetting.companyAddress = "628-68 Smithe ST/nVancouver, BC V6B 0P4"
-        userSetting.companyName = "DP Code Academy"
-        userSetting.paymentMethod = "E-transfer"
     }
     
     private func setSampleInvoiceHistory()->Void{

@@ -362,7 +362,7 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
                     iDs.append(customer.customerID)
                 }else{
                     // Add newCustomer
-                    let customerID = AppDataManager.shared.addNewCustomer(customerInfo: Customer.Information(customerName: attendee.customerName,
+                    let customerID = AppDataManager.shared.addNewCustomer(customerInfo: CustomerInformation(customerName: attendee.customerName,
                                                                                                              eMailAddress: attendee.eMailAddress,
                                                                                                              isAutoSendInvoice: true,
                                                                                                              customerRate: 0)).customerID

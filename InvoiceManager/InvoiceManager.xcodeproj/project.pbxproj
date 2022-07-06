@@ -8,11 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		59E6981ED84EF55DFDF06C46 /* Pods_InvoiceManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB9CFB4E3B193C426DF2787 /* Pods_InvoiceManager.framework */; };
-		E538AE27286CDB1F0002AB38 /* CustomerList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538AE25286CDB1F0002AB38 /* CustomerList.swift */; };
-		E538AE28286CDB1F0002AB38 /* EventList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538AE26286CDB1F0002AB38 /* EventList.swift */; };
+		BA36C35828760BD300D65CEF /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA36C35728760BD300D65CEF /* Event.swift */; };
+		BA36C35A28760CD300D65CEF /* InvoiceHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA36C35928760CD300D65CEF /* InvoiceHistory.swift */; };
+		BA36C35C28760D6E00D65CEF /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA36C35B28760D6E00D65CEF /* Customer.swift */; };
+		E538AE27286CDB1F0002AB38 /* CustomerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538AE25286CDB1F0002AB38 /* CustomerViewModel.swift */; };
+		E538AE28286CDB1F0002AB38 /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538AE26286CDB1F0002AB38 /* EventViewModel.swift */; };
 		E538AE2A286CE0710002AB38 /* UserSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538AE29286CE0710002AB38 /* UserSetting.swift */; };
 		E538AE2C286CE2440002AB38 /* AppDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538AE2B286CE2440002AB38 /* AppDataManager.swift */; };
-		E538AE2E286CE5700002AB38 /* InvoiceHistoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538AE2D286CE5700002AB38 /* InvoiceHistoryList.swift */; };
+		E538AE2E286CE5700002AB38 /* InvoiceHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538AE2D286CE5700002AB38 /* InvoiceHistoryViewModel.swift */; };
 		E5552C1E2865204700D299BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5552C1D2865204700D299BB /* AppDelegate.swift */; };
 		E5552C202865204700D299BB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5552C1F2865204700D299BB /* SceneDelegate.swift */; };
 		E5552C252865204700D299BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5552C232865204700D299BB /* Main.storyboard */; };
@@ -33,11 +36,14 @@
 		4EB9CFB4E3B193C426DF2787 /* Pods_InvoiceManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InvoiceManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		566D5FFAB98B1038A40F8065 /* Pods-InvoiceManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InvoiceManager.debug.xcconfig"; path = "Target Support Files/Pods-InvoiceManager/Pods-InvoiceManager.debug.xcconfig"; sourceTree = "<group>"; };
 		7E289C8C880981B9BD7627EB /* Pods-InvoiceManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InvoiceManager.release.xcconfig"; path = "Target Support Files/Pods-InvoiceManager/Pods-InvoiceManager.release.xcconfig"; sourceTree = "<group>"; };
-		E538AE25286CDB1F0002AB38 /* CustomerList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerList.swift; sourceTree = "<group>"; };
-		E538AE26286CDB1F0002AB38 /* EventList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventList.swift; sourceTree = "<group>"; };
+		BA36C35728760BD300D65CEF /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		BA36C35928760CD300D65CEF /* InvoiceHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceHistory.swift; sourceTree = "<group>"; };
+		BA36C35B28760D6E00D65CEF /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
+		E538AE25286CDB1F0002AB38 /* CustomerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerViewModel.swift; sourceTree = "<group>"; };
+		E538AE26286CDB1F0002AB38 /* EventViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
 		E538AE29286CE0710002AB38 /* UserSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSetting.swift; sourceTree = "<group>"; };
 		E538AE2B286CE2440002AB38 /* AppDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDataManager.swift; sourceTree = "<group>"; };
-		E538AE2D286CE5700002AB38 /* InvoiceHistoryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceHistoryList.swift; sourceTree = "<group>"; };
+		E538AE2D286CE5700002AB38 /* InvoiceHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceHistoryViewModel.swift; sourceTree = "<group>"; };
 		E5552C1A2865204700D299BB /* InvoiceManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InvoiceManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5552C1D2865204700D299BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5552C1F2865204700D299BB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -88,32 +94,46 @@
 		BA36C351287605C900D65CEF /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				E538AE2B286CE2440002AB38 /* AppDataManager.swift */,
-				E538AE25286CDB1F0002AB38 /* CustomerList.swift */,
-				E538AE26286CDB1F0002AB38 /* EventList.swift */,
-				E538AE2D286CE5700002AB38 /* InvoiceHistoryList.swift */,
+				BA36C35B28760D6E00D65CEF /* Customer.swift */,
+				BA36C35728760BD300D65CEF /* Event.swift */,
+				BA36C35928760CD300D65CEF /* InvoiceHistory.swift */,
 				E538AE29286CE0710002AB38 /* UserSetting.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		BA36C353287605FC00D65CEF /* Views */ = {
+		BA36C3542876081C00D65CEF /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				E538AE25286CDB1F0002AB38 /* CustomerViewModel.swift */,
+				E538AE2D286CE5700002AB38 /* InvoiceHistoryViewModel.swift */,
+				E538AE26286CDB1F0002AB38 /* EventViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		BA36C35D287611D100D65CEF /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				E5A7427B286BEDA6009E723C /* CalenderEventsCollectionViewCell.swift */,
 				E5A7427F286CC7BE009E723C /* CheckboxButton.swift */,
+				E5B9F6F72874972100F8EDF3 /* CustomerHomeViewController.swift */,
 				E5A7427D286BF87A009E723C /* EventNamedSectionHeaderView.swift */,
-				E5B9F6F92874976800F8EDF3 /* InvoiceHomeTableViewCell.swift */,
+				E5552C3528653B0700D299BB /* ImportCalenderViewController.swift */,
 				E5B9F6FD2874988000F8EDF3 /* InvoiceHomeTableHeaderView.swift */,
+				E5B9F6F92874976800F8EDF3 /* InvoiceHomeTableViewCell.swift */,
+				E5B9F6F52874970B00F8EDF3 /* InvoiceHomeViewController.swift */,
+				E5552C31286539B400D299BB /* TitleViewController.swift */,
 			);
-			path = Views;
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
-		BA36C3542876081C00D65CEF /* ViewModels */ = {
+		BA36C35E2876162300D65CEF /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				E538AE2B286CE2440002AB38 /* AppDataManager.swift */,
 			);
-			path = ViewModels;
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		E5552C112865204600D299BB = {
@@ -137,10 +157,10 @@
 		E5552C1C2865204700D299BB /* InvoiceManager */ = {
 			isa = PBXGroup;
 			children = (
-				BA36C353287605FC00D65CEF /* Views */,
-				BA36C3542876081C00D65CEF /* ViewModels */,
 				BA36C351287605C900D65CEF /* Models */,
-				E5552C3328653AC100D299BB /* ViewControllers */,
+				BA36C3542876081C00D65CEF /* ViewModels */,
+				BA36C35D287611D100D65CEF /* ViewControllers */,
+				BA36C35E2876162300D65CEF /* Utilities */,
 				E5552C1D2865204700D299BB /* AppDelegate.swift */,
 				E5552C1F2865204700D299BB /* SceneDelegate.swift */,
 				E5552C232865204700D299BB /* Main.storyboard */,
@@ -149,17 +169,6 @@
 				E5552C2B2865204900D299BB /* Info.plist */,
 			);
 			path = InvoiceManager;
-			sourceTree = "<group>";
-		};
-		E5552C3328653AC100D299BB /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				E5B9F6F72874972100F8EDF3 /* CustomerHomeViewController.swift */,
-				E5552C3528653B0700D299BB /* ImportCalenderViewController.swift */,
-				E5B9F6F52874970B00F8EDF3 /* InvoiceHomeViewController.swift */,
-				E5552C31286539B400D299BB /* TitleViewController.swift */,
-			);
-			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -297,14 +306,17 @@
 			files = (
 				E5A7427E286BF87A009E723C /* EventNamedSectionHeaderView.swift in Sources */,
 				E5A74280286CC7BE009E723C /* CheckboxButton.swift in Sources */,
-				E538AE28286CDB1F0002AB38 /* EventList.swift in Sources */,
+				E538AE28286CDB1F0002AB38 /* EventViewModel.swift in Sources */,
 				E5B9F6FA2874976800F8EDF3 /* InvoiceHomeTableViewCell.swift in Sources */,
-				E538AE2E286CE5700002AB38 /* InvoiceHistoryList.swift in Sources */,
+				E538AE2E286CE5700002AB38 /* InvoiceHistoryViewModel.swift in Sources */,
 				E5552C1E2865204700D299BB /* AppDelegate.swift in Sources */,
 				E5552C3628653B0700D299BB /* ImportCalenderViewController.swift in Sources */,
 				E538AE2A286CE0710002AB38 /* UserSetting.swift in Sources */,
+				BA36C35828760BD300D65CEF /* Event.swift in Sources */,
 				E5B9F6F62874970B00F8EDF3 /* InvoiceHomeViewController.swift in Sources */,
-				E538AE27286CDB1F0002AB38 /* CustomerList.swift in Sources */,
+				BA36C35A28760CD300D65CEF /* InvoiceHistory.swift in Sources */,
+				E538AE27286CDB1F0002AB38 /* CustomerViewModel.swift in Sources */,
+				BA36C35C28760D6E00D65CEF /* Customer.swift in Sources */,
 				E538AE2C286CE2440002AB38 /* AppDataManager.swift in Sources */,
 				E5552C202865204700D299BB /* SceneDelegate.swift in Sources */,
 				E5A7427C286BEDA6009E723C /* CalenderEventsCollectionViewCell.swift in Sources */,
