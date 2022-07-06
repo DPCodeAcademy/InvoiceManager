@@ -142,7 +142,7 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
     // here is the place where async function to access to google api and get data will be
     func createDataSource(){
         dataSource = .init(collectionView: calenderEventsCollectionView, cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CalenderEvent", for: indexPath) as! calenderEventsCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CalenderEvent", for: indexPath) as! CalenderEventsCollectionViewCell
             cell.delegate = self
             cell.dateLabel.text = item.startTime.formatted()
             cell.timeLabel.text = "\(item.startTime) - \(item.endTime)"

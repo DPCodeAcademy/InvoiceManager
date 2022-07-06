@@ -8,5 +8,5 @@ target 'InvoiceManager' do
   # Pods for InvoiceManager
   pod 'GoogleSignIn'
   pod 'GoogleAPIClientForREST/Calendar'
-
+  pod 'SwiftLint'
 end
