@@ -20,7 +20,7 @@
 		E5552C2A2865204900D299BB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5552C282865204900D299BB /* LaunchScreen.storyboard */; };
 		E5552C32286539B400D299BB /* TitleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5552C31286539B400D299BB /* TitleViewController.swift */; };
 		E5552C3628653B0700D299BB /* ImportCalenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5552C3528653B0700D299BB /* ImportCalenderViewController.swift */; };
-		E5A7427C286BEDA6009E723C /* calenderEventsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7427B286BEDA6009E723C /* calenderEventsCollectionViewCell.swift */; };
+		E5A7427C286BEDA6009E723C /* CalenderEventsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7427B286BEDA6009E723C /* CalenderEventsCollectionViewCell.swift */; };
 		E5A7427E286BF87A009E723C /* EventNamedSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7427D286BF87A009E723C /* EventNamedSectionHeaderView.swift */; };
 		E5A74280286CC7BE009E723C /* CheckboxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7427F286CC7BE009E723C /* CheckboxButton.swift */; };
 		E5B9F6F62874970B00F8EDF3 /* InvoiceHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9F6F52874970B00F8EDF3 /* InvoiceHomeViewController.swift */; };
@@ -58,7 +58,7 @@
 		E5552C2B2865204900D299BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5552C31286539B400D299BB /* TitleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleViewController.swift; sourceTree = "<group>"; };
 		E5552C3528653B0700D299BB /* ImportCalenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportCalenderViewController.swift; sourceTree = "<group>"; };
-		E5A7427B286BEDA6009E723C /* calenderEventsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = calenderEventsCollectionViewCell.swift; sourceTree = "<group>"; };
+		E5A7427B286BEDA6009E723C /* CalenderEventsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderEventsCollectionViewCell.swift; sourceTree = "<group>"; };
 		E5A7427D286BF87A009E723C /* EventNamedSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventNamedSectionHeaderView.swift; sourceTree = "<group>"; };
 		E5A7427F286CC7BE009E723C /* CheckboxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxButton.swift; sourceTree = "<group>"; };
 		E5B9F6F52874970B00F8EDF3 /* InvoiceHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceHomeViewController.swift; sourceTree = "<group>"; };
@@ -167,7 +167,7 @@
 		E5A7427A286BECE5009E723C /* Partial View */ = {
 			isa = PBXGroup;
 			children = (
-				E5A7427B286BEDA6009E723C /* calenderEventsCollectionViewCell.swift */,
+				E5A7427B286BEDA6009E723C /* CalenderEventsCollectionViewCell.swift */,
 				E5A7427D286BF87A009E723C /* EventNamedSectionHeaderView.swift */,
 				E5A7427F286CC7BE009E723C /* CheckboxButton.swift */,
 				E5B9F6F92874976800F8EDF3 /* InvoiceHomeTableViewCell.swift */,
@@ -359,7 +359,7 @@
 				E538AE27286CDB1F0002AB38 /* CustomerList.swift in Sources */,
 				E538AE2C286CE2440002AB38 /* AppDataManager.swift in Sources */,
 				E5552C202865204700D299BB /* SceneDelegate.swift in Sources */,
-				E5A7427C286BEDA6009E723C /* calenderEventsCollectionViewCell.swift in Sources */,
+				E5A7427C286BEDA6009E723C /* CalenderEventsCollectionViewCell.swift in Sources */,
 				E5B9F6FE2874988000F8EDF3 /* InvoiceHomeTableHeaderView.swift in Sources */,
 				E5B9F6F82874972100F8EDF3 /* CustomerHomeViewController.swift in Sources */,
 				E5552C32286539B400D299BB /* TitleViewController.swift in Sources */,
