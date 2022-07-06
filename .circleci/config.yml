@@ -15,11 +15,11 @@ jobs:
       - checkout
       - run:
           name: Install CocoaPods
-          command: pod install
+          command: cd ./InvoiceManager && pod install
       - run: bundle install
       - run:
           name: Fastlane
-          command: bundle exec fastlane $FASTLANE_LANE
+          command: cd ./InvoiceManager && bundle exec fastlane $FASTLANE_LANE
       - store_artifacts:
           path: output
       - store_test_results:
@@ -49,10 +49,10 @@ jobs:
       FASTLANE_LANE: adhoc
     steps:
       - checkout
-      - run: bundle install
+      - run: cd ./InvoiceManager && bundle install
       - run:
           name: Fastlane
-          command: bundle exec fastlane $FASTLANE_LANE
+          command: cd ./InvoiceManager && bundle exec fastlane $FASTLANE_LANE
       - store_artifacts:
           path: output
 
@@ -70,7 +70,6 @@ jobs:
           command: bundle exec fastlane $FASTLANE_LANE
       - store_artifacts:
           path: output
-
 
 workflows:
   build-test-adhoc:
