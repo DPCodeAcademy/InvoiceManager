@@ -292,7 +292,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yQ8-Nv-HaM">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yQ8-Nv-HaM">
                                         <rect key="frame" x="214" y="0.0" width="150" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="150" id="5Cz-pb-ExP"/>
@@ -300,9 +300,6 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
-                                        <connections>
-                                            <action selector="TargetMonthInputTapped:" destination="THy-4z-SEy" eventType="touchUpInside" id="LQZ-3B-CxZ"/>
-                                        </connections>
                                     </textField>
                                 </subviews>
                             </stackView>
