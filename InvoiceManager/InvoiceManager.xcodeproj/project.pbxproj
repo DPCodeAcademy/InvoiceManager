@@ -28,6 +28,10 @@
 		E5A7427C286BEDA6009E723C /* calenderEventsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7427B286BEDA6009E723C /* calenderEventsCollectionViewCell.swift */; };
 		E5A7427E286BF87A009E723C /* EventNamedSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7427D286BF87A009E723C /* EventNamedSectionHeaderView.swift */; };
 		E5A74280286CC7BE009E723C /* CheckboxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7427F286CC7BE009E723C /* CheckboxButton.swift */; };
+		E5B9F6F62874970B00F8EDF3 /* InvoiceHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9F6F52874970B00F8EDF3 /* InvoiceHomeViewController.swift */; };
+		E5B9F6F82874972100F8EDF3 /* CustomerHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9F6F72874972100F8EDF3 /* CustomerHomeViewController.swift */; };
+		E5B9F6FA2874976800F8EDF3 /* InvoiceHomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9F6F92874976800F8EDF3 /* InvoiceHomeTableViewCell.swift */; };
+		E5B9F6FE2874988000F8EDF3 /* InvoiceHomeTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9F6FD2874988000F8EDF3 /* InvoiceHomeTableHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +62,10 @@
 		E5A7427B286BEDA6009E723C /* calenderEventsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = calenderEventsCollectionViewCell.swift; sourceTree = "<group>"; };
 		E5A7427D286BF87A009E723C /* EventNamedSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventNamedSectionHeaderView.swift; sourceTree = "<group>"; };
 		E5A7427F286CC7BE009E723C /* CheckboxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxButton.swift; sourceTree = "<group>"; };
+		E5B9F6F52874970B00F8EDF3 /* InvoiceHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceHomeViewController.swift; sourceTree = "<group>"; };
+		E5B9F6F72874972100F8EDF3 /* CustomerHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerHomeViewController.swift; sourceTree = "<group>"; };
+		E5B9F6F92874976800F8EDF3 /* InvoiceHomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceHomeTableViewCell.swift; sourceTree = "<group>"; };
+		E5B9F6FD2874988000F8EDF3 /* InvoiceHomeTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceHomeTableHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,12 +223,25 @@
 			path = InvoiceManager;
 			sourceTree = "<group>";
 		};
+		E5552C3328653AC100D299BB /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E5552C3528653B0700D299BB /* ImportCalenderViewController.swift */,
+				E5552C31286539B400D299BB /* TitleViewController.swift */,
+				E5B9F6F52874970B00F8EDF3 /* InvoiceHomeViewController.swift */,
+				E5B9F6F72874972100F8EDF3 /* CustomerHomeViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		E5A7427A286BECE5009E723C /* Partial View */ = {
 			isa = PBXGroup;
 			children = (
 				E5A7427B286BEDA6009E723C /* calenderEventsCollectionViewCell.swift */,
 				E5A7427D286BF87A009E723C /* EventNamedSectionHeaderView.swift */,
 				E5A7427F286CC7BE009E723C /* CheckboxButton.swift */,
+				E5B9F6F92874976800F8EDF3 /* InvoiceHomeTableViewCell.swift */,
+				E5B9F6FD2874988000F8EDF3 /* InvoiceHomeTableHeaderView.swift */,
 			);
 			path = "Partial View";
 			sourceTree = "<group>";
@@ -343,6 +364,9 @@
 				E5A7427E286BF87A009E723C /* EventNamedSectionHeaderView.swift in Sources */,
 				E5A74280286CC7BE009E723C /* CheckboxButton.swift in Sources */,
 				E538AE28286CDB1F0002AB38 /* EventList.swift in Sources */,
+				E5B9F6FA2874976800F8EDF3 /* InvoiceHomeTableViewCell.swift in Sources */,
+				E538AE2E286CE5700002AB38 /* InvoiceHistoryList.swift in Sources */,
+>>>>>>> f1602c1906b9f37c3688fa65a8b2b800e255722a
 				E5552C1E2865204700D299BB /* AppDelegate.swift in Sources */,
 				BA8A3B9328727DB000B8DCCB /* ImportCalendarViewController.swift in Sources */,
 				BA98724A286CB8AD0057F354 /* RequestManagerProtocol.swift in Sources */,
@@ -357,6 +381,14 @@
 				BA869BE6286C1375009BC782 /* GoogleCalendarService.swift in Sources */,
 				BA98724C286CBAD30057F354 /* RestRequestManager.swift in Sources */,
 				BA70110928727B0B00E73A51 /* AppDataManager.swift in Sources */,
+				E5B9F6F62874970B00F8EDF3 /* InvoiceHomeViewController.swift in Sources */,
+				E538AE27286CDB1F0002AB38 /* CustomerList.swift in Sources */,
+				E538AE2C286CE2440002AB38 /* AppDataManager.swift in Sources */,
+				E5552C202865204700D299BB /* SceneDelegate.swift in Sources */,
+				E5A7427C286BEDA6009E723C /* calenderEventsCollectionViewCell.swift in Sources */,
+				E5B9F6FE2874988000F8EDF3 /* InvoiceHomeTableHeaderView.swift in Sources */,
+				E5B9F6F82874972100F8EDF3 /* CustomerHomeViewController.swift in Sources */,
+				E5552C32286539B400D299BB /* TitleViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

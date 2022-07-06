@@ -42,7 +42,7 @@ struct ImportEvent: Hashable{
   }
 }
 
-class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate {
+class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, EventDetailPopupDelegate {
 
 //    typealias DataSourceType = UICollectionViewDiffableDataSource<String, EventTest>
     typealias DataSourceType = UICollectionViewDiffableDataSource<String, ImportEventDetail>
@@ -145,9 +145,11 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate {
     func createDataSource(){
         dataSource = .init(collectionView: calenderEventsCollectionView, cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CalenderEvent", for: indexPath) as! calenderEventsCollectionViewCell
+            cell.delegate = self
             cell.dateLabel.text = item.startTime.formatted()
             cell.timeLabel.text = "\(item.startTime) - \(item.endTime)"
-            cell.attendeesListLabel.text = {
+            cell.evnetName = self.candidateEvent[indexPath.section].eventName
+            cell.attendees = {
                 let attendeesNameArray = item.attendees.map {$0.customerName}
                 return attendeesNameArray.joined(separator: ", ")
             }()
@@ -296,17 +298,24 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate {
     }
     
     //MARK: user interact action by Tomo
-    func checkmarkTapped(on eventName: String) {
-        // TODO: Consider when the check is turned off.
+    func checkmarkTapped(at eventName: String) {
         if selectedEvent.contains(where: {$0.eventName == eventName}){
-            return
-        }
-        
-        for event in candidateEvent{
-            if event.eventName == eventName{
-                selectedEvent.append(event)
+            for event in selectedEvent{
+                if event.eventName == eventName {
+                    selectedEvent = selectedEvent.filter{$0.eventName != eventName}
+                }
+            }
+        } else {
+            for event in candidateEvent{
+                if event.eventName == eventName{
+                    selectedEvent.append(event)
+                }
             }
         }
+    }
+    
+    func detailButtonTapped(show alertView: UIAlertController) {
+        present(alertView, animated: true)
     }
     
     @IBAction func nextButtonTapped() {
