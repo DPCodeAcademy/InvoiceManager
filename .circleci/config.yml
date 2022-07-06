@@ -16,7 +16,7 @@ jobs:
       - run:
           name: Install CocoaPods
           command: cd ./InvoiceManager && pod install
-      - run: bundle install
+      - run: cd ./InvoiceManager && bundle install
       - run:
           name: Fastlane
           command: cd ./InvoiceManager && bundle exec fastlane $FASTLANE_LANE
