@@ -8,13 +8,26 @@
 import UIKit
 
 class InvoiceHomeTableHeaderView: UITableViewHeaderFooterView {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    
+    let title: UILabel = {
+        let label = UILabel()
+        label.text = "Invoice List"
+        label.textColor = .label
+        label.font = UIFont.boldSystemFont(ofSize: 18)
+        return label
+    }()
+    let addButton = UIButton()
+    
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
+        confitureContents()
     }
-    */
-
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func confitureContents(){
+        
+    }
 }

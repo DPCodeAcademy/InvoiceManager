@@ -11,14 +11,15 @@ class InvoiceHomeViewController: UIViewController, UITableViewDelegate, UITableV
     
     
     var invoiceList = AppDataManager.shared.getInvoiceHistoryList()
+	var customerList = Array(AppDataManager.shared.getCustomerList())
+	var targetPriod = Date()
     
     @IBOutlet var targetMonthInputField: UITextField!
     @IBOutlet var invoiceListTableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print(invoiceList.count)
+	
         invoiceListTableView.delegate = self
         invoiceListTableView.dataSource = self
 //        invoiceListTableView.register(InvoiceHomeTableViewCell.self, forCellReuseIdentifier: InvoiceHomeTableViewCell.identifier)
@@ -29,13 +30,14 @@ class InvoiceHomeViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+		return customerList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: InvoiceHomeTableViewCell.identifier, for: indexPath) as! InvoiceHomeTableViewCell
-        cell.customerNameLabel.text = "testTomo"
-        cell.customerEmailLabel.text = "testEmail"
+		let customer: Customer = customerList[indexPath.row]
+		cell.customerNameLabel.text = customer.information.customerName
+		cell.customerEmailLabel.text = customer.information.eMailAddress
         cell.invoiceStatusLabel.text = "send"
         
         return cell
