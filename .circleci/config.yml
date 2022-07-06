@@ -33,9 +33,7 @@ jobs:
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
       - checkout
-      - swiftlint:
-          path: "/InvoiceManager/.swiftlint.yml" 
-      - run: swiftlint lint --reporter junit | tee result.xml
+      - run: cd ./InvoiceManager && swiftlint lint --config .swiftlint.yml --reporter junit | tee result.xml
       - store_artifacts:
           path: result.xml
       - store_test_results:
