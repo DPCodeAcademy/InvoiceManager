@@ -20,7 +20,7 @@
 		E5552C2A2865204900D299BB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5552C282865204900D299BB /* LaunchScreen.storyboard */; };
 		E5552C32286539B400D299BB /* TitleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5552C31286539B400D299BB /* TitleViewController.swift */; };
 		E5552C3628653B0700D299BB /* ImportCalenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5552C3528653B0700D299BB /* ImportCalenderViewController.swift */; };
-		E5A7427C286BEDA6009E723C /* calenderEventsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7427B286BEDA6009E723C /* calenderEventsCollectionViewCell.swift */; };
+		E5A7427C286BEDA6009E723C /* CalenderEventsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7427B286BEDA6009E723C /* CalenderEventsCollectionViewCell.swift */; };
 		E5A7427E286BF87A009E723C /* EventNamedSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7427D286BF87A009E723C /* EventNamedSectionHeaderView.swift */; };
 		E5A74280286CC7BE009E723C /* CheckboxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7427F286CC7BE009E723C /* CheckboxButton.swift */; };
 		E5B9F6F62874970B00F8EDF3 /* InvoiceHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9F6F52874970B00F8EDF3 /* InvoiceHomeViewController.swift */; };
@@ -47,7 +47,7 @@
 		E5552C2B2865204900D299BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5552C31286539B400D299BB /* TitleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleViewController.swift; sourceTree = "<group>"; };
 		E5552C3528653B0700D299BB /* ImportCalenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportCalenderViewController.swift; sourceTree = "<group>"; };
-		E5A7427B286BEDA6009E723C /* calenderEventsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = calenderEventsCollectionViewCell.swift; sourceTree = "<group>"; };
+		E5A7427B286BEDA6009E723C /* CalenderEventsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderEventsCollectionViewCell.swift; sourceTree = "<group>"; };
 		E5A7427D286BF87A009E723C /* EventNamedSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventNamedSectionHeaderView.swift; sourceTree = "<group>"; };
 		E5A7427F286CC7BE009E723C /* CheckboxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxButton.swift; sourceTree = "<group>"; };
 		E5B9F6F52874970B00F8EDF3 /* InvoiceHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceHomeViewController.swift; sourceTree = "<group>"; };
@@ -85,16 +85,35 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		E538AE24286CD9770002AB38 /* Model */ = {
+		BA36C351287605C900D65CEF /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				E538AE2B286CE2440002AB38 /* AppDataManager.swift */,
 				E538AE25286CDB1F0002AB38 /* CustomerList.swift */,
 				E538AE26286CDB1F0002AB38 /* EventList.swift */,
-				E538AE29286CE0710002AB38 /* UserSetting.swift */,
 				E538AE2D286CE5700002AB38 /* InvoiceHistoryList.swift */,
+				E538AE29286CE0710002AB38 /* UserSetting.swift */,
 			);
-			path = Model;
+			path = Models;
+			sourceTree = "<group>";
+		};
+		BA36C353287605FC00D65CEF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E5A7427B286BEDA6009E723C /* CalenderEventsCollectionViewCell.swift */,
+				E5A7427F286CC7BE009E723C /* CheckboxButton.swift */,
+				E5A7427D286BF87A009E723C /* EventNamedSectionHeaderView.swift */,
+				E5B9F6F92874976800F8EDF3 /* InvoiceHomeTableViewCell.swift */,
+				E5B9F6FD2874988000F8EDF3 /* InvoiceHomeTableHeaderView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BA36C3542876081C00D65CEF /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		E5552C112865204600D299BB = {
@@ -118,9 +137,10 @@
 		E5552C1C2865204700D299BB /* InvoiceManager */ = {
 			isa = PBXGroup;
 			children = (
-				E5A7427A286BECE5009E723C /* Partial View */,
-				E538AE24286CD9770002AB38 /* Model */,
-				E5552C3328653AC100D299BB /* ViewController */,
+				BA36C353287605FC00D65CEF /* Views */,
+				BA36C3542876081C00D65CEF /* ViewModels */,
+				BA36C351287605C900D65CEF /* Models */,
+				E5552C3328653AC100D299BB /* ViewControllers */,
 				E5552C1D2865204700D299BB /* AppDelegate.swift */,
 				E5552C1F2865204700D299BB /* SceneDelegate.swift */,
 				E5552C232865204700D299BB /* Main.storyboard */,
@@ -131,27 +151,15 @@
 			path = InvoiceManager;
 			sourceTree = "<group>";
 		};
-		E5552C3328653AC100D299BB /* ViewController */ = {
+		E5552C3328653AC100D299BB /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				E5552C3528653B0700D299BB /* ImportCalenderViewController.swift */,
-				E5552C31286539B400D299BB /* TitleViewController.swift */,
-				E5B9F6F52874970B00F8EDF3 /* InvoiceHomeViewController.swift */,
 				E5B9F6F72874972100F8EDF3 /* CustomerHomeViewController.swift */,
+				E5552C3528653B0700D299BB /* ImportCalenderViewController.swift */,
+				E5B9F6F52874970B00F8EDF3 /* InvoiceHomeViewController.swift */,
+				E5552C31286539B400D299BB /* TitleViewController.swift */,
 			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
-		E5A7427A286BECE5009E723C /* Partial View */ = {
-			isa = PBXGroup;
-			children = (
-				E5A7427B286BEDA6009E723C /* calenderEventsCollectionViewCell.swift */,
-				E5A7427D286BF87A009E723C /* EventNamedSectionHeaderView.swift */,
-				E5A7427F286CC7BE009E723C /* CheckboxButton.swift */,
-				E5B9F6F92874976800F8EDF3 /* InvoiceHomeTableViewCell.swift */,
-				E5B9F6FD2874988000F8EDF3 /* InvoiceHomeTableHeaderView.swift */,
-			);
-			path = "Partial View";
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -299,7 +307,7 @@
 				E538AE27286CDB1F0002AB38 /* CustomerList.swift in Sources */,
 				E538AE2C286CE2440002AB38 /* AppDataManager.swift in Sources */,
 				E5552C202865204700D299BB /* SceneDelegate.swift in Sources */,
-				E5A7427C286BEDA6009E723C /* calenderEventsCollectionViewCell.swift in Sources */,
+				E5A7427C286BEDA6009E723C /* CalenderEventsCollectionViewCell.swift in Sources */,
 				E5B9F6FE2874988000F8EDF3 /* InvoiceHomeTableHeaderView.swift in Sources */,
 				E5B9F6F82874972100F8EDF3 /* CustomerHomeViewController.swift in Sources */,
 				E5552C32286539B400D299BB /* TitleViewController.swift in Sources */,

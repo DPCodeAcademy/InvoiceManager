@@ -4,7 +4,7 @@
 //
 //  Created by Joe Amanse on 30/11/2015.
 //  Copyright © 2015 Joe Christopher Paul Amanse. All rights reserved.
-// https://github.com/chrisamanse/CheckboxButton
+//  https://github.com/chrisamanse/CheckboxButton
 
 
 import UIKit
