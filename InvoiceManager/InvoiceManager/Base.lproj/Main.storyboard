@@ -262,7 +262,7 @@
         <scene sceneID="rL9-4S-Lnz">
             <objects>
                 <navigationController id="gXR-wm-iL9" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Invoice" id="ThS-aB-w7A"/>
+                    <tabBarItem key="tabBarItem" title="Invoice" selectedImage="plus" catalog="system" id="ThS-aB-w7A"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vDK-gB-Gdo">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -304,18 +304,18 @@
                                 </subviews>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ouA-jD-Yx5">
-                                <rect key="frame" x="25" y="183" width="364" height="615"/>
+                                <rect key="frame" x="25" y="196.5" width="364" height="601.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="invoiceHomeTableCell" id="A6K-rf-ShA" customClass="InvoiceHomeTableViewCell" customModule="InvoiceManager" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="invoiceHomeTableCell" id="A6K-rf-ShA" customClass="InvoiceHomeTableViewCell" customModule="InvoiceManager" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44.5" width="364" height="31"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A6K-rf-ShA" id="IzQ-Ef-mBV">
-                                            <rect key="frame" x="0.0" y="0.0" width="335.5" height="31"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="364" height="31"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="w5s-8q-tML">
-                                                    <rect key="frame" x="25" y="0.0" width="305.5" height="31"/>
+                                                    <rect key="frame" x="25" y="0.0" width="339" height="31"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="33w-zW-Pnq">
                                                             <rect key="frame" x="0.0" y="0.0" width="35.5" height="31"/>
@@ -335,7 +335,7 @@
                                                             </subviews>
                                                         </stackView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lDt-e1-GI8">
-                                                            <rect key="frame" x="65.5" y="0.0" width="240" height="31"/>
+                                                            <rect key="frame" x="65.5" y="0.0" width="273.5" height="31"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -345,7 +345,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="w5s-8q-tML" firstAttribute="leading" secondItem="IzQ-Ef-mBV" secondAttribute="leading" constant="25" id="OHa-hV-yH3"/>
-                                                <constraint firstAttribute="trailing" secondItem="w5s-8q-tML" secondAttribute="trailing" constant="5" id="PIc-5x-8eB"/>
+                                                <constraint firstAttribute="trailing" secondItem="w5s-8q-tML" secondAttribute="trailing" id="PIc-5x-8eB"/>
                                                 <constraint firstItem="w5s-8q-tML" firstAttribute="top" secondItem="IzQ-Ef-mBV" secondAttribute="top" id="SbE-gH-MHf"/>
                                                 <constraint firstAttribute="bottom" secondItem="w5s-8q-tML" secondAttribute="bottom" id="yJy-Yx-os7"/>
                                             </constraints>
@@ -358,17 +358,42 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invoice List" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j96-uE-xIy">
+                                <rect key="frame" x="25" y="163" width="85" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X0R-wY-NxW">
+                                <rect key="frame" x="360.5" y="158" width="43.5" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system"/>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZd-Rf-Xyo">
+                                <rect key="frame" x="25" y="190.5" width="369" height="1"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="xAr-hJ-XZw"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="NiH-nt-k5J"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="hZd-Rf-Xyo" firstAttribute="top" secondItem="j96-uE-xIy" secondAttribute="bottom" constant="7" id="EHY-5Z-10C"/>
+                            <constraint firstItem="hZd-Rf-Xyo" firstAttribute="leading" secondItem="NiH-nt-k5J" secondAttribute="leading" constant="25" id="USZ-fy-oWl"/>
                             <constraint firstItem="NiH-nt-k5J" firstAttribute="trailing" secondItem="zEE-sl-dfK" secondAttribute="trailing" constant="25" id="WaP-Px-HQU"/>
                             <constraint firstItem="ouA-jD-Yx5" firstAttribute="bottom" secondItem="NiH-nt-k5J" secondAttribute="bottom" constant="-15" id="YVt-ey-eMK"/>
+                            <constraint firstItem="j96-uE-xIy" firstAttribute="leading" secondItem="NiH-nt-k5J" secondAttribute="leading" constant="25" id="ZzK-p6-MjP"/>
+                            <constraint firstItem="NiH-nt-k5J" firstAttribute="trailing" secondItem="hZd-Rf-Xyo" secondAttribute="trailing" constant="20" id="fbw-by-wsb"/>
                             <constraint firstItem="zEE-sl-dfK" firstAttribute="leading" secondItem="NiH-nt-k5J" secondAttribute="leading" constant="25" id="gU3-CP-V8y"/>
+                            <constraint firstItem="j96-uE-xIy" firstAttribute="top" secondItem="zEE-sl-dfK" secondAttribute="bottom" constant="15" id="hFh-8f-qQz"/>
+                            <constraint firstItem="X0R-wY-NxW" firstAttribute="top" secondItem="zEE-sl-dfK" secondAttribute="bottom" constant="10" id="jMf-qS-tFL"/>
+                            <constraint firstItem="NiH-nt-k5J" firstAttribute="trailing" secondItem="X0R-wY-NxW" secondAttribute="trailing" constant="10" id="kPJ-ow-b9d"/>
                             <constraint firstItem="ouA-jD-Yx5" firstAttribute="leading" secondItem="NiH-nt-k5J" secondAttribute="leading" constant="25" id="kSD-QZ-wZa"/>
                             <constraint firstItem="ouA-jD-Yx5" firstAttribute="trailing" secondItem="NiH-nt-k5J" secondAttribute="trailing" constant="-25" id="mIz-jA-nwd"/>
+                            <constraint firstItem="ouA-jD-Yx5" firstAttribute="top" secondItem="hZd-Rf-Xyo" secondAttribute="bottom" constant="5" id="o3C-W0-Ji9"/>
                             <constraint firstItem="zEE-sl-dfK" firstAttribute="top" secondItem="NiH-nt-k5J" secondAttribute="top" constant="20" id="p1i-BX-g7M"/>
-                            <constraint firstItem="ouA-jD-Yx5" firstAttribute="top" secondItem="zEE-sl-dfK" secondAttribute="bottom" constant="35" id="trU-el-RWb"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Invoice" id="XZO-Dh-VXh"/>
@@ -568,6 +593,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

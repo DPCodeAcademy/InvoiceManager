@@ -100,7 +100,7 @@ class MonthYearDatePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataS
 			if month == currentMonthName
 			{
 				row = months.firstIndex(of: month)!
-//				row += bigRowMonthCount / 2
+				row += bigRowMonthCount / 2
 				break;
 			}
 		}
@@ -110,8 +110,7 @@ class MonthYearDatePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataS
 			if year == currentYearName
 			{
 				section = years.firstIndex(of: year)!
-				print(section)
-//				section += bigRowYearCount / 2
+				section += bigRowYearCount / 2
 				break;
 			}
 		}
@@ -175,8 +174,8 @@ class MonthYearDatePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataS
 		}
 		
 		let selected = isSelectedRow(row, component: component)
-		label.font = selected ? selectedFontForComponent(component) : fontForComponent(component)
-		label.textColor = selected ? selectedColorForComponent(component) : colorForComponent(component)
+		label.font = fontForComponent(component)
+		label.textColor = colorForComponent(component)
 		label.text = titleForRow(row, component: component)
 		return label
 	}
@@ -231,15 +230,6 @@ class MonthYearDatePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataS
 		}
 		
 		return selected
-	}
-	
-	private func selectedColorForComponent(_ component : Int) -> UIColor
-	{
-		if component == DatePickerComponent.month.rawValue
-		{
-			return monthSelectedTextColor
-		}
-		return yearSelectedTextColor
 	}
 	
 	private func colorForComponent(_ component : Int) -> UIColor

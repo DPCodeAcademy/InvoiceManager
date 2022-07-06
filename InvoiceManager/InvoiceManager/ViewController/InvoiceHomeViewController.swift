@@ -10,9 +10,11 @@ import UIKit
 class InvoiceHomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
     
     
-    var invoiceList = AppDataManager.shared.getInvoiceHistoryList()
+    var invoiceHistoryList = AppDataManager.shared.getInvoiceHistoryList()
 	var customerList = Array(AppDataManager.shared.getCustomerList())
 	var targetPriod = Date()
+	
+	let datePicker = MonthYearDatePicker()
     
     @IBOutlet var targetMonthInputField: UITextField!
     @IBOutlet var invoiceListTableView: UITableView!
@@ -23,9 +25,16 @@ class InvoiceHomeViewController: UIViewController, UITableViewDelegate, UITableV
 	
         invoiceListTableView.delegate = self
         invoiceListTableView.dataSource = self
-//        invoiceListTableView.register(InvoiceHomeTableViewCell.self, forCellReuseIdentifier: InvoiceHomeTableViewCell.identifier)
 	}
 	
+//	func filterInvoiceHistroy(by date: Date) ->  Set<InvoiceHistoryList{
+//		guard !invoiceHistoryList.isEmpty else {return []}
+//		let targetMonthInvoices = invoiceHistoryList.filter { Calendar.current.isDate($0.information.dateIssued, equalTo: date, toGranularity: .month)}
+//
+//		return targetMonthInvoices
+//	}
+	
+// Date Picker configuration
 	func createToolBar() -> UIToolbar {
 		let toolBar = UIToolbar()
 		toolBar.sizeToFit()
@@ -35,11 +44,14 @@ class InvoiceHomeViewController: UIViewController, UITableViewDelegate, UITableV
 	}
 	
 	@objc func finishDatePick(){
+		targetMonthInputField.text = convertDateToString(from: datePicker.date)
+		targetPriod = datePicker.date
 		
+		self.invoiceListTableView.reloadData()
+		self.view.endEditing(true)
 	}
 	
 	func createDatePicker() -> MonthYearDatePicker {
-		let datePicker = MonthYearDatePicker()
 		datePicker.minYear = 2000
 		datePicker.maxYear = 2050
 		datePicker.rowHeight = 60
@@ -52,15 +64,19 @@ class InvoiceHomeViewController: UIViewController, UITableViewDelegate, UITableV
 	
 	func displayDatePicker(){
 		let datePicker = createDatePicker()
-		let formatter = DateFormatter()
-		formatter.dateFormat = "MMMM,yyyy"
-		print(datePicker.date)
-		let inputText = formatter.string(from: datePicker.date)
-		targetMonthInputField.text = inputText
+		targetMonthInputField.text = convertDateToString(from: datePicker.date)
 		targetMonthInputField.inputView = datePicker
 		targetMonthInputField.inputAccessoryView = createToolBar()
 	}
+	
+	func convertDateToString(from date:Date) -> String{
+		let formatter = DateFormatter()
+		formatter.dateFormat = "MMMM,yyyy"
+		let dateText = formatter.string(from: date)
+		return dateText
+	}
     
+// Table view configuration
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -68,15 +84,14 @@ class InvoiceHomeViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return customerList.count
     }
-    
+	
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: InvoiceHomeTableViewCell.identifier, for: indexPath) as! InvoiceHomeTableViewCell
 		let customer: Customer = customerList[indexPath.row]
 		cell.customerNameLabel.text = customer.information.customerName
 		cell.customerEmailLabel.text = customer.information.eMailAddress
-        cell.invoiceStatusLabel.text = "send"
+        cell.invoiceStatusLabel.text = "Sent"
         
         return cell
     }
-
 }

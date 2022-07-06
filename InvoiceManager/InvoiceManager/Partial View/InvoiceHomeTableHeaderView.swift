@@ -8,15 +8,22 @@
 import UIKit
 
 class InvoiceHomeTableHeaderView: UITableViewHeaderFooterView {
+	
+	static let identifier = "invoiceTableViewSectionHeader"
     
-    let title: UILabel = {
+    var title: UILabel = {
         let label = UILabel()
         label.text = "Invoice List"
         label.textColor = .label
         label.font = UIFont.boldSystemFont(ofSize: 18)
         return label
     }()
-    let addButton = UIButton()
+	let addButton: UIButton = {
+		let button = UIButton(type: .system)
+		button.addTarget(self, action: #selector(addInvoiceTapped), for: .touchUpInside)
+		button.setImage(UIImage(systemName: "plus"), for: .normal)
+		return button
+	}()
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
@@ -28,6 +35,25 @@ class InvoiceHomeTableHeaderView: UITableViewHeaderFooterView {
     }
     
     func confitureContents(){
-        
+		title.translatesAutoresizingMaskIntoConstraints = false
+		addButton.translatesAutoresizingMaskIntoConstraints = false
+		
+        addSubview(title)
+		addSubview(addButton)
+		
+		NSLayoutConstraint.activate([
+			title.topAnchor.constraint(equalTo: contentView.topAnchor),
+			title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+			title.widthAnchor.constraint(equalToConstant: 100),
+			title.heightAnchor.constraint(equalToConstant: 20),
+			addButton.widthAnchor.constraint(equalToConstant: 20),
+			addButton.heightAnchor.constraint(equalToConstant: 20),
+			addButton.topAnchor.constraint(equalTo: contentView.topAnchor),
+			addButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+		])
     }
+	
+	@objc func addInvoiceTapped(){
+		print("let's add new invoice")
+	}
 }
