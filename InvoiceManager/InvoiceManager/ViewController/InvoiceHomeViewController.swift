@@ -12,9 +12,9 @@ class InvoiceHomeViewController: UIViewController, UITableViewDelegate, UITableV
     
     var invoiceHistoryList = AppDataManager.shared.getInvoiceHistoryList()
 	var customerList = Array(AppDataManager.shared.getCustomerList())
-	var targetPriod = Date()
 	
 	let datePicker = MonthYearDatePicker()
+	var invoicesInTargetPriod: [InvoiceHitory] = []
     
     @IBOutlet var targetMonthInputField: UITextField!
     @IBOutlet var invoiceListTableView: UITableView!
@@ -22,17 +22,19 @@ class InvoiceHomeViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
 		displayDatePicker()
-	
+		
         invoiceListTableView.delegate = self
         invoiceListTableView.dataSource = self
 	}
 	
-//	func filterInvoiceHistroy(by date: Date) ->  Set<InvoiceHistoryList{
-//		guard !invoiceHistoryList.isEmpty else {return []}
-//		let targetMonthInvoices = invoiceHistoryList.filter { Calendar.current.isDate($0.information.dateIssued, equalTo: date, toGranularity: .month)}
-//
-//		return targetMonthInvoices
-//	}
+	func filterInvoiceHistroy(by date: Date) {
+		guard !invoiceHistoryList.isEmpty else {
+			invoicesInTargetPriod = []
+			return
+		}
+		let targetYearInvoices = invoiceHistoryList.filter { Calendar.current.isDate($0.information.dateIssued, equalTo: date, toGranularity: .year)}
+		invoicesInTargetPriod = targetYearInvoices.filter { Calendar.current.isDate($0.information.dateIssued, equalTo: date, toGranularity: .month)}
+	}
 	
 // Date Picker configuration
 	func createToolBar() -> UIToolbar {
@@ -45,7 +47,7 @@ class InvoiceHomeViewController: UIViewController, UITableViewDelegate, UITableV
 	
 	@objc func finishDatePick(){
 		targetMonthInputField.text = convertDateToString(from: datePicker.date)
-		targetPriod = datePicker.date
+		filterInvoiceHistroy(by: datePicker.date)
 		
 		self.invoiceListTableView.reloadData()
 		self.view.endEditing(true)
@@ -67,6 +69,8 @@ class InvoiceHomeViewController: UIViewController, UITableViewDelegate, UITableV
 		targetMonthInputField.text = convertDateToString(from: datePicker.date)
 		targetMonthInputField.inputView = datePicker
 		targetMonthInputField.inputAccessoryView = createToolBar()
+		
+		filterInvoiceHistroy(by: datePicker.date)
 	}
 	
 	func convertDateToString(from date:Date) -> String{
@@ -90,8 +94,22 @@ class InvoiceHomeViewController: UIViewController, UITableViewDelegate, UITableV
 		let customer: Customer = customerList[indexPath.row]
 		cell.customerNameLabel.text = customer.information.customerName
 		cell.customerEmailLabel.text = customer.information.eMailAddress
-        cell.invoiceStatusLabel.text = "Sent"
+		cell.invoiceStatusLabel.text = checkInvoices(for: customer) ? "Sent" : "Not Sent"
         
         return cell
     }
+	
+	func checkInvoices(for customer: Customer) -> Bool{
+		guard !invoicesInTargetPriod.isEmpty else { return false }
+		let index = invoicesInTargetPriod.firstIndex{$0.information.customerID == customer.customerID}
+		if index == nil {
+			return false
+		} else {
+			return true
+		}
+	}
+	
+	@IBAction func addInvoiceTapped() {
+		// go to create invoice manually page
+	}
 }
