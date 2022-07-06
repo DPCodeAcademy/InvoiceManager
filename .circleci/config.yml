@@ -25,21 +25,21 @@ jobs:
       - store_test_results:
           path: output/scan
 
-  # swiftlint:
-  #   docker:
-  #     - image: dantoml/swiftlint:latest
-  #       auth:
-  #         username: mydockerhub-user
-  #         password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
-  #   steps:
-  #     - checkout
-  #     # - swiftlint:
-  #         # path: "" 
-  #     - run: swiftlint lint --reporter junit | tee result.xml
-  #     - store_artifacts:
-  #         path: result.xml
-  #     - store_test_results:
-  #         path: result.xml
+  swiftlint:
+    docker:
+      - image: dantoml/swiftlint:latest
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+    steps:
+      - checkout
+      - swiftlint:
+          path: "/InvoiceManager/.swiftlint.yml" 
+      - run: swiftlint lint --reporter junit | tee result.xml
+      - store_artifacts:
+          path: result.xml
+      - store_test_results:
+          path: result.xml
 
   adhoc:
     macos:
@@ -75,7 +75,7 @@ workflows:
   build-test-adhoc:
     jobs:
       - build-and-test
-      # - swiftlint
+      - swiftlint
       # - build
       - adhoc:
           filters:
