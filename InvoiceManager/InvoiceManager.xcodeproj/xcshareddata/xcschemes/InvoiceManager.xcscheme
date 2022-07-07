@@ -66,6 +66,26 @@
             value = "665423847160-fhjejgvco0kud3vf038qgtabf562plrd.apps.googleusercontent.com"
             isEnabled = "YES">
          </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "SETTINGS_COMPANY_NAME"
+            value = "DP Code Academy"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "SETTINGS_COMPANY_PAYMENT_METHOD"
+            value = "e-Transfer"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "SETTINGS_COMPANY_ADDRESS"
+            value = "628-68 Smithe ST/nVancouver, BC V6B 0P4"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "SETTINGS_COMPANY_LOGO_URI"
+            value = ""
+            isEnabled = "YES">
+         </EnvironmentVariable>
       </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
