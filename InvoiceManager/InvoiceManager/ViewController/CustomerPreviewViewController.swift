@@ -12,15 +12,12 @@ class CustomerPreviewViewController: UIViewController {
     
     let tempEvents: [EventDetails] = [
         EventDetails(eventStartTime: Date.now, eventEndTime: Date(timeInterval: 60*60*4, since: Date.now), eventName: "Programming class", hourlyWage: 20),
-        EventDetails(eventStartTime: Date(timeInterval: 60*60*24*1, since: Date.now), eventEndTime: Date(timeInterval: 60*60*3, since: Date.now), eventName: "Football class", hourlyWage: 30),
-        EventDetails(eventStartTime: Date(timeInterval: 60*60*24*2, since: Date.now), eventEndTime: Date(timeInterval: 60*60*2, since: Date.now), eventName: "Swimming class", hourlyWage: 50),
-        EventDetails(eventStartTime: Date(timeInterval: 60*60*24*3, since: Date.now), eventEndTime: Date(timeInterval: 60*60*5, since: Date.now), eventName: "Baseball class", hourlyWage: 10),
-        EventDetails(eventStartTime: Date(timeInterval: 60*60*24*4, since: Date.now), eventEndTime: Date(timeInterval: 60*60*1, since: Date.now), eventName: "Bascketball class", hourlyWage: 35),
-        EventDetails(eventStartTime: Date(timeInterval: 60*60*24*5, since: Date.now), eventEndTime: Date(timeInterval: 60*60*5, since: Date.now), eventName: "Tennis class", hourlyWage: 25),
-        EventDetails(eventStartTime: Date(timeInterval: 60*60*24*6, since: Date.now), eventEndTime: Date(timeInterval: 60*60*1, since: Date.now), eventName: "Linguistic class", hourlyWage: 55),
-        EventDetails(eventStartTime: Date(timeInterval: 60*60*24*7, since: Date.now), eventEndTime: Date(timeInterval: 60*60*1, since: Date.now), eventName: "Algorithm class", hourlyWage: 30),
-        EventDetails(eventStartTime: Date(timeInterval: 60*60*24*8, since: Date.now), eventEndTime: Date(timeInterval: 60*60*6, since: Date.now), eventName: "Music class", hourlyWage: 15),
-        
+        EventDetails(eventStartTime: Date.now, eventEndTime: Date(timeInterval: 60*60*4, since: Date.now), eventName: "Football class", hourlyWage: 30),
+        EventDetails(eventStartTime: Date.now, eventEndTime: Date(timeInterval: 60*60*6, since: Date.now), eventName: "Programming class", hourlyWage: 20),
+        EventDetails(eventStartTime: Date.now, eventEndTime: Date(timeInterval: 60*60*4, since: Date.now), eventName: "Algorithm class", hourlyWage: 10),
+        EventDetails(eventStartTime: Date.now, eventEndTime: Date(timeInterval: 60*60*4, since: Date.now), eventName: "Linguistic class", hourlyWage: 15),
+        EventDetails(eventStartTime: Date.now, eventEndTime: Date(timeInterval: 60*60*4, since: Date.now), eventName: "Music class", hourlyWage: 25),
+        EventDetails(eventStartTime: Date.now, eventEndTime: Date(timeInterval: 60*60*4, since: Date.now), eventName: "Baseball class", hourlyWage: 45),
     ]
     
     @IBOutlet var titleLabel: UILabel!
@@ -38,6 +35,7 @@ class CustomerPreviewViewController: UIViewController {
     @IBOutlet var PDFBtn: UIButton!
     @IBOutlet var statusLabel: UILabel!
     
+    var totalIncome: Int = 0
     var date: Date?
     var customer: Customer?
     var invoiceHistory: InvoiceHistory?
@@ -64,18 +62,13 @@ class CustomerPreviewViewController: UIViewController {
         let hourlyWage: Int
     }
     
-    func calculateTimeDifferenceInHours(startTime: Date, endTime: Date) -> Int? {
-        let diffComponents = Calendar.current.dateComponents([.hour], from: startTime, to: endTime)
-        return diffComponents.hour
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupInformationView()
         dataSource = createDataSource()
         itemCollectionView.collectionViewLayout = createLayout()
         update()
+        setupInformationView()
     }
     
     func setupInformationView() {
@@ -91,13 +84,15 @@ class CustomerPreviewViewController: UIViewController {
         }
         companyLogo.image = userSetting?.logoImage ?? UIImage(systemName: "person")
         companyNameLabel.text = userSetting?.companyName ?? "No Data"
-        companyAdressLabel.text = userSetting?.companyAddress ?? "No Data" // Need to modify format
+        companyAdressLabel.text = userSetting?.companyAddress ?? "No Data"
         paymentMethodLabel.text = userSetting?.paymentMethod ?? "No Data"
         companyEmailLabel.text = userSetting?.companyEmail ?? "No Data"
         
         invoiceIDLabel.text = "\(customer?.customerID ?? 0)"
         customerNameLabel.text = customerName ?? "No Data"
         customerEmailLabel.text = customer?.information.eMailAddress ?? "No Data"
+        itemCollectionView.backgroundColor = .systemGray6
+        setupTotalIncome(eventsDetails: tempEvents)
     }
     
     func update() {
@@ -123,10 +118,29 @@ class CustomerPreviewViewController: UIViewController {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EventDetailsCell", for: indexPath) as! EventDetailsCollectionViewCell
             cell.eventDateLabel.text = self.twoDateIntoString(startDate: itemIdentifier.eventStartTime, endDate: itemIdentifier.eventEndTime)
             cell.eventNameLabel.text = itemIdentifier.eventName
-            cell.eventIncomeLabel.text = "$ \(itemIdentifier.hourlyWage)"
+            let income = itemIdentifier.hourlyWage * self.calculateTimeDifferenceInHours(startTime: itemIdentifier.eventStartTime, endTime: itemIdentifier.eventEndTime)
+            cell.eventIncomeLabel.text = self.formatAsCurrency(number: income)
             return cell
         })
         return dataSource
+    }
+    
+    func formatAsCurrency(number: Int) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .currency
+        return "\(numberFormatter.string(for: number) ?? "")"
+    }
+    
+    func calculateTimeDifferenceInHours(startTime: Date, endTime: Date) -> Int {
+        let diffComponents = Calendar.current.dateComponents([.hour], from: startTime, to: endTime)
+        return diffComponents.hour!
+    }
+    
+    func setupTotalIncome(eventsDetails: [EventDetails]) {
+        for eventDetails in eventsDetails {
+            totalIncome += eventDetails.hourlyWage * calculateTimeDifferenceInHours(startTime: eventDetails.eventStartTime, endTime: eventDetails.eventEndTime)
+        }
+        totalIncomeLabel.text = formatAsCurrency(number: totalIncome)
     }
     
     func twoDateIntoString(startDate: Date, endDate: Date) -> String {
