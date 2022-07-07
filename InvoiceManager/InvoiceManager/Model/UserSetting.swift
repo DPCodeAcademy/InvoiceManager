@@ -12,11 +12,11 @@ struct UserSetting{
     var companyName: String = "Company name"
     var paymentMethod: String = "e-Transfer"
     var companyAddress: String = "Company address"
-    var logoImageURL: URL = URL(fileURLWithPath: "") // spelling error
+    var logoImageURI: URL = URL(fileURLWithPath: "")
     var companyEmail: String = "Company Email"
     
     var logoImage: UIImage? {
-        guard let imageData = try? Data(contentsOf: logoImageURL) else { return nil }
+        guard let imageData = try? Data(contentsOf: logoImageURI) else { return nil }
         return UIImage(data: imageData)
     }
 }

@@ -62,7 +62,7 @@ class InvoiceHistoryList{
     }
 }
 
-struct InvoiceHistory: Hashable{ // spelling error
+struct InvoiceHistory: Hashable{
     let invoiceID: UInt16
     var information: Information
     

@@ -72,7 +72,8 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
     var fromDate: Date?
     var toDate: Date?
     
-    let datePicker = UIDatePicker()
+    let fromDatePicker = UIDatePicker()
+    let toDatePicker = UIDatePicker()
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MMM/d"
@@ -100,17 +101,17 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
     }
     
     func createDatePicker() {
+        setupDatePicker(datePicker: fromDatePicker, date: Date.now, textField: fromField)
+        setupDatePicker(datePicker: toDatePicker, date: Date(timeInterval: 60*60*24*30, since: Date.now), textField: toField)
+    }
+    
+    func setupDatePicker(datePicker: UIDatePicker, date: Date, textField: UITextField) {
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
-        
-        fromField.inputView = datePicker
-        fromField.text = dateFormatter.string(from: Date.now)
-        fromField.inputAccessoryView = createToolBar()
-        
-        let aMonthLater = Date(timeInterval: 2600000, since: Date.now)
-        toField.inputView = datePicker
-        toField.text = dateFormatter.string(from: aMonthLater)
-        toField.inputAccessoryView = createToolBar()
+        datePicker.date = date
+        textField.inputView = datePicker
+        textField.text = dateFormatter.string(from: date)
+        textField.inputAccessoryView = createToolBar()
     }
     
     //MARK: collection view setting by Tomo
@@ -172,22 +173,19 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
     
     @objc func doneButtonTapped() {
         if fromField.isFirstResponder {
-            fromDate = datePicker.date
-            self.fromField.text = dateFormatter.string(from: datePicker.date)
+            fromDate = fromDatePicker.date
+            self.fromField.text = dateFormatter.string(from: fromDatePicker.date)
         } else {
-            toDate = datePicker.date
-            self.toField.text = dateFormatter.string(from: datePicker.date)
+            toDate = toDatePicker.date
+            self.toField.text = dateFormatter.string(from: toDatePicker.date)
         }
         self.view.endEditing(true)
         
-        if let fromDate = fromDate, let toDate = toDate {
-            if fromDate < toDate {
-                importButton.isEnabled = true
-            } else {
-                importButton.isEnabled = false
-            }
+        if fromDatePicker.date < toDatePicker.date {
+            importButton.isEnabled = true
+        } else {
+            importButton.isEnabled = false
         }
-        
     }
     
     

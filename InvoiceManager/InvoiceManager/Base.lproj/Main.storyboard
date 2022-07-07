@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7Ma-gS-nUz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="95J-rc-FBC">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
@@ -333,7 +333,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="v7f-Mc-oQK">
                                 <rect key="frame" x="30" y="44" width="354" height="808"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Someone's Invoice in sometime " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ILm-op-sgT">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Someone's Invoice in month " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ILm-op-sgT">
                                         <rect key="frame" x="0.0" y="0.0" width="354" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -475,34 +475,109 @@
                                         </subviews>
                                     </stackView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="JVA-cl-rY9">
-                                        <rect key="frame" x="0.0" y="366" width="354" height="330"/>
+                                        <rect key="frame" x="0.0" y="366" width="354" height="279.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Utt-Oc-jc7">
-                                            <size key="itemSize" width="354" height="51"/>
+                                            <size key="itemSize" width="354" height="69"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="kuQ-43-H1Q">
-                                                <rect key="frame" x="0.0" y="0.0" width="354" height="51"/>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="EventDetailsCell" id="kuQ-43-H1Q" customClass="EventDetailsCollectionViewCell" customModule="InvoiceManager" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="354" height="69"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="uIZ-YQ-pSq">
-                                                    <rect key="frame" x="0.0" y="0.0" width="354" height="51"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="354" height="69"/>
                                                     <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nxe-Ao-kJl">
+                                                            <rect key="frame" x="10" y="5" width="334" height="59"/>
+                                                            <subviews>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="5QK-rE-mH2">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="236" height="59"/>
+                                                                    <subviews>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShG-az-CGE">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="236" height="29.5"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                            <nil key="textColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QaR-94-M7B" userLabel="event name">
+                                                                            <rect key="frame" x="0.0" y="29.5" width="236" height="29.5"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                            <color key="textColor" systemColor="systemGray2Color"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                    </subviews>
+                                                                </stackView>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Each Income" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M6k-pm-rep">
+                                                                    <rect key="frame" x="236" y="0.0" width="98" height="59"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="nxe-Ao-kJl" firstAttribute="leading" secondItem="uIZ-YQ-pSq" secondAttribute="leading" constant="10" id="AO3-gi-o2P"/>
+                                                        <constraint firstItem="nxe-Ao-kJl" firstAttribute="top" secondItem="uIZ-YQ-pSq" secondAttribute="top" constant="5" id="GLZ-gk-vVE"/>
+                                                        <constraint firstAttribute="trailing" secondItem="nxe-Ao-kJl" secondAttribute="trailing" constant="10" id="GX5-kV-Hyu"/>
+                                                        <constraint firstAttribute="bottom" secondItem="nxe-Ao-kJl" secondAttribute="bottom" constant="5" id="Ont-CE-XD3"/>
+                                                    </constraints>
                                                 </collectionViewCellContentView>
-                                                <size key="customSize" width="354" height="51"/>
+                                                <size key="customSize" width="354" height="69"/>
+                                                <connections>
+                                                    <outlet property="eventDateLabel" destination="ShG-az-CGE" id="zc3-vO-Vs3"/>
+                                                    <outlet property="eventIncomeLabel" destination="M6k-pm-rep" id="OiZ-wp-eR6"/>
+                                                    <outlet property="eventNameLabel" destination="QaR-94-M7B" id="hrr-6Y-dwB"/>
+                                                </connections>
                                             </collectionViewCell>
                                         </cells>
                                     </collectionView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aOT-cX-bIJ">
+                                        <rect key="frame" x="0.0" y="675.5" width="354" height="20.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ia0-ev-bbS">
+                                                <rect key="frame" x="0.0" y="0.0" width="256.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Total Income" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="szV-ib-guW">
+                                                <rect key="frame" x="256.5" y="0.0" width="97.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="nad-xJ-WEg">
                                         <rect key="frame" x="0.0" y="726" width="354" height="82"/>
                                         <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BeZ-Dn-35J">
+                                                <rect key="frame" x="0.0" y="0.0" width="354" height="33"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Status : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jTl-Zk-vkV">
+                                                        <rect key="frame" x="0.0" y="0.0" width="62.5" height="33"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lgx-we-Qh0">
+                                                        <rect key="frame" x="62.5" y="0.0" width="291.5" height="33"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="47B-Yu-ZDZ">
-                                                <rect key="frame" x="0.0" y="0.0" width="354" height="49.5"/>
+                                                <rect key="frame" x="0.0" y="33" width="354" height="49"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L6T-N8-fbm">
-                                                        <rect key="frame" x="0.0" y="9.5" width="172" height="31"/>
+                                                        <rect key="frame" x="0.0" y="9" width="172" height="31"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="filled" title="Send"/>
                                                         <connections>
@@ -510,30 +585,13 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vAv-9Y-Gg5">
-                                                        <rect key="frame" x="182" y="9.5" width="172" height="31"/>
+                                                        <rect key="frame" x="182" y="9" width="172" height="31"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="filled" title="PDF"/>
                                                         <connections>
                                                             <action selector="PDFBtnTapped:" destination="95J-rc-FBC" eventType="touchUpInside" id="spU-vr-4pI"/>
                                                         </connections>
                                                     </button>
-                                                </subviews>
-                                            </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BeZ-Dn-35J">
-                                                <rect key="frame" x="0.0" y="49.5" width="354" height="32.5"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Status : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jTl-Zk-vkV">
-                                                        <rect key="frame" x="0.0" y="0.0" width="62.5" height="32.5"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lgx-we-Qh0">
-                                                        <rect key="frame" x="62.5" y="0.0" width="291.5" height="32.5"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
                                                 </subviews>
                                             </stackView>
                                         </subviews>
@@ -568,6 +626,7 @@
                         <outlet property="sendBtn" destination="L6T-N8-fbm" id="tDD-Tl-oEo"/>
                         <outlet property="statusLabel" destination="Lgx-we-Qh0" id="yWX-86-jrq"/>
                         <outlet property="titleLabel" destination="ILm-op-sgT" id="KYl-iZ-pZH"/>
+                        <outlet property="totalIncomeLabel" destination="szV-ib-guW" id="VIx-91-m2l"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yz8-St-RO3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -620,6 +679,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
