@@ -30,7 +30,18 @@
 		E5B9F6F82874972100F8EDF3 /* CustomerHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9F6F72874972100F8EDF3 /* CustomerHomeViewController.swift */; };
 		E5B9F6FA2874976800F8EDF3 /* InvoiceHomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9F6F92874976800F8EDF3 /* InvoiceHomeTableViewCell.swift */; };
 		E5B9F6FE2874988000F8EDF3 /* InvoiceHomeTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9F6FD2874988000F8EDF3 /* InvoiceHomeTableHeaderView.swift */; };
+		F256DB4528754D5C0031CC05 /* InvoiceManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F256DB4428754D5C0031CC05 /* InvoiceManagerTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F256DB4628754D5C0031CC05 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E5552C122865204600D299BB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E5552C192865204700D299BB;
+			remoteInfo = InvoiceManager;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		4EB9CFB4E3B193C426DF2787 /* Pods_InvoiceManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InvoiceManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,6 +71,8 @@
 		E5B9F6F72874972100F8EDF3 /* CustomerHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerHomeViewController.swift; sourceTree = "<group>"; };
 		E5B9F6F92874976800F8EDF3 /* InvoiceHomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceHomeTableViewCell.swift; sourceTree = "<group>"; };
 		E5B9F6FD2874988000F8EDF3 /* InvoiceHomeTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceHomeTableHeaderView.swift; sourceTree = "<group>"; };
+		F256DB4228754D5C0031CC05 /* InvoiceManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InvoiceManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F256DB4428754D5C0031CC05 /* InvoiceManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceManagerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +81,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				59E6981ED84EF55DFDF06C46 /* Pods_InvoiceManager.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F256DB3F28754D5C0031CC05 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				E5552C1C2865204700D299BB /* InvoiceManager */,
+				F256DB4328754D5C0031CC05 /* InvoiceManagerTests */,
 				E5552C1B2865204700D299BB /* Products */,
 				4CBD05B966ED687ABEDDC26B /* Pods */,
 				A75A464C2470C2AB7C9E0FB8 /* Frameworks */,
@@ -150,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				E5552C1A2865204700D299BB /* InvoiceManager.app */,
+				F256DB4228754D5C0031CC05 /* InvoiceManagerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -169,6 +191,37 @@
 				E5552C2B2865204900D299BB /* Info.plist */,
 			);
 			path = InvoiceManager;
+			sourceTree = "<group>";
+		};
+		E5552C3328653AC100D299BB /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E5552C3528653B0700D299BB /* ImportCalenderViewController.swift */,
+				E5552C31286539B400D299BB /* TitleViewController.swift */,
+				E5B9F6F52874970B00F8EDF3 /* InvoiceHomeViewController.swift */,
+				E5B9F6F72874972100F8EDF3 /* CustomerHomeViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E5A7427A286BECE5009E723C /* Partial View */ = {
+			isa = PBXGroup;
+			children = (
+				E5A7427B286BEDA6009E723C /* CalenderEventsCollectionViewCell.swift */,
+				E5A7427D286BF87A009E723C /* EventNamedSectionHeaderView.swift */,
+				E5A7427F286CC7BE009E723C /* CheckboxButton.swift */,
+				E5B9F6F92874976800F8EDF3 /* InvoiceHomeTableViewCell.swift */,
+				E5B9F6FD2874988000F8EDF3 /* InvoiceHomeTableHeaderView.swift */,
+			);
+			path = "Partial View";
+			sourceTree = "<group>";
+		};
+		F256DB4328754D5C0031CC05 /* InvoiceManagerTests */ = {
+			isa = PBXGroup;
+			children = (
+				F256DB4428754D5C0031CC05 /* InvoiceManagerTests.swift */,
+			);
+			path = InvoiceManagerTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,6 +247,24 @@
 			productReference = E5552C1A2865204700D299BB /* InvoiceManager.app */;
 			productType = "com.apple.product-type.application";
 		};
+		F256DB4128754D5C0031CC05 /* InvoiceManagerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F256DB4A28754D5C0031CC05 /* Build configuration list for PBXNativeTarget "InvoiceManagerTests" */;
+			buildPhases = (
+				F256DB3E28754D5C0031CC05 /* Sources */,
+				F256DB3F28754D5C0031CC05 /* Frameworks */,
+				F256DB4028754D5C0031CC05 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F256DB4728754D5C0031CC05 /* PBXTargetDependency */,
+			);
+			name = InvoiceManagerTests;
+			productName = InvoiceManagerTests;
+			productReference = F256DB4228754D5C0031CC05 /* InvoiceManagerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -201,11 +272,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1330;
+				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1330;
 				TargetAttributes = {
 					E5552C192865204700D299BB = {
 						CreatedOnToolsVersion = 13.3.1;
+					};
+					F256DB4128754D5C0031CC05 = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = E5552C192865204700D299BB;
 					};
 				};
 			};
@@ -223,6 +298,7 @@
 			projectRoot = "";
 			targets = (
 				E5552C192865204700D299BB /* InvoiceManager */,
+				F256DB4128754D5C0031CC05 /* InvoiceManagerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -235,6 +311,13 @@
 				E5552C2A2865204900D299BB /* LaunchScreen.storyboard in Resources */,
 				E5552C272865204900D299BB /* Assets.xcassets in Resources */,
 				E5552C252865204700D299BB /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F256DB4028754D5C0031CC05 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,7 +409,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F256DB3E28754D5C0031CC05 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F256DB4528754D5C0031CC05 /* InvoiceManagerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F256DB4728754D5C0031CC05 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E5552C192865204700D299BB /* InvoiceManager */;
+			targetProxy = F256DB4628754D5C0031CC05 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		E5552C232865204700D299BB /* Main.storyboard */ = {
@@ -518,6 +617,42 @@
 			};
 			name = Release;
 		};
+		F256DB4828754D5C0031CC05 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.InvoiceManagerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/InvoiceManager.app/InvoiceManager";
+			};
+			name = Debug;
+		};
+		F256DB4928754D5C0031CC05 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.InvoiceManagerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/InvoiceManager.app/InvoiceManager";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -535,6 +670,15 @@
 			buildConfigurations = (
 				E5552C2F2865204900D299BB /* Debug */,
 				E5552C302865204900D299BB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F256DB4A28754D5C0031CC05 /* Build configuration list for PBXNativeTarget "InvoiceManagerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F256DB4828754D5C0031CC05 /* Debug */,
+				F256DB4928754D5C0031CC05 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
