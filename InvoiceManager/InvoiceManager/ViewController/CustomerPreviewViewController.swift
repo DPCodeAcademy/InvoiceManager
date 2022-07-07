@@ -62,9 +62,19 @@ class CustomerPreviewViewController: UIViewController {
         let hourlyWage: Int
     }
     
+//    enum SectionHeader: String {
+//        case kind = "SectionHeader"
+//        case reuse = "HeaderView"
+//
+//        var identifier: String {
+//            return rawValue
+//        }
+//    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        itemCollectionView.register(EventNamedSectionHeaderView.self, forSupplementaryViewOfKind: SectionHeader.kind.identifier, withReuseIdentifier: SectionHeader.reuse.identifier)
         dataSource = createDataSource()
         itemCollectionView.collectionViewLayout = createLayout()
         update()
@@ -122,6 +132,12 @@ class CustomerPreviewViewController: UIViewController {
             cell.eventIncomeLabel.text = self.formatAsCurrency(number: income)
             return cell
         })
+        
+//        dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
+//            let header = collectionView.dequeueReusableSupplementaryView(ofKind: SectionHeader.kind.identifier, withReuseIdentifier: SectionHeader.reuse.identifier, for: indexPath) as! EventNamedSectionHeaderView
+//            header.eventNameLabel.text = "Item"
+//            return header
+//        }
         return dataSource
     }
     
@@ -158,6 +174,10 @@ class CustomerPreviewViewController: UIViewController {
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.2))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item, count: 1)
         let section = NSCollectionLayoutSection(group: group)
+//        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.2))
+//        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: SectionHeader.kind.identifier, alignment: .top)
+//        header.pinToVisibleBounds = true
+//        section.boundarySupplementaryItems = [header]
         return UICollectionViewCompositionalLayout(section: section)
     }
     
