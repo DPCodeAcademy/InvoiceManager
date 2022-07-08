@@ -8,31 +8,31 @@
 import Foundation
 
 struct Event: Hashable {
-    
+
     var eventName: String
     var eventRate: Int
     var eventDetails: [EventDetail]
-    
+
     static func == (lhs: Event, rhs: Event) -> Bool {
         return lhs.eventName == rhs.eventName
     }
-    
+
     func hash(into hasher: inout Hasher) {
         hasher.combine(eventName)
     }
-    
-    mutating func mergeEvent(event: Event)-> Event? {
+
+	mutating func mergeEvent(event: Event) -> Event? {
         if event.eventName != self.eventName {
             return nil
         }
-        
-        // update rate
+
+		// update rate
         self.eventRate = event.eventRate
-        
+
         // update & merge event detail
         for inputDetail in event.eventDetails {
             if var existEventDetail = hasEventDetail(startDateTime: inputDetail.startDateTime) {
-                for attendee in inputDetail.attendees{
+                for attendee in inputDetail.attendees {
                     existEventDetail.attendees.insert(attendee)
                 }
                 continue
@@ -41,12 +41,10 @@ struct Event: Hashable {
         }
         return self
     }
-    
+
     func hasEventDetail(startDateTime: Date) -> EventDetail? {
-        for eventDetail in eventDetails {
-            if eventDetail.startDateTime == startDateTime {
-                return eventDetail
-            }
+        for eventDetail in eventDetails where eventDetail.startDateTime == startDateTime {
+			return eventDetail
         }
         return nil
     }
