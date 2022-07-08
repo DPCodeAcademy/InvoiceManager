@@ -20,7 +20,8 @@ class InvoiceHomeViewController: UIViewController, UITableViewDelegate, UITableV
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+		self.navigationController?.viewControllers = [self]
+		
 		displayDatePicker()
 
         invoiceListTableView.delegate = self

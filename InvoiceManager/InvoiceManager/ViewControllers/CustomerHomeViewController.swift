@@ -15,6 +15,7 @@ class CustomerHomeViewController: UIViewController, UITableViewDelegate, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
+		self.navigationItem.title = "Customer"
 		
 		customerListTableView.delegate = self
 		customerListTableView.dataSource = self
