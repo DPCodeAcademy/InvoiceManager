@@ -15,7 +15,6 @@ class InvoiceHomeTableViewCell: UITableViewCell {
     @IBOutlet var customerEmailLabel: UILabel!
     @IBOutlet var invoiceStatusLabel: UILabel!
     
-
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

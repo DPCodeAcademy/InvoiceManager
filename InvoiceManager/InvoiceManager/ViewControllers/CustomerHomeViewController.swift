@@ -7,31 +7,31 @@
 
 import UIKit
 
-class CustomerHomeViewController: UIViewController {
+class CustomerHomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
+	var customerList = Array(AppDataManager.shared.getCustomerList())
+	
     @IBOutlet var customerListTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		customerListTableView.delegate = self
+		customerListTableView.dataSource = self
+	}
+	
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return customerList.count
+	}
+	
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: "customerListCell", for: indexPath)
+		let customer = customerList[indexPath.row]
+		cell.textLabel?.text = customer.information.customerName
+		cell.detailTextLabel?.text = customer.information.eMailAddress
+		return cell
+	}
 
-//        customerListTableView.delegate = self
-//        customerListTableView.dataSource = self
-//        customerListTableView.register(UITableViewCell.self, forCellReuseIdentifier: "customerTableCell")
-    }
-    
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return 1
-//    }
-//
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        <#code#>
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        <#code#>
-//    }
-    
-    
     @IBAction func importCalenderButtonTapped() {
     }
     
