@@ -11,8 +11,11 @@ class CustomerViewModel {
         return customer
     }
 
-    func getCustomerList() -> Set<Customer> {
-        return customers
+    func getCustomerList() -> [Customer] {
+		let ret = Array(customers)
+		return ret.sorted {
+			$0.information.customerName < $1.information.customerName
+		}
     }
 
     func getCustomer(customerID: UInt16) -> Customer? {

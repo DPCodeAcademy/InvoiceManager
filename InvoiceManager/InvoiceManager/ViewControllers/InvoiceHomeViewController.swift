@@ -7,18 +7,14 @@
 
 import UIKit
 
-class InvoiceHomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
-    
-    
-    var invoiceList = AppDataManager.shared.getInvoiceHistoryList()
-    
+class InvoiceHomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+
     @IBOutlet var targetMonthInputField: UITextField!
     @IBOutlet var invoiceListTableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(invoiceList.count)
         invoiceListTableView.delegate = self
         invoiceListTableView.dataSource = self
 //        invoiceListTableView.register(InvoiceHomeTableViewCell.self, forCellReuseIdentifier: InvoiceHomeTableViewCell.identifier)

@@ -8,9 +8,38 @@ class EventViewModel {
         case failedUpdate
     }
 
-    func getEventList() -> Set<Event> {
-        return events
+    func getEventList() -> [Event] {
+        // TODO: Sort events by startDateTime.
+		return Array(events)
     }
+
+	func getCustomerEventList(customerID: UInt16) -> [Event] {
+		var customerEvents: [Event] = []
+		for event in events {
+			var customerEvent = event
+			customerEvent.eventDetails.removeAll()
+			for eventDetail in event.eventDetails where eventDetail.attendees.contains(customerID) {
+				customerEvent.eventDetails.append(eventDetail)
+			}
+			if !customerEvent.eventDetails.isEmpty {
+				customerEvents.append(customerEvent)
+			}
+		}
+		return customerEvents
+	}
+
+	func getCustomerEventList(customerID: UInt16, month: Month, year: Int) -> [Event] {
+		var customerEvents: [Event] = []
+		for var customerEvent in getEventList() {
+			for detail in customerEvent.eventDetails where detail.startDateTime.getMonth() == month && detail.startDateTime.getYear() == year {
+				customerEvent.eventDetails.append(detail)
+			}
+			if !customerEvent.eventDetails.isEmpty {
+				customerEvents.append(customerEvent)
+			}
+		}
+		return customerEvents
+	}
 
     func getEvent(eventName: String) -> Event? {
         for event in events where event.eventName == eventName {

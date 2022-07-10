@@ -16,7 +16,7 @@ struct ImportCustomer {
 
 struct ImportEventDetail: Hashable {
   var startTime: Date
-  var endTime: Date
+  var durationTime: Int
   var attendees: [ImportCustomer]
 
   static func == (lhs: ImportEventDetail, rhs: ImportEventDetail) -> Bool {
@@ -142,7 +142,7 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CalenderEvent", for: indexPath) as! CalenderEventsCollectionViewCell
             cell.delegate = self
             cell.dateLabel.text = item.startTime.formatted()
-            cell.timeLabel.text = "\(item.startTime) - \(item.endTime)"
+			cell.timeLabel.text = "\(item.durationTime)"
             cell.evnetName = self.candidateEvent[indexPath.section].eventName
             cell.attendees = {
                 let attendeesNameArray = item.attendees.map {$0.customerName}
@@ -287,8 +287,9 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
             }
         }
 
-        let eventDetail : ImportEventDetail = ImportEventDetail(startTime: startDateTime,
-                                                                endTime: endDateTime,
+		let durationTime = Int(endDateTime.timeIntervalSince(startDateTime)) / 60
+        let eventDetail: ImportEventDetail = ImportEventDetail(startTime: startDateTime,
+                                                                durationTime: durationTime,
                                                                 attendees: attendeesInfo)
         return (eventName, eventDetail)
     }
@@ -354,7 +355,7 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
                 }
             }
             eventDetails.append(EventDetail(startDateTime: detail.startTime,
-                                            endDateTime: detail.endTime,
+											durationMinutes: detail.durationTime,
                                             attendees: Set<UInt16>(iDs)))
         }
 
