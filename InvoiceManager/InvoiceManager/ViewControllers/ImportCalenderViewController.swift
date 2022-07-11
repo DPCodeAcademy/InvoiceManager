@@ -89,7 +89,12 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
         calenderEventsCollectionView.register(EventNamedSectionHeaderView.self, forSupplementaryViewOfKind: "header-element-kind", withReuseIdentifier: EventNamedSectionHeaderView.reuseIdentifier)
         
     }
-    
+
+	// MARK: delete nested navigation bar on top of screens
+	override func viewWillDisappear(_ animated: Bool) {
+		self.navigationController?.navigationBar.isHidden = true
+	}
+
     func createToolBar() -> UIToolbar {
         let toolBar = UIToolbar()
         toolBar.sizeToFit()
@@ -115,32 +120,29 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
         toField.inputAccessoryView = createToolBar()
     }
     
-    //MARK: collection view setting by Tomo
-
-    func createLayout() -> UICollectionViewCompositionalLayout{
-        
+    // MARK: collection view setting by Tomo
+    func createLayout() -> UICollectionViewCompositionalLayout {
         let layout = UICollectionViewCompositionalLayout{ (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection in
             
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            
+
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(60))
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
-            
+
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(40))
             let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "header-element-kind", alignment: .top)
-//            sectionHeader.pinToVisibleBounds = true
-    
+
             let section = NSCollectionLayoutSection(group: group)
             section.boundarySupplementaryItems = [sectionHeader]
-            
+
             return section
         }
         return layout
     }
-    
+
     // here is the place where async function to access to google api and get data will be
-    func createDataSource(){
+    func createDataSource () {
         dataSource = .init(collectionView: calenderEventsCollectionView, cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CalenderEvent", for: indexPath) as! CalenderEventsCollectionViewCell
             cell.delegate = self
@@ -153,25 +155,23 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
             }()
             return cell
         })
-        
-        dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
+
+        dataSource.supplementaryViewProvider = { (collectionView, _, indexPath) in
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: "header-element-kind", withReuseIdentifier: EventNamedSectionHeaderView.reuseIdentifier, for: indexPath) as! EventNamedSectionHeaderView
-            //header.eventName = Array(sampleImportedData.data.keys)[indexPath.section]
             header.eventName = self.candidateEvent[indexPath.section].eventName
             header.delegate = self
             return header
         }
-        
+
         var snapshot = NSDiffableDataSourceSnapshot<String, ImportEventDetail>()
-        candidateEvent.forEach{
+        candidateEvent.forEach {
           snapshot.appendSections([$0.eventName])
           snapshot.appendItems($0.eventDetail, toSection: $0.eventName)
         }
         sections = snapshot.sectionIdentifiers
         dataSource.apply(snapshot)
     }
-    
-    
+
     @objc func doneButtonTapped() {
         if fromField.isFirstResponder {
             fromDate = datePicker.date
@@ -181,7 +181,6 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
             self.toField.text = dateFormatter.string(from: datePicker.date)
         }
         self.view.endEditing(true)
-        
         if let fromDate = fromDate, let toDate = toDate {
             if fromDate < toDate {
                 importButton.isEnabled = true
@@ -189,17 +188,15 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
                 importButton.isEnabled = false
             }
         }
-        
     }
-    
-    
+
     @IBAction func importButtonTapped(_ sender: UIButton) {
         //implementation for previous sign-in instance
         //        if GIDSignIn.sharedInstance.hasPreviousSignIn() {
         //            GIDSignIn.sharedInstance.restorePreviousSignIn()
         //            self.fetchCalendarEvents(for: GIDSignIn.sharedInstance.currentUser!)
         //        } else { }
-        
+
         // initial login
         GIDSignIn.sharedInstance.signIn(
             with: signInConfig,
@@ -209,27 +206,26 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
         ) { user, error in
             // implement handler
             print("\(String(describing: user)) logged in")
-            
+
             guard let user = GIDSignIn.sharedInstance.currentUser else { return }
-            
+
             // fetch events for the last 30 days
             let period: TimeInterval = 60*60*24*30
             let startDateTime = GTLRDateTime(date: Calendar.current.startOfDay(for: Date()-period))
             let endDateTime = GTLRDateTime(date: Date().addingTimeInterval(60*60*24))
-            
+
             self.fetchCalendarEvents(for: user, from: startDateTime, to: endDateTime)
         }
     }
-    
-    
+
     // test function for checking calendar event fetch
     func fetchCalendarEvents(for user: GIDGoogleUser, from: GTLRDateTime ,to: GTLRDateTime) {
         let calendarService = GTLRCalendarService()
         let authentication = user.authentication
         calendarService.authorizer = authentication.fetcherAuthorizer()
-        
+
         let eventsListQuery = GTLRCalendarQuery_EventsList.query(withCalendarId: "primary")
-        
+
         eventsListQuery.timeMin = from
         eventsListQuery.timeMax = to
         calendarService.executeQuery(eventsListQuery) { ticket, result, error in
@@ -248,7 +244,7 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
             }
         }
     }
-    
+
     func convertGoogleItemArrayToImportEvents(googleEvents: [GTLRCalendar_Event]) -> [ImportEvent]
     {
         var result: [ImportEvent] = []
@@ -256,43 +252,43 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
             guard let (eventName, eventDetail) = convertGoogleItemToImportEvent(googleEvent: googleEvent) else{
                 continue
             }
-            
+
             var targetIndex = -1
-            for (index, elem) in result.enumerated(){
-                if elem.eventName == googleEvent.summary{
+            for (index, elem) in result.enumerated () {
+                if elem.eventName == googleEvent.summary {
                     targetIndex = index
                     break
                 }
             }
 
-            if targetIndex < 0{
+            if targetIndex < 0 {
                 let importEvent: ImportEvent = ImportEvent(eventName: eventName,
                                                            eventDetail: [eventDetail])
                 result.append(importEvent)
-            }else{
+            } else {
                 result[targetIndex].eventDetail.append(eventDetail)
             }
         }
         return result
     }
-    
+
     func convertGoogleItemToImportEvent(googleEvent: GTLRCalendar_Event) -> (String, ImportEventDetail)?{
-        guard let eventName = googleEvent.summary else{
+        guard let eventName = googleEvent.summary else {
             return nil
         }
         guard let googleEventStart = googleEvent.start,
-              let startDateTime = googleEventStart.dateTime?.date as Date? else{
+              let startDateTime = googleEventStart.dateTime?.date as Date? else {
             return nil
         }
         guard let googleEventEnd = googleEvent.end,
-              let endDateTime = googleEventEnd.dateTime?.date as Date? else{
+              let endDateTime = googleEventEnd.dateTime?.date as Date? else {
             return nil
         }
-        
+
         var attendeesInfo: [ImportCustomer] = []
-        if let attendees = googleEvent.attendees{
-            for info in attendees{
-                guard let displayName = info.displayName else{
+        if let attendees = googleEvent.attendees {
+            for info in attendees {
+                guard let displayName = info.displayName else {
                     continue
                 }
                 let eMailAddress = info.email ?? ""
@@ -300,16 +296,14 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
                                                     eMailAddress: eMailAddress))
             }
         }
- 
-        let eventDetail : ImportEventDetail = ImportEventDetail(startTime: startDateTime,
+
+        let eventDetail: ImportEventDetail = ImportEventDetail(startTime: startDateTime,
                                                                 endTime: endDateTime,
                                                                 attendees: attendeesInfo)
         return (eventName, eventDetail)
     }
-    
-  
-    
-    func alert(title:String, message:String) {
+
+    func alert(title: String, message: String) {
         let alertController = UIAlertController(
             title: title,
             message: message,
@@ -324,43 +318,48 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
         )
         present(alertController, animated: true)
     }
-    
-    //MARK: user interact action by Tomo
+
+    // MARK: user interact action by Tomo
     func checkmarkTapped(at eventName: String) {
-        if selectedEvent.contains(where: {$0.eventName == eventName}){
-            for event in selectedEvent{
+        if selectedEvent.contains(where: { $0.eventName == eventName }) {
+            for event in selectedEvent {
                 if event.eventName == eventName {
-                    selectedEvent = selectedEvent.filter{$0.eventName != eventName}
+                    selectedEvent = selectedEvent.filter { $0.eventName != eventName }
                 }
             }
         } else {
-            for event in candidateEvent{
-                if event.eventName == eventName{
+            for event in candidateEvent {
+                if event.eventName == eventName {
                     selectedEvent.append(event)
                 }
             }
         }
     }
-    
+
     func detailButtonTapped(show alertView: UIAlertController) {
         present(alertView, animated: true)
     }
-    
+
     @IBAction func nextButtonTapped() {
+		let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+		let invoiceListViewController = storyBoard.instantiateViewController(withIdentifier: "tabBarController") as! UITabBarController
+		invoiceListViewController.navigationItem.setHidesBackButton(true, animated: true)
+		self.navigationController?.pushViewController(invoiceListViewController, animated: true)
+
         alert(title: "selectedEvent", message: selectedEvent.description)
-        for selEvent in selectedEvent{
+        for selEvent in selectedEvent {
             addEventToManager(event: selEvent)
         }
     }
-    
-    func addEventToManager(event: ImportEvent){
+
+    func addEventToManager(event: ImportEvent) {
         var eventDetails: [EventDetail] = []
-        for detail in event.eventDetail{
-            var iDs:[UInt16] = []
-            for attendee in detail.attendees{
-                if let customer = AppDataManager.shared.getCustomer(emailAddress: attendee.eMailAddress){
+        for detail in event.eventDetail {
+            var iDs: [UInt16] = []
+            for attendee in detail.attendees {
+                if let customer = AppDataManager.shared.getCustomer(emailAddress: attendee.eMailAddress) {
                     iDs.append(customer.customerID)
-                }else{
+                } else {
                     // Add newCustomer
                     let customerID = AppDataManager.shared.addNewCustomer(customerInfo: CustomerInformation(customerName: attendee.customerName,
                                                                                                              eMailAddress: attendee.eMailAddress,
@@ -372,9 +371,7 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
             eventDetails.append(EventDetail(startDateTime: detail.startTime,
                                             endDateTime: detail.endTime,
                                             attendees: Set<UInt16>(iDs)))
-            
         }
-        
         let _ = AppDataManager.shared.addUpdateEvent(event: Event(eventName: event.eventName,
                                                                   eventRate: 0,
                                                                   eventDetails: eventDetails))
