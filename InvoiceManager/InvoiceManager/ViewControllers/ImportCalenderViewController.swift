@@ -9,7 +9,6 @@ import UIKit
 import GoogleSignIn
 import GoogleAPIClientForREST
 
-
 struct ImportCustomer {
   var customerName: String
   var eMailAddress: String
@@ -17,7 +16,7 @@ struct ImportCustomer {
 
 struct ImportEventDetail: Hashable {
   var startTime: Date
-  var endTime: Date
+  var durationTime: Int
   var attendees: [ImportCustomer]
 
   static func == (lhs: ImportEventDetail, rhs: ImportEventDetail) -> Bool {
@@ -43,9 +42,9 @@ struct ImportEvent: Hashable {
 }
 
 class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, EventDetailPopupDelegate {
-
 //    typealias DataSourceType = UICollectionViewDiffableDataSource<String, EventTest>
     typealias DataSourceType = UICollectionViewDiffableDataSource<String, ImportEventDetail>
+
     var dataSource: DataSourceType!
     var sections = [String]()
     var candidateEvent: [ImportEvent] = []
@@ -61,6 +60,7 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
         let clientId = ProcessInfo.processInfo.environment["OAUTH_CLIENT_ID"]!
         return GIDConfiguration(clientID: clientId)
     }()
+
     // add access scope for google apis
     let scopes = [
         "https://www.googleapis.com/auth/calendar.readonly",
@@ -119,7 +119,6 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
     // MARK: collection view setting by Tomo
     func createLayout() -> UICollectionViewCompositionalLayout {
         let layout = UICollectionViewCompositionalLayout {(_, _) -> NSCollectionLayoutSection in
-
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
@@ -136,13 +135,14 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
         }
         return layout
     }
+
     // here is the place where async function to access to google api and get data will be
     func createDataSource () {
         dataSource = .init(collectionView: calenderEventsCollectionView, cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CalenderEvent", for: indexPath) as! CalenderEventsCollectionViewCell
             cell.delegate = self
             cell.dateLabel.text = item.startTime.formatted()
-            cell.timeLabel.text = "\(item.startTime) - \(item.endTime)"
+			cell.timeLabel.text = "\(item.durationTime)"
             cell.evnetName = self.candidateEvent[indexPath.section].eventName
             cell.attendees = {
                 let attendeesNameArray = item.attendees.map {$0.customerName}
@@ -176,6 +176,7 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
             self.toField.text = dateFormatter.string(from: datePicker.date)
         }
         self.view.endEditing(true)
+
         if let fromDate = fromDate, let toDate = toDate {
             if fromDate < toDate {
                 importButton.isEnabled = true
@@ -186,12 +187,11 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
     }
 
     @IBAction func importButtonTapped(_ sender: UIButton) {
-        //implementation for previous sign-in instance
+        // implementation for previous sign-in instance
         //        if GIDSignIn.sharedInstance.hasPreviousSignIn() {
         //            GIDSignIn.sharedInstance.restorePreviousSignIn()
         //            self.fetchCalendarEvents(for: GIDSignIn.sharedInstance.currentUser!)
         //        } else { }
-
         // initial login
         GIDSignIn.sharedInstance.signIn(
             with: signInConfig,
@@ -209,7 +209,7 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
             let startDateTime = GTLRDateTime(date: Calendar.current.startOfDay(for: Date()-period))
             let endDateTime = GTLRDateTime(date: Date().addingTimeInterval(60*60*24))
 
-            self.fetchCalendarEvents(for: user, from: startDateTime, to: endDateTime)
+			self.fetchCalendarEvents(for: user, from: startDateTime, to: endDateTime)
         }
     }
 
@@ -232,7 +232,7 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
                 // Do stuff with your events
                 self.candidateEvent = self.convertGoogleItemArrayToImportEvents(googleEvents: items)
                 self.createDataSource()
-                //self.alert(title: "Fetched events", message: String(describing: items))
+                // self.alert(title: "Fetched events", message: String(describing: items))
             } else {
                 // No events
                 print("sign in before fetch!")
@@ -240,23 +240,20 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
         }
     }
 
-    func convertGoogleItemArrayToImportEvents(googleEvents: [GTLRCalendar_Event]) -> [ImportEvent]
-    {
+    func convertGoogleItemArrayToImportEvents(googleEvents: [GTLRCalendar_Event]) -> [ImportEvent] {
         var result: [ImportEvent] = []
         for googleEvent in googleEvents {
-            guard let (eventName, eventDetail) = convertGoogleItemToImportEvent(googleEvent: googleEvent) else{
+            guard let (eventName, eventDetail) = convertGoogleItemToImportEvent(googleEvent: googleEvent) else {
                 continue
             }
 
             var targetIndex = -1
-            for (index, elem) in result.enumerated () {
-                if elem.eventName == googleEvent.summary {
-                    targetIndex = index
-                    break
-                }
+            for (index, elem) in result.enumerated() where elem.eventName == googleEvent.summary {
+				targetIndex = index
+				break
             }
 
-            if targetIndex < 0 {
+			if targetIndex < 0 {
                 let importEvent: ImportEvent = ImportEvent(eventName: eventName,
                                                            eventDetail: [eventDetail])
                 result.append(importEvent)
@@ -267,7 +264,7 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
         return result
     }
 
-    func convertGoogleItemToImportEvent(googleEvent: GTLRCalendar_Event) -> (String, ImportEventDetail)?{
+    func convertGoogleItemToImportEvent(googleEvent: GTLRCalendar_Event) -> (String, ImportEventDetail)? {
         guard let eventName = googleEvent.summary else {
             return nil
         }
@@ -292,8 +289,9 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
             }
         }
 
+		let durationTime = Int(endDateTime.timeIntervalSince(startDateTime)) / 60
         let eventDetail: ImportEventDetail = ImportEventDetail(startTime: startDateTime,
-                                                                endTime: endDateTime,
+                                                                durationTime: durationTime,
                                                                 attendees: attendeesInfo)
         return (eventName, eventDetail)
     }
@@ -335,12 +333,10 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
 		let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
 		let invoiceListViewController = storyBoard.instantiateViewController(withIdentifier: "tabBarController") as! UITabBarController
 		invoiceListViewController.navigationItem.setHidesBackButton(true, animated: true)
+		for selEvent in selectedEvent {
+			addEventToManager(event: selEvent)
+		}
 		self.navigationController?.pushViewController(invoiceListViewController, animated: true)
-
-        alert(title: "selectedEvent", message: selectedEvent.description)
-        for selEvent in selectedEvent {
-            addEventToManager(event: selEvent)
-        }
     }
 
     func addEventToManager(event: ImportEvent) {
@@ -360,11 +356,11 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
                 }
             }
             eventDetails.append(EventDetail(startDateTime: detail.startTime,
-                                            endDateTime: detail.endTime,
+											durationMinutes: detail.durationTime,
                                             attendees: Set<UInt16>(iDs)))
         }
-        let _ = AppDataManager.shared.addUpdateEvent(event: Event(eventName: event.eventName,
-                                                                  eventRate: 0,
-                                                                  eventDetails: eventDetails))
+		_ = AppDataManager.shared.addUpdateEvent(event: Event(eventName: event.eventName,
+																  eventRate: 0,
+																  eventDetails: eventDetails))
     }
 }

@@ -9,36 +9,49 @@ import Foundation
 
 class InvoiceHistoryViewModel {
 
-    var invoiceHistories: Set<InvoiceHitory> = []
+    var invoiceHistories: Set<Invoice> = []
 
-    func createNewInvoiceHistory(newInvoiceInfo: InvoiceHistoryInformation) -> InvoiceHitory {
-        let uniqueID = self.geranateUniqueID()
-        let invoice = InvoiceHitory(id: uniqueID, info: newInvoiceInfo)
-        invoiceHistories.insert(invoice)
-        return invoice
-    }
+	func addInvoiceHistory(invoice: Invoice) {
+		if let oldInvoice = getInvoice(customerID: invoice.customerID, month: invoice.dateIssued.getMonth(), year: invoice.dateIssued.getYear()) {
+			invoiceHistories.remove(oldInvoice)
+		}
+		invoiceHistories.insert(invoice)
+	}
 
-    func getInvoiceList() -> Set<InvoiceHitory> {
-        return invoiceHistories
-    }
+	func getInvoice(customerID: UInt16, month: Month, year: Int ) -> Invoice? {
+		for invoice in invoiceHistories where invoice.dateIssued.getMonth() == month && invoice.dateIssued.getYear() == year {
+			return invoice
+		}
+		return nil
+	}
 
-    func getInvoice(invoiceHistoryID: UInt16) -> InvoiceHitory? {
+    func getInvoice(invoiceHistoryID: UInt16) -> Invoice? {
         for invoice in invoiceHistories where invoice.invoiceID == invoiceHistoryID {
 			return invoice
         }
         return nil
     }
 
-    func getInvoiceByCustomer(customerID: UInt16) -> [InvoiceHitory] {
-        var ret: [InvoiceHitory] = []
-        for history in invoiceHistories where history.information.customerID == customerID {
+    func getInvoiceByCustomer(customerID: UInt16) -> [Invoice] {
+        var ret: [Invoice] = []
+        for history in invoiceHistories where history.customerID == customerID {
 			ret.append(history)
         }
         ret.sort {
-            $0.information.dateIssued < $1.information.dateIssued
+            $0.dateIssued < $1.dateIssued
         }
         return ret
     }
+
+	func hasInvoiceHistory(customerID: UInt16, month: Month, year: Int ) -> Bool {
+		return getInvoice(customerID: customerID, month: month, year: year) != nil
+	}
+
+	func createNewInvoiceHistory(customerID: UInt16, dateIssued: Date) -> Invoice {
+		let uniqueID = self.geranateUniqueID()
+		let invoice = Invoice(invoiceID: uniqueID, customerID: customerID, dateIssued: dateIssued)
+		return invoice
+	}
 
     func removeInvoiceHistory(customerID: UInt16) {
         let invoiceList = getInvoiceByCustomer(customerID: customerID)
@@ -46,6 +59,13 @@ class InvoiceHistoryViewModel {
             invoiceHistories.remove(invoice)
         }
     }
+
+	func updateInvoiceHistory(invoice: Invoice) -> Bool {
+		if invoiceHistories.update(with: invoice) != nil {
+			return true
+		}
+		return false
+	}
 
     private func geranateUniqueID() -> UInt16 {
         repeat {

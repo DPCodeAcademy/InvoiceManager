@@ -8,7 +8,7 @@
 import Foundation
 
 class AppDataManager {
-    
+
     static let shared = AppDataManager()
 
 	private var customerList: CustomerViewModel
@@ -20,7 +20,7 @@ class AppDataManager {
     // Get methods
     // -------------------------------------
 
-    func getCustomerList() -> Set<Customer> {
+    func getCustomerList() -> [Customer] {
         return customerList.getCustomerList()
     }
 
@@ -36,7 +36,7 @@ class AppDataManager {
         return customerList.getCustomer(customerName: customerName)
     }
 
-	func getEventList()-> Set<Event> {
+	func getEventList() -> [Event] {
         return eventList.getEventList()
     }
 
@@ -44,18 +44,31 @@ class AppDataManager {
         return eventList.getEvent(eventName: eventName)
     }
 
-	func getInvoiceHistoryList() -> Set<InvoiceHitory> {
-        return invoiceHistoryList.getInvoiceList()
-    }
+	func getInvoice(customerID: UInt16, dateIssed: Date ) -> Invoice {
+		return self.getInvoice(customerID: customerID, month: dateIssed.getMonth(), year: dateIssed.getYear())
+	}
 
-    func getInvoiceHistory(customerID: UInt16) -> [InvoiceHitory] {
-        // TODO: Implement
-        return []
-    }
+	func getInvoice(customerID: UInt16, month: Month, year: Int ) -> Invoice {
+		if let invoice = invoiceHistoryList.getInvoice(customerID: customerID, month: month, year: year) {
+			return invoice
+		}
+		return self.createNewInvoice(customerID: customerID, month: month, year: year )
+	}
 
 	func getUserSetting() -> UserSetting {
         return userSetting
     }
+
+	// -------------------------------------
+	// Has methods
+	// -------------------------------------
+	func hasInvoiceHistory(customerID: UInt16, month: Month, year: Int ) -> Bool {
+		return invoiceHistoryList.hasInvoiceHistory(customerID: customerID, month: month, year: year)
+	}
+
+	func hasInvoiceHistory(customerID: UInt16, dateIssued: Date) -> Bool {
+		return invoiceHistoryList.hasInvoiceHistory(customerID: customerID, month: dateIssued.getMonth(), year: dateIssued.getYear())
+	}
 
     // -------------------------------------
     // Add methods
@@ -70,8 +83,8 @@ class AppDataManager {
         return eventList.addAndUpdateEvent(event: event)
     }
 
-	func addNewInvoiceHistory(invoiceInfo: InvoiceHistoryInformation) -> InvoiceHitory {
-        return invoiceHistoryList.createNewInvoiceHistory(newInvoiceInfo: invoiceInfo)
+	func addInvoiceHistory(invoive: Invoice) {
+		return invoiceHistoryList.addInvoiceHistory(invoice: invoive)
     }
 
 	// -------------------------------------
@@ -85,9 +98,9 @@ class AppDataManager {
         return eventList.updateEvent(event: event)
     }
 
-	//  func updateInvoiceHistory(invoiceID: UInt, information: InvoiceHitory.Information)->Bool{
-    //
-    //  }
+	func updateInvoiceHistory(invoice: Invoice) -> Bool {
+		return invoiceHistoryList.updateInvoiceHistory(invoice: invoice)
+	}
 
     func updateUserSetting(userSetting: UserSetting) {
         self.userSetting = userSetting
@@ -119,12 +132,39 @@ class AppDataManager {
         // Call this method every time user changes information.
     }
 
+	// -------------------------------------
+	// Private methods
+	// -------------------------------------
 	private init() {
         customerList = CustomerViewModel()
         eventList = EventViewModel()
         invoiceHistoryList = InvoiceHistoryViewModel()
         userSetting = UserSetting()
     }
+
+	private func createNewInvoice( customerID: UInt16, month: Month, year: Int ) -> Invoice {
+		var invoice = invoiceHistoryList.createNewInvoiceHistory(customerID: customerID, dateIssued: Date.getEndOfMonthDate(month: month, year: year))
+		invoice.userInfo = getUserSetting()
+
+		let customerEvents = eventList.getCustomerEventList(customerID: customerID, month: month, year: year)
+		for customerEvent in customerEvents {
+			customerEvent.eventDetails.forEach {
+				if !$0.attendees.contains(customerID) {
+					return
+				}
+				let price = customerEvent.eventRate * $0.durationMinutes / 60
+				let invoiceItem = InvoiceItem(startDateTime: $0.startDateTime, durationMinutes: $0.durationMinutes, price: price, eventName: customerEvent.eventName )
+				invoice.invoiceItems.append(invoiceItem)
+			}
+		}
+
+		// Sort by event start date
+		invoice.invoiceItems.sort {
+			$0.startDateTime < $1.startDateTime
+		}
+
+		return invoice
+	}
 
     // ------------------------------------------------------
     // Temporary methods. These methods should be deleted.
@@ -153,13 +193,13 @@ class AppDataManager {
 
     private func setSampleEvent() {
         var event1 = Event(eventName: "Programing class", eventRate: 100, eventDetails: [])
-        event1.eventDetails.append(EventDetail(startDateTime: Date(timeIntervalSinceNow: TimeInterval(1)), endDateTime: Date(timeIntervalSince1970: TimeInterval(2)), attendees: [c1, c2, c3, c4, c5, c6]))
-		event1.eventDetails.append(EventDetail(startDateTime: Date(timeIntervalSinceNow: TimeInterval(3)), endDateTime: Date(timeIntervalSinceNow: TimeInterval(4)), attendees: [c1, c3, c5]))
-        event1.eventDetails.append(EventDetail(startDateTime: Date(timeIntervalSinceNow: TimeInterval(5)), endDateTime: Date(timeIntervalSinceNow: TimeInterval(5)), attendees: [c2, c4, c6]))
+		event1.eventDetails.append(EventDetail(startDateTime: Date(timeIntervalSinceNow: TimeInterval(1)), durationMinutes: 90, attendees: [c1, c2, c3, c4, c5, c6]))
+		event1.eventDetails.append(EventDetail(startDateTime: Date(timeIntervalSinceNow: TimeInterval(3)), durationMinutes: 60, attendees: [c1, c3, c5]))
+		event1.eventDetails.append(EventDetail(startDateTime: Date(timeIntervalSinceNow: TimeInterval(5)), durationMinutes: 60, attendees: [c2, c4, c6]))
         var event2 = Event(eventName: "João Victor Anastácio", eventRate: 100, eventDetails: [])
-        event2.eventDetails.append(EventDetail(startDateTime: Date(timeIntervalSinceNow: TimeInterval(100)), endDateTime: Date(timeIntervalSinceNow: TimeInterval(101)), attendees: [c1]))
+		event2.eventDetails.append(EventDetail(startDateTime: Date(timeIntervalSinceNow: TimeInterval(100)), durationMinutes: 90, attendees: [c1]))
         var event3 = Event(eventName: "Yoko Ono", eventRate: 50, eventDetails: [])
-        event3.eventDetails.append(EventDetail(startDateTime: Date(timeIntervalSince1970: TimeInterval(1002)), endDateTime: Date(timeIntervalSince1970: TimeInterval(1003)), attendees: []))
+		event3.eventDetails.append(EventDetail(startDateTime: Date(timeIntervalSince1970: TimeInterval(1002)), durationMinutes: 90, attendees: []))
 
 		_ = eventList.addAndUpdateEvent(event: event1)
         _ = eventList.addAndUpdateEvent(event: event2)

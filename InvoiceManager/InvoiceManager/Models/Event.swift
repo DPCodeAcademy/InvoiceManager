@@ -52,6 +52,6 @@ struct Event: Hashable {
 
 struct EventDetail {
     var startDateTime: Date
-    var endDateTime: Date
+    var durationMinutes: Int
     var attendees: Set<UInt16>
 }
