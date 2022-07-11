@@ -7,23 +7,23 @@
 
 import UIKit
 
-protocol EventSelectBoxDelegate: AnyObject {
+protocol EventSelectBoxDelegate: AnyObject{
     func checkmarkTapped(at eventName: String)
 }
 
 class EventNamedSectionHeaderView: UICollectionReusableView {
-
+    
     weak var delegate: EventSelectBoxDelegate?
-
+    
     static let reuseIdentifier = "section-header"
     static let marginTop = 10
-
+        
     let checkboxButton: CheckboxButton = {
         let checkbox = CheckboxButton(frame: CGRect(x: 0, y: marginTop, width: 20, height: 20))
-		checkbox.addTarget(self, action: #selector(checkboxTapped), for: .touchUpInside)
+        checkbox.addTarget(self, action: #selector(checkboxTapped), for: .touchUpInside)
         return checkbox
     }()
-
+   
     let eventNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .label
@@ -31,36 +31,36 @@ class EventNamedSectionHeaderView: UICollectionReusableView {
         label.frame = CGRect(x: 30, y: marginTop, width: 100, height: 20)
         return label
     }()
-
-    var eventName: String = "" {
-        willSet {
+    
+    var eventName:String = "" {
+        willSet{
             eventNameLabel.text = newValue
         }
     }
-
-    override init(frame: CGRect) {
+    
+    override init(frame: CGRect){
         super.init(frame: frame)
         setupView()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    private func addTopBorder() {
+    
+    private func addTopBorder(){
         let topBorder = CALayer()
         topBorder.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: 2.0)
         topBorder.backgroundColor = UIColor.black.cgColor
         self.layer.addSublayer(topBorder)
     }
-
-    private func setupView() {
+    
+    private func setupView(){
         addSubview(checkboxButton)
         addSubview(eventNameLabel)
         addTopBorder()
     }
-
-    @objc func checkboxTapped() {
+    
+    @objc func checkboxTapped(){
         delegate?.checkmarkTapped(at: self.eventName)
     }
 }
