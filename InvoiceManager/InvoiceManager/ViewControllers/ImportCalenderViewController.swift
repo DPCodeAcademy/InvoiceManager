@@ -42,7 +42,6 @@ struct ImportEvent: Hashable {
 }
 
 class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, EventDetailPopupDelegate {
-
 //    typealias DataSourceType = UICollectionViewDiffableDataSource<String, EventTest>
     typealias DataSourceType = UICollectionViewDiffableDataSource<String, ImportEventDetail>
 
@@ -83,11 +82,14 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
         super.viewDidLoad()
         createDatePicker()
 
-        // MARK: create display collection view by Tomo
         calenderEventsCollectionView.collectionViewLayout = createLayout()
         calenderEventsCollectionView.register(EventNamedSectionHeaderView.self, forSupplementaryViewOfKind: "header-element-kind", withReuseIdentifier: EventNamedSectionHeaderView.reuseIdentifier)
-
     }
+
+	// MARK: delete nested navigation bar on top of screens
+	override func viewWillDisappear(_ animated: Bool) {
+		self.navigationController?.navigationBar.isHidden = true
+	}
 
     func createToolBar() -> UIToolbar {
         let toolBar = UIToolbar()
@@ -116,8 +118,7 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
 
     // MARK: collection view setting by Tomo
     func createLayout() -> UICollectionViewCompositionalLayout {
-
-        let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection in
+        let layout = UICollectionViewCompositionalLayout {(_, _) -> NSCollectionLayoutSection in
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
@@ -126,7 +127,6 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
 
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(40))
             let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "header-element-kind", alignment: .top)
-//            sectionHeader.pinToVisibleBounds = true
 
             let section = NSCollectionLayoutSection(group: group)
             section.boundarySupplementaryItems = [sectionHeader]
@@ -137,7 +137,7 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
     }
 
     // here is the place where async function to access to google api and get data will be
-    func createDataSource() {
+    func createDataSource () {
         dataSource = .init(collectionView: calenderEventsCollectionView, cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CalenderEvent", for: indexPath) as! CalenderEventsCollectionViewCell
             cell.delegate = self
@@ -151,9 +151,8 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
             return cell
         })
 
-        dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
+        dataSource.supplementaryViewProvider = { (collectionView, _, indexPath) in
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: "header-element-kind", withReuseIdentifier: EventNamedSectionHeaderView.reuseIdentifier, for: indexPath) as! EventNamedSectionHeaderView
-            // header.eventName = Array(sampleImportedData.data.keys)[indexPath.section]
             header.eventName = self.candidateEvent[indexPath.section].eventName
             header.delegate = self
             return header
@@ -202,16 +201,19 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
         ) { user, error in
             // implement handler
             print("\(String(describing: user)) logged in")
+
             guard let user = GIDSignIn.sharedInstance.currentUser else { return }
+
             // fetch events for the last 30 days
             let period: TimeInterval = 60*60*24*30
             let startDateTime = GTLRDateTime(date: Calendar.current.startOfDay(for: Date()-period))
             let endDateTime = GTLRDateTime(date: Date().addingTimeInterval(60*60*24))
-            self.fetchCalendarEvents(for: user, from: startDateTime, to: endDateTime)
+
+			self.fetchCalendarEvents(for: user, from: startDateTime, to: endDateTime)
         }
     }
 
-	// test function for checking calendar event fetch
+    // test function for checking calendar event fetch
     func fetchCalendarEvents(for user: GIDGoogleUser, from: GTLRDateTime, to: GTLRDateTime) {
         let calendarService = GTLRCalendarService()
         let authentication = user.authentication
@@ -219,7 +221,7 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
 
         let eventsListQuery = GTLRCalendarQuery_EventsList.query(withCalendarId: "primary")
 
-		eventsListQuery.timeMin = from
+        eventsListQuery.timeMin = from
         eventsListQuery.timeMax = to
         calendarService.executeQuery(eventsListQuery) { ticket, result, error in
             guard error == nil, let items = (result as? GTLRCalendar_Events)?.items else {
@@ -294,7 +296,7 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
         return (eventName, eventDetail)
     }
 
-	func alert(title: String, message: String) {
+    func alert(title: String, message: String) {
         let alertController = UIAlertController(
             title: title,
             message: message,
@@ -313,16 +315,12 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
     // MARK: user interact action by Tomo
     func checkmarkTapped(at eventName: String) {
         if selectedEvent.contains(where: { $0.eventName == eventName }) {
-            for event in selectedEvent {
-                if event.eventName == eventName {
-                    selectedEvent = selectedEvent.filter{$0.eventName != eventName}
-                }
+            for event in selectedEvent where event.eventName == eventName {
+				selectedEvent = selectedEvent.filter { $0.eventName != eventName }
             }
         } else {
-            for event in candidateEvent{
-                if event.eventName == eventName{
-                    selectedEvent.append(event)
-                }
+            for event in candidateEvent where event.eventName == eventName {
+				selectedEvent.append(event)
             }
         }
     }
@@ -332,10 +330,13 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
     }
 
     @IBAction func nextButtonTapped() {
-        alert(title: "selectedEvent", message: selectedEvent.description)
-        for selEvent in selectedEvent {
-            addEventToManager(event: selEvent)
-        }
+		let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+		let invoiceListViewController = storyBoard.instantiateViewController(withIdentifier: "tabBarController") as! UITabBarController
+		invoiceListViewController.navigationItem.setHidesBackButton(true, animated: true)
+		for selEvent in selectedEvent {
+			addEventToManager(event: selEvent)
+		}
+		self.navigationController?.pushViewController(invoiceListViewController, animated: true)
     }
 
     func addEventToManager(event: ImportEvent) {
@@ -358,7 +359,6 @@ class ImportCalenderViewController: UIViewController, EventSelectBoxDelegate, Ev
 											durationMinutes: detail.durationTime,
                                             attendees: Set<UInt16>(iDs)))
         }
-
 		_ = AppDataManager.shared.addUpdateEvent(event: Event(eventName: event.eventName,
 																  eventRate: 0,
 																  eventDetails: eventDetails))
