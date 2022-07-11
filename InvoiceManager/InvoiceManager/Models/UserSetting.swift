@@ -22,7 +22,7 @@ struct UserSetting {
         }
         return "Payment Method"
     }
-	
+
 	var eMailAddress: String {
 		if let email = ProcessInfo.processInfo.environment["SETTINGS_COMPANY_EMAIL"] {
 			return String(email)

@@ -30,12 +30,14 @@ class EventViewModel {
 
 	func getCustomerEventList(customerID: UInt16, month: Month, year: Int) -> [Event] {
 		var customerEvents: [Event] = []
-		for var customerEvent in getEventList() {
+		for customerEvent in getEventList() {
+			var addEvent = customerEvent
+			addEvent.eventDetails.removeAll()
 			for detail in customerEvent.eventDetails where detail.startDateTime.getMonth() == month && detail.startDateTime.getYear() == year {
-				customerEvent.eventDetails.append(detail)
+				addEvent.eventDetails.append(detail)
 			}
 			if !customerEvent.eventDetails.isEmpty {
-				customerEvents.append(customerEvent)
+				customerEvents.append(addEvent)
 			}
 		}
 		return customerEvents

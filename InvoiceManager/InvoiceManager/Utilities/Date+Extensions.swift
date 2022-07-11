@@ -22,7 +22,6 @@ enum Month: Int {
 	case october = 10
 	case november = 11
 	case december = 12
-	case invalid = -1
 }
 
 extension Date {

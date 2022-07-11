@@ -149,6 +149,9 @@ class AppDataManager {
 		let customerEvents = eventList.getCustomerEventList(customerID: customerID, month: month, year: year)
 		for customerEvent in customerEvents {
 			customerEvent.eventDetails.forEach {
+				if !$0.attendees.contains(customerID) {
+					return
+				}
 				let price = customerEvent.eventRate * $0.durationMinutes / 60
 				let invoiceItem = InvoiceItem(startDateTime: $0.startDateTime, durationMinutes: $0.durationMinutes, price: price, eventName: customerEvent.eventName )
 				invoice.invoiceItems.append(invoiceItem)
