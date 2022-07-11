@@ -7,7 +7,7 @@
 
 import UIKit
 
-class InvoiceHomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
+class InvoiceHomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
 	var invoiceHistoryList = AppDataManager.shared.getInvoiceHistoryList()
 	var customerList = Array(AppDataManager.shared.getCustomerList())
@@ -21,7 +21,6 @@ class InvoiceHomeViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
 		self.navigationController?.viewControllers = [self]
-		
 		displayDatePicker()
 
         invoiceListTableView.delegate = self
@@ -54,7 +53,7 @@ class InvoiceHomeViewController: UIViewController, UITableViewDelegate, UITableV
 		self.view.endEditing(true)
 	}
 
-	func createDatePicker() -> MonthYearDatePicker {
+	func createDatePicker( ) -> MonthYearDatePicker {
 		datePicker.minYear = 2000
 		datePicker.maxYear = 2050
 		datePicker.rowHeight = 60
@@ -65,12 +64,12 @@ class InvoiceHomeViewController: UIViewController, UITableViewDelegate, UITableV
 		return datePicker
 	}
 
-	func displayDatePicker(){
+	func displayDatePicker ( ) {
 		let datePicker = createDatePicker()
 		targetMonthInputField.text = convertDateToString(from: datePicker.date)
 		targetMonthInputField.inputView = datePicker
 		targetMonthInputField.inputAccessoryView = createToolBar()
-		
+
 		filterInvoiceHistroy(by: datePicker.date)
 	}
 

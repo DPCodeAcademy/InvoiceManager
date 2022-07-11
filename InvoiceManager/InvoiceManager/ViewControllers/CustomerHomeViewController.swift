@@ -7,10 +7,10 @@
 
 import UIKit
 
-class CustomerHomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class CustomerHomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
 	var customerList = Array(AppDataManager.shared.getCustomerList())
-	
+
     @IBOutlet var customerListTableView: UITableView!
     
     override func viewDidLoad() {
@@ -20,11 +20,11 @@ class CustomerHomeViewController: UIViewController, UITableViewDelegate, UITable
 		customerListTableView.delegate = self
 		customerListTableView.dataSource = self
 	}
-	
+
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return customerList.count
 	}
-	
+
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "customerListCell", for: indexPath)
 		let customer = customerList[indexPath.row]
@@ -35,5 +35,4 @@ class CustomerHomeViewController: UIViewController, UITableViewDelegate, UITable
 
     @IBAction func importCalenderButtonTapped() {
     }
-    
 }
