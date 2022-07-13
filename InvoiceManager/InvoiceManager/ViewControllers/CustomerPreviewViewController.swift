@@ -25,10 +25,8 @@ class CustomerPreviewViewController: UIViewController {
     @IBOutlet var sendBtn: UIButton!
     @IBOutlet var PDFBtn: UIButton!
 
-    var totalIncome: Int = 0
     var date: Date?
     var customer: Customer?
-    var userSetting: UserSetting?
 
     typealias DataSourceType = UICollectionViewDiffableDataSource<ViewModel.Section, ViewModel.Item>
     var dataSource: DataSourceType!
@@ -75,11 +73,12 @@ class CustomerPreviewViewController: UIViewController {
         } else {
             titleLabel.text = "No Data"
         }
-        companyLogo.image = userSetting?.logoImage ?? UIImage(systemName: "person")
-        companyNameLabel.text = userSetting?.companyName ?? "No Data"
-        companyAdressLabel.text = userSetting?.companyAddress ?? "No Data"
-        paymentMethodLabel.text = userSetting?.paymentMethod ?? "No Data"
-        companyEmailLabel.text = userSetting?.eMailAddress ?? "No Data"
+        let userSetting = AppDataManager.shared.getUserSetting()
+        companyLogo.image = userSetting.logoImage ?? UIImage(systemName: "person")
+        companyNameLabel.text = userSetting.companyName
+        companyAdressLabel.text = userSetting.companyAddress
+        paymentMethodLabel.text = userSetting.paymentMethod
+        companyEmailLabel.text = userSetting.eMailAddress
 
         invoiceIDLabel.text = "\(customer?.customerID ?? 0)"
         customerNameLabel.text = customer?.information.customerName ?? "No Data"
@@ -93,7 +92,6 @@ class CustomerPreviewViewController: UIViewController {
             model.invoiceItems = AppDataManager.shared.getInvoice(customerID: customer.customerID, month: date.getMonth(), year: date.getYear()).invoiceItems
             statusLabel.text = AppDataManager.shared.hasInvoiceHistory(customerID: customer.customerID, month: date.getMonth(), year: date.getYear()) ? "Sent" : "Unsent"
         }
-        userSetting = AppDataManager.shared.getUserSetting()
 
         updateCollectionView()
     }
@@ -113,8 +111,7 @@ class CustomerPreviewViewController: UIViewController {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EventDetailsCell", for: indexPath) as! EventDetailsCollectionViewCell
             cell.eventDateLabel.text = self.twoDateIntoString(startDate: itemIdentifier.startDateTime, endDate: Date(timeInterval: TimeInterval(itemIdentifier.durationMinutes), since: itemIdentifier.startDateTime))
             cell.eventNameLabel.text = itemIdentifier.eventName
-            let income = itemIdentifier.price * itemIdentifier.durationMinutes
-            cell.eventIncomeLabel.text = self.formatAsCurrency(number: income)
+            cell.eventIncomeLabel.text = "$\(itemIdentifier.price)"
             return cell
         })
 
@@ -133,10 +130,11 @@ class CustomerPreviewViewController: UIViewController {
     }
 
     func setupTotalIncome(invoiceItems: [InvoiceItem]) {
+        var totalIncome: Int = 0
         for invoiceItem in invoiceItems {
-            totalIncome += invoiceItem.price * invoiceItem.durationMinutes
+            totalIncome += invoiceItem.price
         }
-        totalIncomeLabel.text = formatAsCurrency(number: totalIncome)
+        totalIncomeLabel.text = "$\(totalIncome)"
     }
 
     func twoDateIntoString(startDate: Date, endDate: Date) -> String {

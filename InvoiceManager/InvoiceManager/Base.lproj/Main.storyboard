@@ -252,7 +252,7 @@
                         <viewLayoutGuide key="safeArea" id="W8V-yU-Yaw"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Summary" id="k6b-W4-TEg"/>
+                    <tabBarItem key="tabBarItem" title="Summary" image="folder.fill" catalog="system" id="k6b-W4-TEg"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ig8-Vj-eKc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -262,7 +262,7 @@
         <scene sceneID="rL9-4S-Lnz">
             <objects>
                 <navigationController id="gXR-wm-iL9" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Invoice" id="ThS-aB-w7A"/>
+                    <tabBarItem key="tabBarItem" title="Invoice" image="doc.fill" catalog="system" id="ThS-aB-w7A"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vDK-gB-Gdo">
                         <rect key="frame" x="0.0" y="44" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -449,7 +449,7 @@
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="628-68 Smithe ST" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VZD-HQ-lGh">
                                                         <rect key="frame" x="0.0" y="39.333333333333314" width="281.66666666666669" height="39"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -572,9 +572,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="Svc-PI-rFW" secondAttribute="height" multiplier="1:1" id="5ht-VS-1AL"/>
                                                         </constraints>
-                                                        <buttonConfiguration key="configuration" style="plain" title="+">
-                                                            <fontDescription key="titleFontDescription" type="boldSystem" pointSize="25"/>
-                                                        </buttonConfiguration>
+                                                        <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system"/>
                                                         <connections>
                                                             <action selector="addItemBtnTapped:" destination="Jvg-7S-OKg" eventType="touchUpInside" id="5Av-S8-GHx"/>
                                                         </connections>
@@ -608,7 +606,7 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="354" height="90"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
-                                                                <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="zqT-Rl-JUe">
+                                                                <stackView verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" ambiguous="YES" alignment="center" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="zqT-Rl-JUe">
                                                                     <rect key="frame" x="12" y="20" width="330" height="50"/>
                                                                     <subviews>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="DTO-qU-C0x">
@@ -637,7 +635,7 @@
                                                                             </subviews>
                                                                         </stackView>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Each Income" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K0X-Sr-VXW">
-                                                                            <rect key="frame" x="210" y="0.0" width="120" height="50"/>
+                                                                            <rect key="frame" x="210" y="16" width="120" height="18"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="120" id="OrF-Pw-T2T"/>
                                                                             </constraints>
@@ -649,6 +647,12 @@
                                                                 </stackView>
                                                             </subviews>
                                                         </view>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="zqT-Rl-JUe" secondAttribute="trailing" id="5sN-Rw-cny"/>
+                                                            <constraint firstAttribute="bottom" secondItem="zqT-Rl-JUe" secondAttribute="bottom" id="Ex0-hN-Dul"/>
+                                                            <constraint firstItem="zqT-Rl-JUe" firstAttribute="top" secondItem="Hrc-Ai-axA" secondAttribute="top" id="fzj-ez-HNc"/>
+                                                            <constraint firstItem="zqT-Rl-JUe" firstAttribute="leading" secondItem="Hrc-Ai-axA" secondAttribute="leading" id="wWL-eZ-m7C"/>
+                                                        </constraints>
                                                         <size key="customSize" width="354" height="90"/>
                                                         <connections>
                                                             <outlet property="eventDateLabel" destination="lFC-f6-YAF" id="Vda-zL-Mgl"/>
@@ -794,7 +798,7 @@
         <scene sceneID="Ufi-LG-n5k">
             <objects>
                 <navigationController id="xDi-2w-unr" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="w0O-Oc-OYw"/>
+                    <tabBarItem key="tabBarItem" title="Item" image="cube.fill" catalog="system" id="w0O-Oc-OYw"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="QU7-oD-lF4">
                         <rect key="frame" x="0.0" y="44" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -811,7 +815,7 @@
         <scene sceneID="qhM-pm-g3J">
             <objects>
                 <navigationController id="ngU-T8-Ckc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Customer" id="Vgu-bm-206"/>
+                    <tabBarItem key="tabBarItem" title="Customer" image="person.2.fill" catalog="system" id="Vgu-bm-206"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="MEl-k6-B7Q">
                         <rect key="frame" x="0.0" y="44" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -928,7 +932,7 @@
                         <viewLayoutGuide key="safeArea" id="mRa-Dn-Jjn"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Company" id="2OU-QH-34s"/>
+                    <tabBarItem key="tabBarItem" title="Company" image="building.fill" catalog="system" id="2OU-QH-34s"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RIb-xa-zOE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -978,6 +982,11 @@
         <segue reference="Ndz-lc-dDI"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="building.fill" catalog="system" width="108" height="128"/>
+        <image name="cube.fill" catalog="system" width="128" height="124"/>
+        <image name="doc.fill" catalog="system" width="115" height="128"/>
+        <image name="folder.fill" catalog="system" width="128" height="97"/>
+        <image name="person.2.fill" catalog="system" width="128" height="80"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
