@@ -9,16 +9,6 @@ import UIKit
 
 class CustomerPreviewViewController: UIViewController {
 
-    let tempEvents: [EventDetails] = [
-        EventDetails(eventStartTime: Date.now, eventEndTime: Date(timeInterval: 60*60*4, since: Date.now), eventName: "Programming class", hourlyWage: 20),
-        EventDetails(eventStartTime: Date.now, eventEndTime: Date(timeInterval: 60*60*4, since: Date.now), eventName: "Football class", hourlyWage: 30),
-        EventDetails(eventStartTime: Date.now, eventEndTime: Date(timeInterval: 60*60*6, since: Date.now), eventName: "Programming class", hourlyWage: 20),
-        EventDetails(eventStartTime: Date.now, eventEndTime: Date(timeInterval: 60*60*4, since: Date.now), eventName: "Algorithm class", hourlyWage: 10),
-        EventDetails(eventStartTime: Date.now, eventEndTime: Date(timeInterval: 60*60*4, since: Date.now), eventName: "Linguistic class", hourlyWage: 15),
-        EventDetails(eventStartTime: Date.now, eventEndTime: Date(timeInterval: 60*60*4, since: Date.now), eventName: "Music class", hourlyWage: 25),
-        EventDetails(eventStartTime: Date.now, eventEndTime: Date(timeInterval: 60*60*4, since: Date.now), eventName: "Baseball class", hourlyWage: 45)
-    ]
-
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var companyLogo: UIImageView!
     @IBOutlet var companyNameLabel: UILabel!
@@ -47,18 +37,22 @@ class CustomerPreviewViewController: UIViewController {
     enum ViewModel {
         typealias Section = Int
 
-        typealias Item = EventDetails
+        typealias Item = InvoiceItem
     }
 
     struct Model {
-        var eventsDetails = [EventDetails]()
+        var invoiceItems = [InvoiceItem]()
     }
 
-    struct EventDetails: Hashable {
-        let eventStartTime: Date
-        let eventEndTime: Date
-        let eventName: String
-        let hourlyWage: Int
+    init?(coder: NSCoder, customer: Customer, date: Date) {
+        super.init(coder: coder)
+        self.customer = customer
+        self.date = date
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.customer = nil
     }
 
     override func viewDidLoad() {
@@ -81,30 +75,32 @@ class CustomerPreviewViewController: UIViewController {
         } else {
             titleLabel.text = "No Data"
         }
-        // Need to modify
-        // ompanyLogo.image = userSetting?.logoImage ?? UIImage(systemName: "person")
-        companyLogo.image = UIImage(systemName: "person")
+        companyLogo.image = userSetting?.logoImage ?? UIImage(systemName: "person")
         companyNameLabel.text = userSetting?.companyName ?? "No Data"
         companyAdressLabel.text = userSetting?.companyAddress ?? "No Data"
         paymentMethodLabel.text = userSetting?.paymentMethod ?? "No Data"
         companyEmailLabel.text = userSetting?.eMailAddress ?? "No Data"
 
         invoiceIDLabel.text = "\(customer?.customerID ?? 0)"
-        customerNameLabel.text = customerName ?? "No Data"
+        customerNameLabel.text = customer?.information.customerName ?? "No Data"
         customerEmailLabel.text = customer?.information.eMailAddress ?? "No Data"
         itemCollectionView.backgroundColor = UIColor(red: 247/255, green: 247/255, blue: 247/255, alpha: 1)
-        setupTotalIncome(eventsDetails: tempEvents)
+        setupTotalIncome(invoiceItems: model.invoiceItems)
     }
 
     func update() {
-        model.eventsDetails = tempEvents
+        if let customer = customer, let date = date {
+            model.invoiceItems = AppDataManager.shared.getInvoice(customerID: customer.customerID, month: date.getMonth(), year: date.getYear()).invoiceItems
+            statusLabel.text = AppDataManager.shared.hasInvoiceHistory(customerID: customer.customerID, month: date.getMonth(), year: date.getYear()) ? "Sent" : "Unsent"
+        }
+        userSetting = AppDataManager.shared.getUserSetting()
 
         updateCollectionView()
     }
 
     func updateCollectionView() {
         var sectionID = [ViewModel.Section]()
-        let itemsBySection = model.eventsDetails.reduce(into: [ViewModel.Section: [ViewModel.Item]]()) { partialResult, eventDetails in
+        let itemsBySection = model.invoiceItems.reduce(into: [ViewModel.Section: [ViewModel.Item]]()) { partialResult, eventDetails in
             partialResult[0, default: []].append(eventDetails)
         }
 
@@ -115,9 +111,9 @@ class CustomerPreviewViewController: UIViewController {
     func createDataSource() -> DataSourceType {
         dataSource = DataSourceType(collectionView: itemCollectionView, cellProvider: { (collectionView, indexPath, itemIdentifier) -> EventDetailsCollectionViewCell in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EventDetailsCell", for: indexPath) as! EventDetailsCollectionViewCell
-            cell.eventDateLabel.text = self.twoDateIntoString(startDate: itemIdentifier.eventStartTime, endDate: itemIdentifier.eventEndTime)
+            cell.eventDateLabel.text = self.twoDateIntoString(startDate: itemIdentifier.startDateTime, endDate: Date(timeInterval: TimeInterval(itemIdentifier.durationMinutes), since: itemIdentifier.startDateTime))
             cell.eventNameLabel.text = itemIdentifier.eventName
-            let income = itemIdentifier.hourlyWage * self.calculateTimeDifferenceInHours(startTime: itemIdentifier.eventStartTime, endTime: itemIdentifier.eventEndTime)
+            let income = itemIdentifier.price * itemIdentifier.durationMinutes
             cell.eventIncomeLabel.text = self.formatAsCurrency(number: income)
             return cell
         })
@@ -136,9 +132,9 @@ class CustomerPreviewViewController: UIViewController {
         return diffComponents.hour!
     }
 
-    func setupTotalIncome(eventsDetails: [EventDetails]) {
-        for eventDetails in eventsDetails {
-            totalIncome += eventDetails.hourlyWage * calculateTimeDifferenceInHours(startTime: eventDetails.eventStartTime, endTime: eventDetails.eventEndTime)
+    func setupTotalIncome(invoiceItems: [InvoiceItem]) {
+        for invoiceItem in invoiceItems {
+            totalIncome += invoiceItem.price * invoiceItem.durationMinutes
         }
         totalIncomeLabel.text = formatAsCurrency(number: totalIncome)
     }

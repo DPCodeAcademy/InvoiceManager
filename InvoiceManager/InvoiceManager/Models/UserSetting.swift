@@ -5,7 +5,7 @@
 //  Created by 鈴木啓司 on 2022-06-29.
 //
 
-import Foundation
+import UIKit
 
 struct UserSetting {
 
@@ -42,5 +42,10 @@ struct UserSetting {
             return URL(fileURLWithPath: uri)
         }
         return URL(fileURLWithPath: "")
+    }
+
+    var logoImage: UIImage? {
+        guard let imageData = try? Data(contentsOf: logoImageURI) else { return nil }
+        return UIImage(data: imageData)
     }
 }

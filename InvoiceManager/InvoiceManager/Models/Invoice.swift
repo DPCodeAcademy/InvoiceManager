@@ -30,7 +30,7 @@ struct Invoice: Hashable {
     }
 }
 
-struct InvoiceItem {
+struct InvoiceItem: Hashable {
 	var startDateTime: Date
 	var durationMinutes: Int
 	var price: Int

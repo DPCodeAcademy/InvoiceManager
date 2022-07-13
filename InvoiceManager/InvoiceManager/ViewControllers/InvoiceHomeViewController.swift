@@ -92,4 +92,11 @@ class InvoiceHomeViewController: UIViewController, UITableViewDelegate, UITableV
 		let year = datePicker.date.getYear()
 		return AppDataManager.shared.hasInvoiceHistory(customerID: customer.customerID, month: month, year: year)
 	}
+
+    // To CustomerPreviewViewController
+    @IBSegueAction func cellTapped(_ coder: NSCoder, sender: UITableViewCell?, segueIdentifier: String?) -> CustomerPreviewViewController? {
+        guard let cell = sender, let indexPath = invoiceListTableView.indexPath(for: cell) else { return nil }
+        let item = customerList[indexPath.item]
+        return CustomerPreviewViewController(coder: coder, customer: item, date: datePicker.date)
+    }
 }
