@@ -39,7 +39,7 @@ class CustomerPreviewViewController: UIViewController {
     }
 
     struct Model {
-        var invoiceItems = [InvoiceItem]()
+        var invoice: Invoice?
     }
 
     init?(coder: NSCoder, customer: Customer, date: Date) {
@@ -51,6 +51,7 @@ class CustomerPreviewViewController: UIViewController {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.customer = nil
+        self.date = nil
     }
 
     override func viewDidLoad() {
@@ -73,23 +74,23 @@ class CustomerPreviewViewController: UIViewController {
         } else {
             titleLabel.text = "No Data"
         }
-        let userSetting = AppDataManager.shared.getUserSetting()
-        companyLogo.image = userSetting.logoImage ?? UIImage(systemName: "person")
-        companyNameLabel.text = userSetting.companyName
-        companyAdressLabel.text = userSetting.companyAddress
-        paymentMethodLabel.text = userSetting.paymentMethod
-        companyEmailLabel.text = userSetting.eMailAddress
+
+        companyLogo.image = model.invoice?.userInfo.logoImage ?? UIImage(systemName: "person")
+        companyNameLabel.text = model.invoice?.userInfo.companyName
+        companyAdressLabel.text = model.invoice?.userInfo.companyAddress
+        paymentMethodLabel.text = model.invoice?.userInfo.paymentMethod
+        companyEmailLabel.text = model.invoice?.userInfo.eMailAddress
 
         invoiceIDLabel.text = "#\(customer?.customerID ?? 0)"
         customerNameLabel.text = customer?.information.customerName ?? "No Data"
         customerEmailLabel.text = customer?.information.eMailAddress ?? "No Data"
         itemCollectionView.backgroundColor = UIColor(red: 247/255, green: 247/255, blue: 247/255, alpha: 1)
-        setupTotalIncome(invoiceItems: model.invoiceItems)
+        setupTotalIncome(invoiceItems: model.invoice!.invoiceItems)
     }
 
     func update() {
         if let customer = customer, let date = date {
-            model.invoiceItems = AppDataManager.shared.getInvoice(customerID: customer.customerID, month: date.getMonth(), year: date.getYear()).invoiceItems
+            model.invoice = AppDataManager.shared.getInvoice(customerID: customer.customerID, month: date.getMonth(), year: date.getYear())
             statusLabel.text = AppDataManager.shared.hasInvoiceHistory(customerID: customer.customerID, month: date.getMonth(), year: date.getYear()) ? "Sent" : "Unsent"
         }
 
@@ -98,7 +99,7 @@ class CustomerPreviewViewController: UIViewController {
 
     func updateCollectionView() {
         var sectionID = [ViewModel.Section]()
-        let itemsBySection = model.invoiceItems.reduce(into: [ViewModel.Section: [ViewModel.Item]]()) { partialResult, eventDetails in
+        let itemsBySection = model.invoice!.invoiceItems.reduce(into: [ViewModel.Section: [ViewModel.Item]]()) { partialResult, eventDetails in
             partialResult[0, default: []].append(eventDetails)
         }
 
