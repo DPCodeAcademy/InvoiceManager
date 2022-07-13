@@ -118,12 +118,6 @@ class CustomerPreviewViewController: UIViewController {
         return dataSource
     }
 
-    func formatAsCurrency(number: Int) -> String {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .currency
-        return "\(numberFormatter.string(for: number) ?? "")"
-    }
-
     func calculateTimeDifferenceInHours(startTime: Date, endTime: Date) -> Int {
         let diffComponents = Calendar.current.dateComponents([.hour], from: startTime, to: endTime)
         return diffComponents.hour!
