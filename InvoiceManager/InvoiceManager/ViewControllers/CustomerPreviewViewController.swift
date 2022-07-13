@@ -80,7 +80,7 @@ class CustomerPreviewViewController: UIViewController {
         paymentMethodLabel.text = userSetting.paymentMethod
         companyEmailLabel.text = userSetting.eMailAddress
 
-        invoiceIDLabel.text = "\(customer?.customerID ?? 0)"
+        invoiceIDLabel.text = "#\(customer?.customerID ?? 0)"
         customerNameLabel.text = customer?.information.customerName ?? "No Data"
         customerEmailLabel.text = customer?.information.eMailAddress ?? "No Data"
         itemCollectionView.backgroundColor = UIColor(red: 247/255, green: 247/255, blue: 247/255, alpha: 1)
