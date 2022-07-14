@@ -25,10 +25,8 @@ class CustomerPreviewViewController: UIViewController {
     @IBOutlet var sendBtn: UIButton!
     @IBOutlet var PDFBtn: UIButton!
 
-    var totalIncome: Int = 0
     var date: Date?
     var customer: Customer?
-    var userSetting: UserSetting?
 
     typealias DataSourceType = UICollectionViewDiffableDataSource<ViewModel.Section, ViewModel.Item>
     var dataSource: DataSourceType!
@@ -41,7 +39,7 @@ class CustomerPreviewViewController: UIViewController {
     }
 
     struct Model {
-        var invoiceItems = [InvoiceItem]()
+        var invoice: Invoice?
     }
 
     init?(coder: NSCoder, customer: Customer, date: Date) {
@@ -53,6 +51,7 @@ class CustomerPreviewViewController: UIViewController {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.customer = nil
+        self.date = nil
     }
 
     override func viewDidLoad() {
@@ -75,32 +74,32 @@ class CustomerPreviewViewController: UIViewController {
         } else {
             titleLabel.text = "No Data"
         }
-        companyLogo.image = userSetting?.logoImage ?? UIImage(systemName: "person")
-        companyNameLabel.text = userSetting?.companyName ?? "No Data"
-        companyAdressLabel.text = userSetting?.companyAddress ?? "No Data"
-        paymentMethodLabel.text = userSetting?.paymentMethod ?? "No Data"
-        companyEmailLabel.text = userSetting?.eMailAddress ?? "No Data"
 
-        invoiceIDLabel.text = "\(customer?.customerID ?? 0)"
+        companyLogo.image = model.invoice?.userInfo.logoImage ?? UIImage(systemName: "building.fill")
+        companyNameLabel.text = model.invoice?.userInfo.companyName
+        companyAdressLabel.text = model.invoice?.userInfo.companyAddress
+        paymentMethodLabel.text = model.invoice?.userInfo.paymentMethod
+        companyEmailLabel.text = model.invoice?.userInfo.eMailAddress
+
+        invoiceIDLabel.text = "#\(customer?.customerID ?? 0)"
         customerNameLabel.text = customer?.information.customerName ?? "No Data"
         customerEmailLabel.text = customer?.information.eMailAddress ?? "No Data"
         itemCollectionView.backgroundColor = UIColor(red: 247/255, green: 247/255, blue: 247/255, alpha: 1)
-        setupTotalIncome(invoiceItems: model.invoiceItems)
+        setupTotalIncome(invoiceItems: model.invoice!.invoiceItems)
     }
 
     func update() {
         if let customer = customer, let date = date {
-            model.invoiceItems = AppDataManager.shared.getInvoice(customerID: customer.customerID, month: date.getMonth(), year: date.getYear()).invoiceItems
+            model.invoice = AppDataManager.shared.getInvoice(customerID: customer.customerID, month: date.getMonth(), year: date.getYear())
             statusLabel.text = AppDataManager.shared.hasInvoiceHistory(customerID: customer.customerID, month: date.getMonth(), year: date.getYear()) ? "Sent" : "Unsent"
         }
-        userSetting = AppDataManager.shared.getUserSetting()
 
         updateCollectionView()
     }
 
     func updateCollectionView() {
         var sectionID = [ViewModel.Section]()
-        let itemsBySection = model.invoiceItems.reduce(into: [ViewModel.Section: [ViewModel.Item]]()) { partialResult, eventDetails in
+        let itemsBySection = model.invoice!.invoiceItems.reduce(into: [ViewModel.Section: [ViewModel.Item]]()) { partialResult, eventDetails in
             partialResult[0, default: []].append(eventDetails)
         }
 
@@ -111,39 +110,29 @@ class CustomerPreviewViewController: UIViewController {
     func createDataSource() -> DataSourceType {
         dataSource = DataSourceType(collectionView: itemCollectionView, cellProvider: { (collectionView, indexPath, itemIdentifier) -> EventDetailsCollectionViewCell in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EventDetailsCell", for: indexPath) as! EventDetailsCollectionViewCell
-            cell.eventDateLabel.text = self.twoDateIntoString(startDate: itemIdentifier.startDateTime, endDate: Date(timeInterval: TimeInterval(itemIdentifier.durationMinutes), since: itemIdentifier.startDateTime))
+            cell.eventDateLabel.text = self.twoDateIntoString(startDate: itemIdentifier.startDateTime, duration: itemIdentifier.durationMinutes)
             cell.eventNameLabel.text = itemIdentifier.eventName
-            let income = itemIdentifier.price * itemIdentifier.durationMinutes
-            cell.eventIncomeLabel.text = self.formatAsCurrency(number: income)
+            cell.eventIncomeLabel.text = "$\(itemIdentifier.price)"
             return cell
         })
 
         return dataSource
     }
 
-    func formatAsCurrency(number: Int) -> String {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .currency
-        return "\(numberFormatter.string(for: number) ?? "")"
-    }
-
-    func calculateTimeDifferenceInHours(startTime: Date, endTime: Date) -> Int {
-        let diffComponents = Calendar.current.dateComponents([.hour], from: startTime, to: endTime)
-        return diffComponents.hour!
-    }
-
     func setupTotalIncome(invoiceItems: [InvoiceItem]) {
+        var totalIncome: Int = 0
         for invoiceItem in invoiceItems {
-            totalIncome += invoiceItem.price * invoiceItem.durationMinutes
+            totalIncome += invoiceItem.price
         }
-        totalIncomeLabel.text = formatAsCurrency(number: totalIncome)
+        totalIncomeLabel.text = "$\(totalIncome)"
     }
 
-    func twoDateIntoString(startDate: Date, endDate: Date) -> String {
+    func twoDateIntoString(startDate: Date, duration: Int) -> String {
         let startDateFormatter = DateFormatter()
         startDateFormatter.dateFormat = "MM/d, HH:mm"
         let endDateFormatter = DateFormatter()
         endDateFormatter.dateFormat = "HH:mm"
+        let endDate = Date(timeInterval: TimeInterval(duration*60), since: startDate)
         let strDate = "\(startDateFormatter.string(from: startDate))-\(endDateFormatter.string(from: endDate))"
         return strDate
     }
