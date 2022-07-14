@@ -75,7 +75,7 @@ class CustomerPreviewViewController: UIViewController {
             titleLabel.text = "No Data"
         }
 
-        companyLogo.image = model.invoice?.userInfo.logoImage ?? UIImage(systemName: "person")
+        companyLogo.image = model.invoice?.userInfo.logoImage ?? UIImage(systemName: "building.fill")
         companyNameLabel.text = model.invoice?.userInfo.companyName
         companyAdressLabel.text = model.invoice?.userInfo.companyAddress
         paymentMethodLabel.text = model.invoice?.userInfo.paymentMethod
@@ -110,18 +110,13 @@ class CustomerPreviewViewController: UIViewController {
     func createDataSource() -> DataSourceType {
         dataSource = DataSourceType(collectionView: itemCollectionView, cellProvider: { (collectionView, indexPath, itemIdentifier) -> EventDetailsCollectionViewCell in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EventDetailsCell", for: indexPath) as! EventDetailsCollectionViewCell
-            cell.eventDateLabel.text = self.twoDateIntoString(startDate: itemIdentifier.startDateTime, endDate: Date(timeInterval: TimeInterval(itemIdentifier.durationMinutes), since: itemIdentifier.startDateTime))
+            cell.eventDateLabel.text = self.twoDateIntoString(startDate: itemIdentifier.startDateTime, duration: itemIdentifier.durationMinutes)
             cell.eventNameLabel.text = itemIdentifier.eventName
             cell.eventIncomeLabel.text = "$\(itemIdentifier.price)"
             return cell
         })
 
         return dataSource
-    }
-
-    func calculateTimeDifferenceInHours(startTime: Date, endTime: Date) -> Int {
-        let diffComponents = Calendar.current.dateComponents([.hour], from: startTime, to: endTime)
-        return diffComponents.hour!
     }
 
     func setupTotalIncome(invoiceItems: [InvoiceItem]) {
@@ -132,11 +127,12 @@ class CustomerPreviewViewController: UIViewController {
         totalIncomeLabel.text = "$\(totalIncome)"
     }
 
-    func twoDateIntoString(startDate: Date, endDate: Date) -> String {
+    func twoDateIntoString(startDate: Date, duration: Int) -> String {
         let startDateFormatter = DateFormatter()
         startDateFormatter.dateFormat = "MM/d, HH:mm"
         let endDateFormatter = DateFormatter()
         endDateFormatter.dateFormat = "HH:mm"
+        let endDate = Date(timeInterval: TimeInterval(duration*60), since: startDate)
         let strDate = "\(startDateFormatter.string(from: startDate))-\(endDateFormatter.string(from: endDate))"
         return strDate
     }
