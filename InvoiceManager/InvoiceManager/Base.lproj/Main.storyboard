@@ -725,6 +725,7 @@
                                                         <buttonConfiguration key="configuration" style="filled" title="PDF"/>
                                                         <connections>
                                                             <action selector="PDFBtnTapped:" destination="Jvg-7S-OKg" eventType="touchUpInside" id="B5g-vg-K68"/>
+                                                            <segue destination="eyU-lJ-Jge" kind="presentation" id="Eem-tf-fbN"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -769,6 +770,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DSN-7K-nLa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5372.3076923076924" y="-1944.3127962085307"/>
+        </scene>
+        <!--Viewer View Controller-->
+        <scene sceneID="YN0-qO-RV2">
+            <objects>
+                <viewController storyboardIdentifier="pdfViewer" id="eyU-lJ-Jge" customClass="PDFViewerViewController" customModule="InvoiceManager" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Lcf-KN-dhd">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="tZj-ze-vqr"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nI0-hi-L6A" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6371" y="-1942"/>
         </scene>
         <!--Root View Controller-->
         <scene sceneID="Zn8-aJ-Huw">
