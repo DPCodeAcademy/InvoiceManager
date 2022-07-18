@@ -74,6 +74,12 @@ Name the branch <branchname> according to the following naming convention.
 
 ### Step 5: Test localy
 In your local environment, make sure that you can build, debug, and check that there are no problems.
+For the screen layout, Please run at least the following iPhone models and make sure the text is readable.
+
+iPhone 8 (4.7''), iPhone 11 (6.1''), iPhone 13 Pro Max (6.7'')
+
+![Screen Shot 2022-07-18 at 10 11 33 AM](https://user-images.githubusercontent.com/90675874/179566418-97783b35-cfd3-435f-b90c-7d3250ea544a.png)
+
 
 ### Step 6: Send a pull request
 `git push -u origin <branchname>`
