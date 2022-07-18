@@ -38,9 +38,6 @@ class CustomerPreviewViewController: UIViewController {
         typealias Item = InvoiceItem
     }
     
-    let invoiceViewModel = InvoiceHistoryViewModel()
-    // Model should be managed through ViewModel?
-    // (ViewModel should have invoice property, and the ViewModel is responsible for managing invoice model?)
     struct Model {
         var invoice: Invoice?
     }
@@ -154,9 +151,7 @@ class CustomerPreviewViewController: UIViewController {
 
     @IBAction func PDFBtnTapped(_ sender: UIButton) {
         let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "pdfViewer") as! PDFViewerViewController
-        // generatePDF function is taking invoice object as argument, but this should be altered.
-        // ViewModel should have invoice object, and the ViewModel generate PDF using its invoice object property
-        nextVC.content = invoiceViewModel.generatePDF(invoice: model.invoice!)
+        nextVC.content = AppDataManager.shared.getPDFInvoice(for: model.invoice!)
         self.present(nextVC, animated: true, completion: nil)
     }
 
