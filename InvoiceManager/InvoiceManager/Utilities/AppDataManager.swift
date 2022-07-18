@@ -55,10 +55,6 @@ class AppDataManager {
 		return self.createNewInvoice(customerID: customerID, month: month, year: year )
 	}
     
-    func getPDFInvoice(for invoice: Invoice) -> NSMutableData {
-        return invoiceHistoryList.generatePDF(invoice: invoice)
-    }
-
 	func getUserSetting() -> UserSetting {
         return userSetting
     }

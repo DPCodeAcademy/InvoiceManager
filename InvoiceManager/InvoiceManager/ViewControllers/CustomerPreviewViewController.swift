@@ -37,7 +37,7 @@ class CustomerPreviewViewController: UIViewController {
 
         typealias Item = InvoiceItem
     }
-    
+
     struct Model {
         var invoice: Invoice?
     }
@@ -151,7 +151,7 @@ class CustomerPreviewViewController: UIViewController {
 
     @IBAction func PDFBtnTapped(_ sender: UIButton) {
         let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "pdfViewer") as! PDFViewerViewController
-        nextVC.content = AppDataManager.shared.getPDFInvoice(for: model.invoice!)
+        nextVC.content = PDFGenerator.generatePDF(for: model.invoice!)
         self.present(nextVC, animated: true, completion: nil)
     }
 

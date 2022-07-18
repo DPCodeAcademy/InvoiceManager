@@ -10,6 +10,7 @@
 		59E6981ED84EF55DFDF06C46 /* Pods_InvoiceManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB9CFB4E3B193C426DF2787 /* Pods_InvoiceManager.framework */; };
 		7045118C28849B31007C9FC6 /* PDFViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7045118B28849B31007C9FC6 /* PDFViewerViewController.swift */; };
 		7067B47B2884D86800CF0A45 /* invoice_template.html in Resources */ = {isa = PBXBuildFile; fileRef = 7067B47A2884D86800CF0A45 /* invoice_template.html */; };
+		70C026C928860CAC00C179DA /* PDFGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C026C828860CAC00C179DA /* PDFGenerator.swift */; };
 		BA36C35828760BD300D65CEF /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA36C35728760BD300D65CEF /* Event.swift */; };
 		BA36C35A28760CD300D65CEF /* Invoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA36C35928760CD300D65CEF /* Invoice.swift */; };
 		BA36C35C28760D6E00D65CEF /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA36C35B28760D6E00D65CEF /* Customer.swift */; };
@@ -53,6 +54,7 @@
 		566D5FFAB98B1038A40F8065 /* Pods-InvoiceManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InvoiceManager.debug.xcconfig"; path = "Target Support Files/Pods-InvoiceManager/Pods-InvoiceManager.debug.xcconfig"; sourceTree = "<group>"; };
 		7045118B28849B31007C9FC6 /* PDFViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFViewerViewController.swift; sourceTree = "<group>"; };
 		7067B47A2884D86800CF0A45 /* invoice_template.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = invoice_template.html; sourceTree = "<group>"; };
+		70C026C828860CAC00C179DA /* PDFGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFGenerator.swift; sourceTree = "<group>"; };
 		7E289C8C880981B9BD7627EB /* Pods-InvoiceManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InvoiceManager.release.xcconfig"; path = "Target Support Files/Pods-InvoiceManager/Pods-InvoiceManager.release.xcconfig"; sourceTree = "<group>"; };
 		BA36C35728760BD300D65CEF /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		BA36C35928760CD300D65CEF /* Invoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invoice.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 			children = (
 				E538AE2B286CE2440002AB38 /* AppDataManager.swift */,
 				E5CD1029287B5FFD00A3AAEE /* Date+Extensions.swift */,
+				70C026C828860CAC00C179DA /* PDFGenerator.swift */,
 				7067B47A2884D86800CF0A45 /* invoice_template.html */,
 			);
 			path = Utilities;
@@ -394,6 +397,7 @@
 				E538AE2A286CE0710002AB38 /* UserSetting.swift in Sources */,
 				7045118C28849B31007C9FC6 /* PDFViewerViewController.swift in Sources */,
 				BA36C35828760BD300D65CEF /* Event.swift in Sources */,
+				70C026C928860CAC00C179DA /* PDFGenerator.swift in Sources */,
 				E5B9F6F62874970B00F8EDF3 /* InvoiceHomeViewController.swift in Sources */,
 				BA36C35A28760CD300D65CEF /* Invoice.swift in Sources */,
 				E538AE27286CDB1F0002AB38 /* CustomerViewModel.swift in Sources */,
