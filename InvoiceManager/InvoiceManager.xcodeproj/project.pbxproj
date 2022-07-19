@@ -16,6 +16,7 @@
 		BA36C35C28760D6E00D65CEF /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA36C35B28760D6E00D65CEF /* Customer.swift */; };
 		D92842F7287CF74700EA2C41 /* EventDetailsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92842F6287CF74700EA2C41 /* EventDetailsCollectionViewCell.swift */; };
 		D92842F9287CF76400EA2C41 /* CustomerPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92842F8287CF76400EA2C41 /* CustomerPreviewViewController.swift */; };
+		D937D3472887776B00DC8D0B /* EventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D937D3462887776B00DC8D0B /* EventCollectionViewCell.swift */; };
 		D9516085288740D40028A834 /* AddEditCustomerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9516084288740D40028A834 /* AddEditCustomerViewController.swift */; };
 		E538AE27286CDB1F0002AB38 /* CustomerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538AE25286CDB1F0002AB38 /* CustomerViewModel.swift */; };
 		E538AE28286CDB1F0002AB38 /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538AE26286CDB1F0002AB38 /* EventViewModel.swift */; };
@@ -62,6 +63,7 @@
 		BA36C35B28760D6E00D65CEF /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 		D92842F6287CF74700EA2C41 /* EventDetailsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsCollectionViewCell.swift; sourceTree = "<group>"; };
 		D92842F8287CF76400EA2C41 /* CustomerPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerPreviewViewController.swift; sourceTree = "<group>"; };
+		D937D3462887776B00DC8D0B /* EventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCollectionViewCell.swift; sourceTree = "<group>"; };
 		D9516084288740D40028A834 /* AddEditCustomerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditCustomerViewController.swift; sourceTree = "<group>"; };
 		E538AE25286CDB1F0002AB38 /* CustomerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerViewModel.swift; sourceTree = "<group>"; };
 		E538AE26286CDB1F0002AB38 /* EventViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 				D92842F6287CF74700EA2C41 /* EventDetailsCollectionViewCell.swift */,
 				7045118B28849B31007C9FC6 /* PDFViewerViewController.swift */,
 				D9516084288740D40028A834 /* AddEditCustomerViewController.swift */,
+				D937D3462887776B00DC8D0B /* EventCollectionViewCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 				D92842F7287CF74700EA2C41 /* EventDetailsCollectionViewCell.swift in Sources */,
 				E538AE2E286CE5700002AB38 /* InvoiceHistoryViewModel.swift in Sources */,
 				E5552C1E2865204700D299BB /* AppDelegate.swift in Sources */,
+				D937D3472887776B00DC8D0B /* EventCollectionViewCell.swift in Sources */,
 				E5B9F7062877A9E400F8EDF3 /* MonthYearDatePickerView.swift in Sources */,
 				E5552C3628653B0700D299BB /* ImportCalenderViewController.swift in Sources */,
 				E538AE2A286CE0710002AB38 /* UserSetting.swift in Sources */,
