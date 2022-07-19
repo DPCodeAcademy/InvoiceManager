@@ -842,7 +842,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="9IT-DC-JtA">
-                                <rect key="frame" x="25" y="142" width="340" height="583"/>
+                                <rect key="frame" x="25" y="142" width="340" height="553"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="customerListCell" textLabel="3cd-ph-VpF" detailTextLabel="5Bz-jD-n0P" style="IBUITableViewCellStyleSubtitle" id="WSA-G9-fDv">
@@ -872,7 +872,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bck-en-5db">
-                                <rect key="frame" x="130.66666666666666" y="740" width="128.99999999999997" height="31"/>
+                                <rect key="frame" x="130.66666666666666" y="710" width="128.99999999999997" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Import Calender"/>
                                 <connections>
@@ -915,7 +915,7 @@
                             <constraint firstItem="Bck-en-5db" firstAttribute="top" secondItem="9IT-DC-JtA" secondAttribute="bottom" constant="15" id="hgZ-9b-AWZ"/>
                             <constraint firstItem="dFw-5q-syh" firstAttribute="top" secondItem="0Z8-3T-0hu" secondAttribute="top" constant="20" id="uHT-3d-5re"/>
                             <constraint firstItem="9IT-DC-JtA" firstAttribute="leading" secondItem="0Z8-3T-0hu" secondAttribute="leading" constant="25" id="yIS-SW-zde"/>
-                            <constraint firstItem="Bck-en-5db" firstAttribute="bottom" secondItem="0Z8-3T-0hu" secondAttribute="bottom" constant="10" id="yRD-lb-wB7"/>
+                            <constraint firstItem="Bck-en-5db" firstAttribute="bottom" secondItem="0Z8-3T-0hu" secondAttribute="bottom" constant="-20" id="yRD-lb-wB7"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Customer" id="Wjj-8r-VxJ"/>
