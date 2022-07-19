@@ -725,6 +725,7 @@
                                                         <buttonConfiguration key="configuration" style="filled" title="PDF"/>
                                                         <connections>
                                                             <action selector="PDFBtnTapped:" destination="Jvg-7S-OKg" eventType="touchUpInside" id="B5g-vg-K68"/>
+                                                            <segue destination="eyU-lJ-Jge" kind="presentation" id="Eem-tf-fbN"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -770,7 +771,51 @@
             </objects>
             <point key="canvasLocation" x="5372.3076923076924" y="-1944.3127962085307"/>
         </scene>
-        <!--Event-->
+        <!--Viewer View Controller-->
+        <scene sceneID="YN0-qO-RV2">
+            <objects>
+                <viewController storyboardIdentifier="pdfViewer" id="eyU-lJ-Jge" customClass="PDFViewerViewController" customModule="InvoiceManager" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Lcf-KN-dhd">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="tZj-ze-vqr"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nI0-hi-L6A" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6371" y="-1942"/>
+        </scene>
+        <!--Root View Controller-->
+        <scene sceneID="Zn8-aJ-Huw">
+            <objects>
+                <tableViewController id="5d0-zL-SRV" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="zXc-1p-qKV">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="QrC-HQ-o2g">
+                                <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QrC-HQ-o2g" id="eC1-ic-dbw">
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="5d0-zL-SRV" id="Zsu-s9-qvZ"/>
+                            <outlet property="delegate" destination="5d0-zL-SRV" id="U0j-sh-kcw"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="WKM-WA-hqR"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xZ5-e9-eqb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4383" y="-477"/>
+        </scene>
+        <!--Item-->
         <scene sceneID="Ufi-LG-n5k">
             <objects>
                 <navigationController id="xDi-2w-unr" sceneMemberID="viewController">

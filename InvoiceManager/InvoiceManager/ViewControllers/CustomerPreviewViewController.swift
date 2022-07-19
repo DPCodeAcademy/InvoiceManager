@@ -4,7 +4,6 @@
 //
 //  Created by Kaiya Takahashi on 2022-07-11.
 //
-
 import UIKit
 
 class CustomerPreviewViewController: UIViewController {
@@ -24,7 +23,8 @@ class CustomerPreviewViewController: UIViewController {
     @IBOutlet var statusLabel: UILabel!
     @IBOutlet var sendBtn: UIButton!
     @IBOutlet var PDFBtn: UIButton!
-
+    
+    // nil case will never occur?
     var date: Date?
     var customer: Customer?
 
@@ -150,6 +150,9 @@ class CustomerPreviewViewController: UIViewController {
     }
 
     @IBAction func PDFBtnTapped(_ sender: UIButton) {
+        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "pdfViewer") as! PDFViewerViewController
+        nextVC.content = PDFGenerator.generatePDF(for: model.invoice!)
+        self.present(nextVC, animated: true, completion: nil)
     }
 
     @IBAction func addItemBtnTapped(_ sender: UIButton) {
