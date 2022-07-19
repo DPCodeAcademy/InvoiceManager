@@ -54,7 +54,7 @@ class AppDataManager {
 		}
 		return self.createNewInvoice(customerID: customerID, month: month, year: year )
 	}
-
+    
 	func getUserSetting() -> UserSetting {
         return userSetting
     }
