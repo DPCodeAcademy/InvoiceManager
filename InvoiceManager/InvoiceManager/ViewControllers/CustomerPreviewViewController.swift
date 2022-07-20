@@ -6,8 +6,8 @@
 //
 import UIKit
 
-class CustomerPreviewViewController: UIViewController {
-
+class CustomerPreviewViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+  
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var companyLogo: UIImageView!
     @IBOutlet var companyNameLabel: UILabel!
@@ -23,24 +23,10 @@ class CustomerPreviewViewController: UIViewController {
     @IBOutlet var statusLabel: UILabel!
     @IBOutlet var sendBtn: UIButton!
     @IBOutlet var PDFBtn: UIButton!
-    
-    // nil case will never occur?
-    var date: Date?
-    var customer: Customer?
 
-    typealias DataSourceType = UICollectionViewDiffableDataSource<ViewModel.Section, ViewModel.Item>
-    var dataSource: DataSourceType!
-    var model = Model()
-
-    enum ViewModel {
-        typealias Section = Int
-
-        typealias Item = InvoiceItem
-    }
-
-    struct Model {
-        var invoice: Invoice?
-    }
+    var date: Date!
+    var customer: Customer!
+    var invoice: Invoice!
 
     init?(coder: NSCoder, customer: Customer, date: Date) {
         super.init(coder: coder)
@@ -57,7 +43,6 @@ class CustomerPreviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        dataSource = createDataSource()
         itemCollectionView.collectionViewLayout = createLayout()
         update()
         setupInformationView()
@@ -67,56 +52,38 @@ class CustomerPreviewViewController: UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM"
         let month: String
-        let customerName = customer?.information.customerName
-        if let date = date, let customerName = customerName {
-            month = dateFormatter.string(from: date)
-            titleLabel.text = "\(customerName)'s Invoice in \(month)"
-        } else {
-            titleLabel.text = "No Data"
-        }
+        let customerName = customer.information.customerName
+        month = dateFormatter.string(from: date)
+        titleLabel.text = "\(customerName)'s Invoice in \(month)"
 
-        companyLogo.image = model.invoice?.userInfo.logoImage ?? UIImage(systemName: "building.fill")
-        companyNameLabel.text = model.invoice?.userInfo.companyName
-        companyAdressLabel.text = model.invoice?.userInfo.companyAddress
-        paymentMethodLabel.text = model.invoice?.userInfo.paymentMethod
-        companyEmailLabel.text = model.invoice?.userInfo.eMailAddress
+        companyLogo.image = invoice.userInfo.logoImage ?? UIImage(systemName: "building.fill")
+        companyNameLabel.text = invoice.userInfo.companyName
+        companyAdressLabel.text = invoice.userInfo.companyAddress
+        paymentMethodLabel.text = invoice.userInfo.paymentMethod
+        companyEmailLabel.text = invoice.userInfo.eMailAddress
 
-        invoiceIDLabel.text = "#\(customer?.customerID ?? 0)"
-        customerNameLabel.text = customer?.information.customerName ?? "No Data"
-        customerEmailLabel.text = customer?.information.eMailAddress ?? "No Data"
+        invoiceIDLabel.text = "#\(customer.customerID)"
+        customerNameLabel.text = customer.information.customerName
+        customerEmailLabel.text = customer.information.eMailAddress
         itemCollectionView.backgroundColor = UIColor(red: 247/255, green: 247/255, blue: 247/255, alpha: 1)
-        setupTotalIncome(invoiceItems: model.invoice!.invoiceItems)
+        setupTotalIncome(invoiceItems: invoice!.invoiceItems)
     }
 
     func update() {
-        if let customer = customer, let date = date {
-            model.invoice = AppDataManager.shared.getInvoice(customerID: customer.customerID, month: date.getMonth(), year: date.getYear())
-            statusLabel.text = AppDataManager.shared.hasInvoiceHistory(customerID: customer.customerID, month: date.getMonth(), year: date.getYear()) ? "Sent" : "Unsent"
-        }
-
-        updateCollectionView()
+        self.invoice = AppDataManager.shared.getInvoice(customerID: customer.customerID, month: date.getMonth(), year: date.getYear())
+        statusLabel.text = AppDataManager.shared.hasInvoiceHistory(customerID: customer.customerID, month: date.getMonth(), year: date.getYear()) ? "Sent" : "Unsent"
     }
 
-    func updateCollectionView() {
-        var sectionID = [ViewModel.Section]()
-        let itemsBySection = model.invoice!.invoiceItems.reduce(into: [ViewModel.Section: [ViewModel.Item]]()) { partialResult, eventDetails in
-            partialResult[0, default: []].append(eventDetails)
-        }
-
-        sectionID.append(0)
-        dataSource.applySnapshotUsing(sectionIDs: sectionID, itemsBySeciton: itemsBySection)
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return invoice.invoiceItems.count
     }
-
-    func createDataSource() -> DataSourceType {
-        dataSource = DataSourceType(collectionView: itemCollectionView, cellProvider: { (collectionView, indexPath, itemIdentifier) -> EventDetailsCollectionViewCell in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EventDetailsCell", for: indexPath) as! EventDetailsCollectionViewCell
-            cell.eventDateLabel.text = self.twoDateIntoString(startDate: itemIdentifier.startDateTime, duration: itemIdentifier.durationMinutes)
-            cell.eventNameLabel.text = itemIdentifier.eventName
-            cell.eventIncomeLabel.text = "$\(itemIdentifier.price)"
-            return cell
-        })
-
-        return dataSource
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EventDetailsCell", for: indexPath) as! EventDetailsCollectionViewCell
+        cell.eventDateLabel.text = self.twoDateIntoString(startDate: invoice.invoiceItems[indexPath.item].startDateTime, duration: invoice.invoiceItems[indexPath.item].durationMinutes)
+        cell.eventNameLabel.text = invoice.invoiceItems[indexPath.item].eventName
+        cell.eventIncomeLabel.text = "$\(invoice.invoiceItems[indexPath.item].price)"
+        return cell
     }
 
     func setupTotalIncome(invoiceItems: [InvoiceItem]) {
@@ -151,28 +118,11 @@ class CustomerPreviewViewController: UIViewController {
 
     @IBAction func PDFBtnTapped(_ sender: UIButton) {
         let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "pdfViewer") as! PDFViewerViewController
-        nextVC.content = PDFGenerator.generatePDF(for: model.invoice!)
+        nextVC.content = PDFGenerator.generatePDF(for: invoice)
         self.present(nextVC, animated: true, completion: nil)
     }
 
     @IBAction func addItemBtnTapped(_ sender: UIButton) {
     }
 
-}
-
-extension UICollectionViewDiffableDataSource {
-    func applySnapshotUsing(sectionIDs: [SectionIdentifierType], itemsBySeciton: [SectionIdentifierType: [ItemIdentifierType]], sectionRetainedIfEmpty: Set<SectionIdentifierType> = Set<SectionIdentifierType>()) {
-        applySnapshotUsing(sectionIDs: sectionIDs, itemsBySection: itemsBySeciton, animatingDifferences: true, sectionRetainedIfEmpty: sectionRetainedIfEmpty)
-    }
-
-    func applySnapshotUsing(sectionIDs: [SectionIdentifierType], itemsBySection: [SectionIdentifierType: [ItemIdentifierType]], animatingDifferences: Bool, sectionRetainedIfEmpty: Set<SectionIdentifierType> = Set<SectionIdentifierType>()) {
-        var snapshot = NSDiffableDataSourceSnapshot<SectionIdentifierType, ItemIdentifierType>()
-
-        for sectionID in sectionIDs {
-            guard let sectionItems = itemsBySection[sectionID], sectionItems.count > 0 || sectionRetainedIfEmpty.contains(sectionID) else { continue }
-            snapshot.appendSections([sectionID])
-            snapshot.appendItems(sectionItems, toSection: sectionID)
-        }
-        self.apply(snapshot, animatingDifferences: animatingDifferences)
-    }
 }
