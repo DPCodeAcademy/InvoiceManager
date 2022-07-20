@@ -35,4 +35,11 @@ class CustomerHomeViewController: UIViewController, UITableViewDelegate, UITable
 
     @IBAction func importCalenderButtonTapped() {
     }
+    
+    @IBSegueAction func cellTapped(_ coder: NSCoder, sender: UITableViewCell?) -> AddEditCustomerViewController? {
+        guard let cell = sender, let indexPath = customerListTableView.indexPath(for: cell) else { return nil }
+        let customer = customerList[indexPath.row]
+        return AddEditCustomerViewController(coder: coder, customer: customer)
+    }
+    
 }

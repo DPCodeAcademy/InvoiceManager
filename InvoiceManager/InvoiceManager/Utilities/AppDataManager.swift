@@ -40,6 +40,10 @@ class AppDataManager {
         return eventList.getEventList()
     }
 
+    func getEventList(customerID: UInt16) -> [Event] {
+            return eventList.getCustomerEventList(customerID: customerID)
+        }
+
     func getEvent(eventName: String) -> Event? {
         return eventList.getEvent(eventName: eventName)
     }
