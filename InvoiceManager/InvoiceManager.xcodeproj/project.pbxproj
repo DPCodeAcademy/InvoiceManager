@@ -28,6 +28,9 @@
 		E5552C2A2865204900D299BB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5552C282865204900D299BB /* LaunchScreen.storyboard */; };
 		E5552C32286539B400D299BB /* TitleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5552C31286539B400D299BB /* TitleViewController.swift */; };
 		E5552C3628653B0700D299BB /* ImportCalenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5552C3528653B0700D299BB /* ImportCalenderViewController.swift */; };
+		E558EBD02889F65200BCE968 /* EventHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E558EBCF2889F65200BCE968 /* EventHomeViewController.swift */; };
+		E558EBD42889F68D00BCE968 /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E558EBD32889F68D00BCE968 /* EventDetailViewController.swift */; };
+		E558EBD62889F73C00BCE968 /* EventEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E558EBD52889F73C00BCE968 /* EventEditViewController.swift */; };
 		E5A7427C286BEDA6009E723C /* CalenderEventsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7427B286BEDA6009E723C /* CalenderEventsCollectionViewCell.swift */; };
 		E5A7427E286BF87A009E723C /* EventNamedSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7427D286BF87A009E723C /* EventNamedSectionHeaderView.swift */; };
 		E5A74280286CC7BE009E723C /* CheckboxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7427F286CC7BE009E723C /* CheckboxButton.swift */; };
@@ -75,6 +78,9 @@
 		E5552C2B2865204900D299BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5552C31286539B400D299BB /* TitleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleViewController.swift; sourceTree = "<group>"; };
 		E5552C3528653B0700D299BB /* ImportCalenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportCalenderViewController.swift; sourceTree = "<group>"; };
+		E558EBCF2889F65200BCE968 /* EventHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHomeViewController.swift; sourceTree = "<group>"; };
+		E558EBD32889F68D00BCE968 /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
+		E558EBD52889F73C00BCE968 /* EventEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventEditViewController.swift; sourceTree = "<group>"; };
 		E5A7427B286BEDA6009E723C /* CalenderEventsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderEventsCollectionViewCell.swift; sourceTree = "<group>"; };
 		E5A7427D286BF87A009E723C /* EventNamedSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventNamedSectionHeaderView.swift; sourceTree = "<group>"; };
 		E5A7427F286CC7BE009E723C /* CheckboxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxButton.swift; sourceTree = "<group>"; };
@@ -159,6 +165,9 @@
 				D92842F8287CF76400EA2C41 /* CustomerPreviewViewController.swift */,
 				D92842F6287CF74700EA2C41 /* EventDetailsCollectionViewCell.swift */,
 				7045118B28849B31007C9FC6 /* PDFViewerViewController.swift */,
+				E558EBCF2889F65200BCE968 /* EventHomeViewController.swift */,
+				E558EBD32889F68D00BCE968 /* EventDetailViewController.swift */,
+				E558EBD52889F73C00BCE968 /* EventEditViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -388,7 +397,9 @@
 				E5A74280286CC7BE009E723C /* CheckboxButton.swift in Sources */,
 				E538AE28286CDB1F0002AB38 /* EventViewModel.swift in Sources */,
 				E5B9F6FA2874976800F8EDF3 /* InvoiceHomeTableViewCell.swift in Sources */,
+				E558EBD02889F65200BCE968 /* EventHomeViewController.swift in Sources */,
 				D92842F9287CF76400EA2C41 /* CustomerPreviewViewController.swift in Sources */,
+				E558EBD62889F73C00BCE968 /* EventEditViewController.swift in Sources */,
 				D92842F7287CF74700EA2C41 /* EventDetailsCollectionViewCell.swift in Sources */,
 				E538AE2E286CE5700002AB38 /* InvoiceHistoryViewModel.swift in Sources */,
 				E5552C1E2865204700D299BB /* AppDelegate.swift in Sources */,
@@ -398,6 +409,7 @@
 				7045118C28849B31007C9FC6 /* PDFViewerViewController.swift in Sources */,
 				BA36C35828760BD300D65CEF /* Event.swift in Sources */,
 				70C026C928860CAC00C179DA /* PDFGenerator.swift in Sources */,
+				E558EBD42889F68D00BCE968 /* EventDetailViewController.swift in Sources */,
 				E5B9F6F62874970B00F8EDF3 /* InvoiceHomeViewController.swift in Sources */,
 				BA36C35A28760CD300D65CEF /* Invoice.swift in Sources */,
 				E538AE27286CDB1F0002AB38 /* CustomerViewModel.swift in Sources */,

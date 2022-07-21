@@ -786,36 +786,7 @@
             </objects>
             <point key="canvasLocation" x="6371" y="-1942"/>
         </scene>
-        <!--Root View Controller-->
-        <scene sceneID="Zn8-aJ-Huw">
-            <objects>
-                <tableViewController id="5d0-zL-SRV" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="zXc-1p-qKV">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="QrC-HQ-o2g">
-                                <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="43.666667938232422"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QrC-HQ-o2g" id="eC1-ic-dbw">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="5d0-zL-SRV" id="Zsu-s9-qvZ"/>
-                            <outlet property="delegate" destination="5d0-zL-SRV" id="U0j-sh-kcw"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="WKM-WA-hqR"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xZ5-e9-eqb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4383" y="-477"/>
-        </scene>
-        <!--Item-->
+        <!--Event-->
         <scene sceneID="Ufi-LG-n5k">
             <objects>
                 <navigationController id="xDi-2w-unr" sceneMemberID="viewController">
@@ -835,7 +806,7 @@
         <!--Event-->
         <scene sceneID="STt-nx-He4">
             <objects>
-                <viewController id="3aL-Od-dQn" sceneMemberID="viewController">
+                <viewController id="3aL-Od-dQn" customClass="EventHomeViewController" customModule="InvoiceManager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nb5-Hv-Y3g">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -873,9 +844,6 @@
                                         <rect key="frame" x="296.66666666666669" y="0.0" width="43.333333333333314" height="30.666666666666668"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system"/>
-                                        <connections>
-                                            <segue destination="ndq-Tm-HdP" kind="push" id="u1x-ft-q79"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -945,6 +913,9 @@
                                                 <constraint firstItem="4nV-cb-qIC" firstAttribute="leading" secondItem="vss-Au-xbc" secondAttribute="leading" constant="25" id="oLR-3g-eKs"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="ndq-Tm-HdP" kind="show" destinationCreationSelector="cellTapped:sender:" id="dT1-3R-0Oa"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -968,6 +939,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Event" id="s1W-rm-zF6"/>
+                    <connections>
+                        <outlet property="eventHomeTableView" destination="j2c-II-Jly" id="yuV-R8-44Q"/>
+                        <outlet property="targetMonthInput" destination="mNM-nL-EiW" id="MPp-jy-QKi"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jzo-TO-W4e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -976,7 +951,7 @@
         <!--Event detail-->
         <scene sceneID="kes-9U-iam">
             <objects>
-                <viewController id="ndq-Tm-HdP" sceneMemberID="viewController">
+                <viewController id="ndq-Tm-HdP" customClass="EventDetailViewController" customModule="InvoiceManager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AfA-pe-AHj">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1036,9 +1011,6 @@
                                                 <rect key="frame" x="296.66666666666669" y="0.0" width="43.333333333333314" height="30.666666666666668"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system"/>
-                                                <connections>
-                                                    <segue destination="oUe-0j-tI8" kind="push" id="sAr-PC-ldD"/>
-                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -1101,6 +1073,9 @@
                                                 <constraint firstAttribute="bottom" secondItem="w52-b3-dCe" secondAttribute="bottom" constant="5" id="q4q-FQ-poq"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="oUe-0j-tI8" kind="show" destinationCreationSelector="cellTapped:sender:" id="2sl-YC-75a"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -1121,6 +1096,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Event detail" id="yvn-8h-RNU"/>
+                    <connections>
+                        <outlet property="eventDetailTabelView" destination="PPw-jt-oL3" id="pez-JA-04t"/>
+                        <outlet property="eventNameInput" destination="eXL-oc-WI2" id="bAe-La-N93"/>
+                        <outlet property="eventRateInput" destination="Nne-ds-ETE" id="nRE-2l-bKs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zbx-L7-dfD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1129,7 +1109,7 @@
         <!--Programing class schedule-->
         <scene sceneID="Jla-Kp-PBX">
             <objects>
-                <viewController id="oUe-0j-tI8" sceneMemberID="viewController">
+                <viewController id="oUe-0j-tI8" customClass="EventEditViewController" customModule="InvoiceManager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Vgb-Kg-S1r">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1242,6 +1222,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Programing class schedule" id="CQz-7h-5aR"/>
+                    <connections>
+                        <outlet property="eventDateInput" destination="bH5-3k-OPs" id="dYg-rH-0TB"/>
+                        <outlet property="eventEditTableView" destination="NHs-OW-4MO" id="pMO-3F-ARb"/>
+                        <outlet property="eventTimeInput" destination="mds-fG-Qh0" id="KPy-aD-RcC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2TI-pP-cx6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
