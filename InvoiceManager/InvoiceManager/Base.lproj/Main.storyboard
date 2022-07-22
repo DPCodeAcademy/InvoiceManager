@@ -1230,9 +1230,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="Programing class schedule" id="CQz-7h-5aR"/>
                     <connections>
-                        <outlet property="eventDateInput" destination="bH5-3k-OPs" id="dYg-rH-0TB"/>
+                        <outlet property="endDateInput" destination="mds-fG-Qh0" id="7dM-9D-hpH"/>
                         <outlet property="eventEditTableView" destination="NHs-OW-4MO" id="pMO-3F-ARb"/>
-                        <outlet property="eventTimeInput" destination="mds-fG-Qh0" id="KPy-aD-RcC"/>
+                        <outlet property="startDateInput" destination="bH5-3k-OPs" id="piY-Ft-gPR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2TI-pP-cx6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

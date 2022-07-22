@@ -9,16 +9,11 @@ import UIKit
 
 class EventEditViewController: UIViewController {
 	
-	
-	
-	@IBOutlet var eventDateInput: UITextField!
-	@IBOutlet var eventTimeInput: UITextField!
+	@IBOutlet var startDateInput: UITextField!
+	@IBOutlet var endDateInput: UITextField!
 	@IBOutlet var eventEditTableView: UITableView!
-	
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
-
 }
