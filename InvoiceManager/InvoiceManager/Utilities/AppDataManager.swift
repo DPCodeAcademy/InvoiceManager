@@ -39,6 +39,9 @@ class AppDataManager {
 	func getEventList() -> [Event] {
         return eventList.getEventList()
     }
+	func getEventList(in priod: Date) -> [Event] {
+		return eventList.getEventList(in: priod)
+	}
 
     func getEvent(eventName: String) -> Event? {
         return eventList.getEvent(eventName: eventName)

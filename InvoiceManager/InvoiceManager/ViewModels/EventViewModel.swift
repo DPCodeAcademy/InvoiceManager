@@ -12,6 +12,19 @@ class EventViewModel {
         // TODO: Sort events by startDateTime.
 		return Array(events)
     }
+	
+	func getEventList(in priod: Date) -> [Event] {
+		var limitedEvents: [Event] = []
+		for var event in events {
+			let newEventDetails = event.eventDetails.filter{ NSCalendar.current.isDate($0.startDateTime, equalTo: priod, toGranularity: .year) && NSCalendar.current.isDate($0.startDateTime, equalTo: priod, toGranularity: .month)}
+			
+			if newEventDetails.count != 0 {
+				event.eventDetails = newEventDetails
+				limitedEvents.append(event)
+			}
+		}
+		return limitedEvents
+	}
 
 	func getCustomerEventList(customerID: UInt16) -> [Event] {
 		var customerEvents: [Event] = []

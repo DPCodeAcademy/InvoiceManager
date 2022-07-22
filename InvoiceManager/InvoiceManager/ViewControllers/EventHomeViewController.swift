@@ -10,6 +10,9 @@ import UIKit
 class EventHomeViewController: UIViewController {
 	
 	let datePicker = MonthYearDatePicker()
+	
+	var eventList = Array(AppDataManager.shared.getEventList())
+	var test: [Event] = []
 
 	@IBOutlet var targetMonthInput: UITextField!
 	@IBOutlet var eventHomeTableView: UITableView!
@@ -17,8 +20,21 @@ class EventHomeViewController: UIViewController {
 	override func viewDidLoad() {
         super.viewDidLoad()
 		displayDatePicker()
+		
+		testFunc(in: datePicker.date)
+		print(test)
+		
     }
 	
+	func testFunc(in priod: Date) {
+		for var event in eventList {
+			let newDetails = event.eventDetails.filter { NSCalendar.current.isDate($0.startDateTime, equalTo: priod, toGranularity: .year) && NSCalendar.current.isDate($0.startDateTime, equalTo: priod, toGranularity: .month)}
+			if newDetails.count != 0 {
+				event.eventDetails = newDetails
+				test.append(event)
+			}
+		}
+	}
 	// MARK: Custom date picker configration
 	func createToolBar() -> UIToolbar {
 		let toolBar = UIToolbar()
