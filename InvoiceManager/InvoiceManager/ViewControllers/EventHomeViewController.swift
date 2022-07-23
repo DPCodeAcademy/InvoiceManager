@@ -69,23 +69,34 @@ class EventHomeViewController: UIViewController, UITableViewDelegate, UITableVie
 	}
 	
 	// MARK: table view configuration
+	
+	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		return eventList[section].type
+	}
 
 	func numberOfSections(in tableView: UITableView) -> Int {
-		return 2
+		return eventList.count
 	}
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 1
+		return eventList[section].event.count
 	}
 	
+	// section[0] is group, section[1] is individual
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: EventHomeTableViewCell.identifier, for: indexPath) as! EventHomeTableViewCell
-//		let event = eventList[indexPath.row]
-//		let eventDetail = event.eventDetails.first
-//
-//		cell.eventNameLabel.text = event.eventName
-//		cell.horlyRateLabel.text = "$\(event.eventRate)/h"
-//		cell.attendeesLabel.text = "Attendees: \(String(describing: eventDetail!.attendees.count))"
+		let event = eventList[indexPath.section].event[indexPath.row]
+		let sampleEventDetail = event.eventDetails.first!
 		
+		let cell = tableView.dequeueReusableCell(withIdentifier: EventHomeTableViewCell.identifier, for: indexPath) as! EventHomeTableViewCell
+		
+		cell.eventNameLabel.text = event.eventName
+		cell.horlyRateLabel.text = "$\(event.eventRate)/h"
+		
+		if indexPath.section == 0 {
+			cell.attendeesLabel.text = "Attendees: \(String(describing: sampleEventDetail.attendees.count))"
+		} else {
+			// MARK: ask how to convert set value to string
+			cell.attendeesLabel.text = "Attendee: \(sampleEventDetail.attendees)"
+		}
 		return cell
 	}
 	
