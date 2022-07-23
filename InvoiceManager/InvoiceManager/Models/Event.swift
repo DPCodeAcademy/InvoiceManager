@@ -57,6 +57,6 @@ struct EventDetail {
 }
 
 struct EventType {
-	var group: [Event]
-	var individual: [Event]
+	let type: String
+	var event: [Event]
 }

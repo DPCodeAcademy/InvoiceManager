@@ -11,7 +11,7 @@ class EventHomeViewController: UIViewController, UITableViewDelegate, UITableVie
 	
 	let datePicker = MonthYearDatePicker()
 	
-	var eventList = EventType(group: [], individual: [])
+	var eventList: [EventType] = []
 
 	@IBOutlet var targetMonthInput: UITextField!
 	@IBOutlet var eventHomeTableView: UITableView!
@@ -23,7 +23,6 @@ class EventHomeViewController: UIViewController, UITableViewDelegate, UITableVie
 		
 		eventHomeTableView.delegate = self
 		eventHomeTableView.dataSource = self
-		
 		
     }
 	
@@ -71,6 +70,9 @@ class EventHomeViewController: UIViewController, UITableViewDelegate, UITableVie
 	
 	// MARK: table view configuration
 
+	func numberOfSections(in tableView: UITableView) -> Int {
+		return 2
+	}
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return 1
 	}

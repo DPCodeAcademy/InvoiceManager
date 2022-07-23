@@ -27,14 +27,15 @@ class EventViewModel {
 	}
 	
 	// to create mutiple section table view
-	func getEventOrganizedList(in priod: Date) -> EventType {
-		var organizedList: EventType = EventType(group: [], individual: [])
+	func getEventOrganizedList(in priod: Date) -> [EventType] {
+		var organizedList: [EventType] = [EventType(type: "Group", event: []), EventType(type: "Individual", event: [])]
 		let limitedEvents = getEventList(in: priod)
 		for event in limitedEvents {
 			if event.eventDetails.first!.attendees.count == 1 {
-				organizedList.individual.append(event)
+
+				organizedList[1].event.append(event)
 			} else {
-				organizedList.group.append(event)
+				organizedList[0].event.append(event)
 			}
 		}
 		return organizedList

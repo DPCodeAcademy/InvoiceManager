@@ -42,7 +42,7 @@ class AppDataManager {
 	func getEventList(in priod: Date) -> [Event] {
 		return eventList.getEventList(in: priod)
 	}
-	func getEventOrganizedList(in priod: Date) -> EventType {
+	func getEventOrganizedList(in priod: Date) -> [EventType] {
 		return eventList.getEventOrganizedList(in: priod)
 	}
 
