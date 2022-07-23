@@ -31,6 +31,7 @@
 		E558EBD02889F65200BCE968 /* EventHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E558EBCF2889F65200BCE968 /* EventHomeViewController.swift */; };
 		E558EBD42889F68D00BCE968 /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E558EBD32889F68D00BCE968 /* EventDetailViewController.swift */; };
 		E558EBD62889F73C00BCE968 /* EventEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E558EBD52889F73C00BCE968 /* EventEditViewController.swift */; };
+		E558EBD8288B5A2200BCE968 /* EventHomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E558EBD7288B5A2100BCE968 /* EventHomeTableViewCell.swift */; };
 		E5A7427C286BEDA6009E723C /* CalenderEventsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7427B286BEDA6009E723C /* CalenderEventsCollectionViewCell.swift */; };
 		E5A7427E286BF87A009E723C /* EventNamedSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7427D286BF87A009E723C /* EventNamedSectionHeaderView.swift */; };
 		E5A74280286CC7BE009E723C /* CheckboxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7427F286CC7BE009E723C /* CheckboxButton.swift */; };
@@ -81,6 +82,7 @@
 		E558EBCF2889F65200BCE968 /* EventHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHomeViewController.swift; sourceTree = "<group>"; };
 		E558EBD32889F68D00BCE968 /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		E558EBD52889F73C00BCE968 /* EventEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventEditViewController.swift; sourceTree = "<group>"; };
+		E558EBD7288B5A2100BCE968 /* EventHomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHomeTableViewCell.swift; sourceTree = "<group>"; };
 		E5A7427B286BEDA6009E723C /* CalenderEventsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderEventsCollectionViewCell.swift; sourceTree = "<group>"; };
 		E5A7427D286BF87A009E723C /* EventNamedSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventNamedSectionHeaderView.swift; sourceTree = "<group>"; };
 		E5A7427F286CC7BE009E723C /* CheckboxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxButton.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				E558EBCF2889F65200BCE968 /* EventHomeViewController.swift */,
 				E558EBD32889F68D00BCE968 /* EventDetailViewController.swift */,
 				E558EBD52889F73C00BCE968 /* EventEditViewController.swift */,
+				E558EBD7288B5A2100BCE968 /* EventHomeTableViewCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -409,6 +412,7 @@
 				7045118C28849B31007C9FC6 /* PDFViewerViewController.swift in Sources */,
 				BA36C35828760BD300D65CEF /* Event.swift in Sources */,
 				70C026C928860CAC00C179DA /* PDFGenerator.swift in Sources */,
+				E558EBD8288B5A2200BCE968 /* EventHomeTableViewCell.swift in Sources */,
 				E558EBD42889F68D00BCE968 /* EventDetailViewController.swift in Sources */,
 				E5B9F6F62874970B00F8EDF3 /* InvoiceHomeViewController.swift in Sources */,
 				BA36C35A28760CD300D65CEF /* Invoice.swift in Sources */,

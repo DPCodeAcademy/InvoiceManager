@@ -859,7 +859,7 @@
                                 <rect key="frame" x="25" y="211.66666666666669" width="340" height="529.33333333333326"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="wRE-PV-lnk">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="eventHomeTableCell" id="wRE-PV-lnk" customClass="EventHomeTableViewCell" customModule="InvoiceManager" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44.666666030883789" width="340" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wRE-PV-lnk" id="vss-Au-xbc">
@@ -874,9 +874,6 @@
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Event Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2jT-4e-vaf">
                                                                     <rect key="frame" x="0.0" y="0.0" width="222.66666666666666" height="16.666666666666668"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="16.329999999999998" id="PAg-LA-9lT"/>
-                                                                    </constraints>
                                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -914,6 +911,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="attendeesLabel" destination="CKs-8H-8Kf" id="mrd-cw-eLp"/>
+                                            <outlet property="eventNameLabel" destination="2jT-4e-vaf" id="jru-du-390"/>
+                                            <outlet property="horlyRateLabel" destination="P9J-21-vwQ" id="u4T-x6-W1E"/>
                                             <segue destination="ndq-Tm-HdP" kind="show" destinationCreationSelector="cellTapped:sender:" id="dT1-3R-0Oa"/>
                                         </connections>
                                     </tableViewCell>

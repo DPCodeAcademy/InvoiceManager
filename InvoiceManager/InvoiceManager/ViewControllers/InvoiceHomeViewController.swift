@@ -68,7 +68,7 @@ class InvoiceHomeViewController: UIViewController, UITableViewDelegate, UITableV
 		return dateText
 	}
 
-// MARK: Table view confituration
+// MARK: Table view configuration
 	func numberOfSections(in tableView: UITableView) -> Int {
 		return 1
 	}

@@ -55,3 +55,8 @@ struct EventDetail {
     var durationMinutes: Int
     var attendees: Set<UInt16>
 }
+
+struct EventType {
+	var group: [Event]
+	var individual: [Event]
+}

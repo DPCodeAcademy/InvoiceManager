@@ -16,7 +16,7 @@ class EventViewModel {
 	func getEventList(in priod: Date) -> [Event] {
 		var limitedEvents: [Event] = []
 		for var event in events {
-			let newEventDetails = event.eventDetails.filter{ NSCalendar.current.isDate($0.startDateTime, equalTo: priod, toGranularity: .year) && NSCalendar.current.isDate($0.startDateTime, equalTo: priod, toGranularity: .month)}
+			let newEventDetails = event.eventDetails.filter { NSCalendar.current.isDate($0.startDateTime, equalTo: priod, toGranularity: .year) && NSCalendar.current.isDate($0.startDateTime, equalTo: priod, toGranularity: .month)}
 			
 			if newEventDetails.count != 0 {
 				event.eventDetails = newEventDetails
@@ -24,6 +24,20 @@ class EventViewModel {
 			}
 		}
 		return limitedEvents
+	}
+	
+	// to create mutiple section table view
+	func getEventOrganizedList(in priod: Date) -> EventType {
+		var organizedList: EventType = EventType(group: [], individual: [])
+		let limitedEvents = getEventList(in: priod)
+		for event in limitedEvents {
+			if event.eventDetails.first!.attendees.count == 1 {
+				organizedList.individual.append(event)
+			} else {
+				organizedList.group.append(event)
+			}
+		}
+		return organizedList
 	}
 
 	func getCustomerEventList(customerID: UInt16) -> [Event] {

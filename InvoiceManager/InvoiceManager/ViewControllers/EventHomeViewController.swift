@@ -7,12 +7,11 @@
 
 import UIKit
 
-class EventHomeViewController: UIViewController {
+class EventHomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 	
 	let datePicker = MonthYearDatePicker()
 	
-	var eventList = Array(AppDataManager.shared.getEventList())
-	var test: [Event] = []
+	var eventList = EventType(group: [], individual: [])
 
 	@IBOutlet var targetMonthInput: UITextField!
 	@IBOutlet var eventHomeTableView: UITableView!
@@ -20,21 +19,14 @@ class EventHomeViewController: UIViewController {
 	override func viewDidLoad() {
         super.viewDidLoad()
 		displayDatePicker()
+		eventList = AppDataManager.shared.getEventOrganizedList(in: datePicker.date)
 		
-		testFunc(in: datePicker.date)
-		print(test)
+		eventHomeTableView.delegate = self
+		eventHomeTableView.dataSource = self
+		
 		
     }
 	
-	func testFunc(in priod: Date) {
-		for var event in eventList {
-			let newDetails = event.eventDetails.filter { NSCalendar.current.isDate($0.startDateTime, equalTo: priod, toGranularity: .year) && NSCalendar.current.isDate($0.startDateTime, equalTo: priod, toGranularity: .month)}
-			if newDetails.count != 0 {
-				event.eventDetails = newDetails
-				test.append(event)
-			}
-		}
-	}
 	// MARK: Custom date picker configration
 	func createToolBar() -> UIToolbar {
 		let toolBar = UIToolbar()
@@ -46,6 +38,7 @@ class EventHomeViewController: UIViewController {
 	
 	@objc func finishDatePick () {
 		targetMonthInput.text = convertDateToString(from: datePicker.date)
+		eventList = AppDataManager.shared.getEventOrganizedList(in: datePicker.date)
 
 		self.eventHomeTableView.reloadData()
 		self.view.endEditing(true)
@@ -75,7 +68,25 @@ class EventHomeViewController: UIViewController {
 		let dateText = formatter.string(from: date)
 		return dateText
 	}
-    
+	
+	// MARK: table view configuration
+
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return 1
+	}
+	
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: EventHomeTableViewCell.identifier, for: indexPath) as! EventHomeTableViewCell
+//		let event = eventList[indexPath.row]
+//		let eventDetail = event.eventDetails.first
+//
+//		cell.eventNameLabel.text = event.eventName
+//		cell.horlyRateLabel.text = "$\(event.eventRate)/h"
+//		cell.attendeesLabel.text = "Attendees: \(String(describing: eventDetail!.attendees.count))"
+		
+		return cell
+	}
+	
 	@IBSegueAction func cellTapped(_ coder: NSCoder, sender: Any?) -> EventDetailViewController? {
 		guard let cell = sender, let indexPath = eventHomeTableView.indexPath(for: cell as! UITableViewCell) else { return nil}
 		return EventDetailViewController(coder: coder)
